@@ -379,8 +379,10 @@ public class Keychain {
 
     
     /// Create a new secure enclave key
-    public func createSecureEnclaveSecKey(tag: String? = nil, label: String? = nil, accessFlag: SecAccessControlCreateFlags? = nil) -> SecKey? {
-        guard let access = makeSecSecAccessControl(accessFlag: accessFlag) else { return nil }
+    public func createSecureEnclaveSecKey(tag: String? = nil, label: String? = nil, accessFlag: SecAccessControlCreateFlags? = nil) throws -> SecKey {
+        guard let access = makeSecSecAccessControl(accessFlag: accessFlag) else {
+            throw EosioError(.keyManagementError, reason: "Error creating Access Control")
+        }
         
         var attributes: [String:Any] = [
             kSecUseAuthenticationUI as String : kSecUseAuthenticationContext,
@@ -404,7 +406,7 @@ public class Keychain {
         
         var error: Unmanaged<CFError>?
         guard let privateKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error) else {
-            return nil
+            throw EosioError(.keyManagementError, reason: error.debugDescription)
         }
         return privateKey
     }
