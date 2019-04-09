@@ -87,23 +87,25 @@ public class Keychain {
     }
     
     
-    /// Get an array of values from the keychain
-    public func getValues(service: String) -> [String]? {
+    /// Get a dictionary of values from the keychain for the specified service
+    public func getValues(service: String) -> [String:String]? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
             kSecAttrAccessGroup as String: accessGroup,
-            kSecReturnData as String: true,
-             kSecMatchLimit as String: kSecMatchLimitAll
+            kSecMatchLimit as String: kSecMatchLimitAll,
+            kSecReturnAttributes as String: true,
+            kSecReturnRef as String: true
         ]
         var items: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &items)
         guard status == errSecSuccess else { return nil }
-        var values = [String]()
-        let array = items as! [CFData]
-        for data in array {
-            if let value = String(data: data as Data, encoding: .utf8) {
-                values.append(value)
+        var values = [String:String]()
+        
+        guard let array = items as? [[String:Any]] else { return nil }
+        for item in array {
+            if let name = item[kSecAttrAccount as String] as? String, let data = item["v_Data"] as? Data, let value = String(data: data as Data, encoding: .utf8) {
+                values[name] = value
             }
         }
         return values
