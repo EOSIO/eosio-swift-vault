@@ -12,6 +12,8 @@
 		280B7DD3224564D300F6BA16 /* EosioSwiftVault.h in Headers */ = {isa = PBXBuildFile; fileRef = 280B7DC5224564D300F6BA16 /* EosioSwiftVault.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2834BE7E22456F4200365888 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834BE7D22456F4200365888 /* Keychain.swift */; };
 		2834BE8022456FC300365888 /* KeychainECKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834BE7F22456FC300365888 /* KeychainECKey.swift */; };
+		2834BE82224970B500365888 /* EosioVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834BE81224970B500365888 /* EosioVault.swift */; };
+		2834BE84224971BE00365888 /* EosioVaultKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834BE83224971BE00365888 /* EosioVaultKey.swift */; };
 		3A9C8A19461F637C9F92062A /* Pods_EosioSwiftVault.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93FEC023C6668CABF969423 /* Pods_EosioSwiftVault.framework */; };
 		682B51923D97E0CC6D4FC30C /* Pods_EosioSwiftVaultTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADB19C085A54AFC3F2095157 /* Pods_EosioSwiftVaultTests.framework */; };
 /* End PBXBuildFile section */
@@ -35,6 +37,8 @@
 		280B7DD2224564D300F6BA16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2834BE7D22456F4200365888 /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		2834BE7F22456FC300365888 /* KeychainECKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainECKey.swift; sourceTree = "<group>"; };
+		2834BE81224970B500365888 /* EosioVault.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EosioVault.swift; sourceTree = "<group>"; };
+		2834BE83224971BE00365888 /* EosioVaultKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EosioVaultKey.swift; sourceTree = "<group>"; };
 		3BED597B44DD95BDFB6A0071 /* Pods-EosioSwiftVault.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EosioSwiftVault.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EosioSwiftVault/Pods-EosioSwiftVault.debug.xcconfig"; sourceTree = "<group>"; };
 		6E260B9CB94F2A366CC6DC76 /* Pods-EosioSwiftVaultTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EosioSwiftVaultTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EosioSwiftVaultTests/Pods-EosioSwiftVaultTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A3C57C5F8727613C28426924 /* Pods-EosioSwiftVaultTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EosioSwiftVaultTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EosioSwiftVaultTests/Pods-EosioSwiftVaultTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 			children = (
 				2834BE7D22456F4200365888 /* Keychain.swift */,
 				2834BE7F22456FC300365888 /* KeychainECKey.swift */,
+				2834BE81224970B500365888 /* EosioVault.swift */,
+				2834BE83224971BE00365888 /* EosioVaultKey.swift */,
 				280B7DC5224564D300F6BA16 /* EosioSwiftVault.h */,
 				280B7DC6224564D300F6BA16 /* Info.plist */,
 			);
@@ -165,7 +171,6 @@
 				280B7DC7224564D300F6BA16 /* Sources */,
 				280B7DC8224564D300F6BA16 /* Frameworks */,
 				280B7DC9224564D300F6BA16 /* Resources */,
-				0C0403DFE790BFEE7B53A327 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -183,7 +188,7 @@
 		280B7DB9224564D300F6BA16 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = block.one;
 				TargetAttributes = {
@@ -202,6 +207,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 280B7DB8224564D300F6BA16;
 			productRefGroup = 280B7DC3224564D300F6BA16 /* Products */;
@@ -232,36 +238,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0C0403DFE790BFEE7B53A327 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-EosioSwiftVaultTests/Pods-EosioSwiftVaultTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework",
-				"${BUILT_PRODUCTS_DIR}/EosioSwift/EosioSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/EosioSwiftEcc/EosioSwiftEcc.framework",
-				"${PODS_ROOT}/GRKOpenSSLFramework/OpenSSL-iOS/bin/openssl.framework",
-				"${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BigInt.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EosioSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EosioSwiftEcc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SipHash.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EosioSwiftVaultTests/Pods-EosioSwiftVaultTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B2691C6066E944E6B496CBE2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -314,6 +290,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2834BE7E22456F4200365888 /* Keychain.swift in Sources */,
+				2834BE82224970B500365888 /* EosioVault.swift in Sources */,
+				2834BE84224971BE00365888 /* EosioVaultKey.swift in Sources */,
 				2834BE8022456FC300365888 /* KeychainECKey.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
