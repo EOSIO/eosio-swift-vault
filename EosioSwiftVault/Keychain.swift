@@ -18,7 +18,7 @@ public class Keychain {
     public let accessGroup: String
     
     
-    /// Init with accessGroup. The accessGroup allows mutiple apps (including extensions) in the same team to share the same keychain.
+    /// Init with accessGroup. The accessGroup allows multiple apps (including extensions) in the same team to share the same keychain.
     public init(accessGroup: String) {
         self.accessGroup = accessGroup
     }
@@ -133,7 +133,7 @@ public class Keychain {
     }
     
     
-    /// Make query to retrieve all eliptic curve keys in the keychin
+    /// Make query to retrieve all elliptic curve keys in the keychain
     private func makeQueryForAllEllipticCurveKeys(tag: String? = nil) -> [String:Any] {
         var query: [String:Any] =  [
             kSecClass as String: kSecClassKey,
@@ -174,7 +174,7 @@ public class Keychain {
     }
     
     
-    /// Get elliptic curve key -- getting the key from the keychin given the key is used for testing
+    /// Get elliptic curve key -- getting the key from the keychain given the key is used for testing
     public func getSecKey(key: SecKey) -> SecKey? {
         let query = makeQueryForKey(key: key)
         var item: CFTypeRef?
@@ -185,7 +185,7 @@ public class Keychain {
     }
     
     
-    /// Get an elliptic curve key give the public key
+    /// Get an elliptic curve key given the public key
     public func getEllipticCurveKey(publicKey: Data) -> ECKey? {
         guard let allKeys = try? getAllEllipticCurveKeys() else {
             return nil
@@ -272,8 +272,8 @@ public class Keychain {
     }
     
     
-    /// Create **NON** secure enclave ellptic curve private key
-    public func createElipticCurvePrivateKey(isPermanent: Bool = false) -> SecKey? {
+    /// Create **NON** secure enclave elliptic curve private key
+    public func createEllipticCurvePrivateKey(isPermanent: Bool = false) -> SecKey? {
         
         let access = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleWhenUnlockedThisDeviceOnly, [], nil)!
         

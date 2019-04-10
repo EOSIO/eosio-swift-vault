@@ -33,7 +33,7 @@ public final class EosioVault {
     private var context:LAContext!
     
 
-    /// Init with accessGroup. The accessGroup allows mutiple apps (including extensions) in the same team to share the same keychain.
+    /// Init with accessGroup. The accessGroup allows multiple apps (including extensions) in the same team to share the same keychain.
     public init(accessGroup: String) {
         keychain = Keychain(accessGroup: accessGroup)
     }
@@ -135,7 +135,7 @@ public final class EosioVault {
     }
     
     
-    /// Get all Vault keys by combining all keyschain keys (exculding special vault idnetifier key) and all key metadata
+    /// Get all Vault keys by combining all keychain keys (exculuding special vault identifier key) and all key metadata
     public func getAllVaultKeys() throws -> [EosioVault.VaultKey] {
         var vaultKeys = [String:VaultKey]()
         
@@ -161,7 +161,7 @@ public final class EosioVault {
     }
     
     
-    /// Get the vault key for the eosPublicKey
+    /// Get the vault key for the eosioPublicKey
     public func getVaultKey(eosioPublicKey: String) throws -> EosioVault.VaultKey {
         let pubKeyData = try Data(eosioPublicKey: eosioPublicKey)
         let ecKey = keychain.getEllipticCurveKey(publicKey: pubKeyData)

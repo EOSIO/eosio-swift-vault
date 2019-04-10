@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'EosioSwiftVault'
   s.version          = '0.0.1'
-  s.summary          = 'Keychain and Secure Encalve functions for EOSIO.'
+  s.summary          = 'Keychain and Secure Enclave functions for EOSIO.'
 
  
 
