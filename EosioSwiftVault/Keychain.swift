@@ -239,7 +239,7 @@ public class Keychain {
         var items: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &items)
         guard status == errSecSuccess else { return nil }
-        let keys = items as! [SecKey]
+        guard let keys = items as? [SecKey] else { return nil }
         return keys
     }
     
@@ -275,7 +275,7 @@ public class Keychain {
     /// Create **NON** secure enclave elliptic curve private key
     public func createEllipticCurvePrivateKey(isPermanent: Bool = false) -> SecKey? {
         
-        let access = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleWhenUnlockedThisDeviceOnly, [], nil)!
+        guard let access = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleWhenUnlockedThisDeviceOnly, [], nil) else { return nil }
         
         let attributes: [String:Any] = [
             kSecUseAuthenticationUI as String : kSecUseAuthenticationContext,
