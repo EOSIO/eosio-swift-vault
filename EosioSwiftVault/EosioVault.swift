@@ -30,7 +30,7 @@ public final class EosioVault {
         case fixed = "bio fixed"
     }
     
-    private var context:LAContext!
+    private var context: LAContext?
     
 
     /// Init with accessGroup. The accessGroup allows multiple apps (including extensions) in the same team to share the same keychain.
@@ -205,6 +205,9 @@ public final class EosioVault {
     
     private func signWithBioCheck(message: Data, vaultKey: VaultKey, completion: @escaping (String?, EosioError?)-> Void) {
         context = LAContext()
+        guard let context = context else {
+            return completion(nil, EosioError(.keySigningError, reason: "no LAContext")) // this should never happen
+        }
         var error: NSError?
         guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) else {
             return completion(nil, error?.eosioError)
