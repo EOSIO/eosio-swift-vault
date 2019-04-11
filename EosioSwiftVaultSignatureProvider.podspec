@@ -29,10 +29,7 @@ Pod::Spec.new do |s|
   s.source_files =  'EosioSwiftVaultSignatureProvider/**/*.{c,h,m,cpp,hpp}',
                     'EosioSwiftVaultSignatureProvider/**/*.swift'
 
-  s.libraries = "c++"
-  s.pod_target_xcconfig = { 'CLANG_CXX_LANGUAGE_STANDARD' => 'gnu++17',
-                            'CLANG_CXX_LIBRARY' => 'libc++',
-                            'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
+  s.pod_target_xcconfig = { 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
                             'CLANG_ENABLE_MODULES' => 'YES',
                             'SWIFT_COMPILATION_MODE' => 'wholemodule',
                             'ENABLE_BITCODE' => 'YES' }
