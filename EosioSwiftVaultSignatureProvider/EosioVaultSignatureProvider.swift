@@ -8,7 +8,6 @@
 
 import Foundation
 import EosioSwift
-import EosioSwiftEcc
 import EosioSwiftVault
 
 /// Signature provider implementation for EOSIO SDK for Swift using Keychain and/or Secure Enclave.
