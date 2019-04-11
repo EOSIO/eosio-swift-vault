@@ -11,26 +11,30 @@ import EosioSwift
 import EosioSwiftEcc
 import EosioSwiftVault
 
+/// Signature provider implementation for EOSIO SDK for Swift using Keychain and/or Secure Enclave.
 public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
 
     private let vault: EosioVault
+
+    /// Require biometric identification for all signatures even if the key does not require it. Defaults to `false`.
     public var requireBio = false
     
-    /// Init an instance of EosioVaultSignatureProvider
+    /// Init an instance of EosioVaultSignatureProvider.
     ///
-    /// - Parameter accessGroup: The access group to create an instance of EosioVault
-    /// - Parameter requireBio: Require bio identification for all signatures even if the key does not require it.
+    /// - Parameters:
+    ///     - accessGroup: The access group to create an instance of EosioVault.
+    ///     - requireBio: Require biometric identification for all signatures even if the key does not require it. Defaults to `false`.
     public init(accessGroup: String, requireBio: Bool = false) {
         vault = EosioVault(accessGroup: accessGroup)
         self.requireBio = requireBio
     }
     
     
-    /// Sign a transaction using an instance of EosioVault with the specified accessGroup
+    /// Sign a transaction using an instance of EosioVault with the specified accessGroup.
     ///
     /// - Parameters:
-    ///   - request: The transaction signature request
-    ///   - completion: The transaction signature response
+    ///   - request: The transaction signature request.
+    ///   - completion: The transaction signature response.
     public func signTransaction(request: EosioTransactionSignatureRequest, completion: @escaping (EosioTransactionSignatureResponse) -> Void) {
         var response = EosioTransactionSignatureResponse()
       
@@ -54,7 +58,7 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
     
     }
     
-    /// Recursive function to sign a message with public keys. If there are multiple keys, the func will sign with the first and call itself with the remaining keys.
+    /// Recursive function to sign a message with public keys. If there are multiple keys, the function will sign with the first and call itself with the remaining keys.
     private func sign(message: Data, publicKeys: [String], completion: @escaping ([String]?, EosioError?) -> Void) {
         guard let firstPublicKey = publicKeys.first else {
             return completion([String](), nil)
@@ -83,9 +87,10 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
     
     
     
-    /// Get all available eosio keys for the instance of EosioVault with the specified accessGroup
+    /// Get all available EOSIO keys for the instance of EosioVault with the specified accessGroup.
     ///
-    /// - Parameter completion: The available keys response
+    /// - Parameters:
+    ///     - completion: The available keys response.
     public func getAvailableKeys(completion: @escaping (EosioAvailableKeysResponse) -> Void) {
         var response = EosioAvailableKeysResponse()
         do {
