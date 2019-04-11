@@ -518,7 +518,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BA76B888A0608D1C07B69F9E /* Pods-EosioSwiftVaultSignatureProviderTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9574LUMBYJ;
 				INFOPLIST_FILE = EosioSwiftVaultSignatureProviderTests/Info.plist;
@@ -538,7 +537,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 25A51083FD0F0A94DD7635C5 /* Pods-EosioSwiftVaultSignatureProviderTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9574LUMBYJ;
 				INFOPLIST_FILE = EosioSwiftVaultSignatureProviderTests/Info.plist;
