@@ -5,7 +5,7 @@ unless using_local_pods
   source 'https://github.com/CocoaPods/Specs.git'
 end
 
-platform :ios, '11.0'
+platform :ios, '11.3'
 
 if using_local_pods
   # Pull pods from sibling directories if using local pods
@@ -32,7 +32,7 @@ else
     pod 'EosioSwiftEcc', '~> 0.0.1'
     pod 'EosioSwiftSwift', '~> 0.0.1'
 
-    target 'EosioSwiftSoftkeySignatureProviderTests' do
+    target 'EosioSwiftVaultSignatureProviderTests' do
       inherit! :search_paths
       pod 'EosioSwift', '~> 0.0.1'
       pod 'EosioSwiftEcc', '~> 0.0.1'
