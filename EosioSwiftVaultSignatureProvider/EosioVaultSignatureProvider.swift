@@ -48,6 +48,10 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
                 response.error = error
                 return completion(response)
             }
+            guard signatures.count > 0 else {
+                response.error = EosioError(.signatureProviderError, reason: "No signatures")
+                return completion(response)
+            }
             var signedTransaction = EosioTransactionSignatureResponse.SignedTransaction()
             signedTransaction.signatures = signatures
             signedTransaction.serializedTransaction = request.serializedTransaction
