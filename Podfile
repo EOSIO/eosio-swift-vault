@@ -13,5 +13,6 @@ target 'EosioSwiftVault' do
   # Pods for EosioSwiftVault
   pod 'EosioSwift', :path => '../eosio-swift'
   pod 'EosioSwiftEcc', :path => '../eosio-swift-ecc'
+  pod 'SwiftLint'
   
 end

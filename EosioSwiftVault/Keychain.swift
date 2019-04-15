@@ -81,7 +81,7 @@ public class Keychain {
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &item)
         guard status == errSecSuccess else { return nil }
-        let data = item as! CFData
+        let data = item as! CFData // swiftlint:disable:this force_cast
         guard let value = String(data: data as Data, encoding: .utf8) else { return nil }
         return value
     }
@@ -180,7 +180,7 @@ public class Keychain {
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &item)
         guard status == errSecSuccess else { return nil }
-        let key = item as! SecKey
+        let key = item as! SecKey // swiftlint:disable:this force_cast
         return key
     }
     
