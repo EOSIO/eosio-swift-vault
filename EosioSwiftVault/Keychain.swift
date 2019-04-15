@@ -14,14 +14,23 @@ import EosioSwift
 
 public class Keychain {
 
+    /// The accessGroup allows multiple apps (including extensions) in the same team to share the same keychain.
     public let accessGroup: String
 
     /// Init with accessGroup. The accessGroup allows multiple apps (including extensions) in the same team to share the same keychain.
+    ///
+    /// - Parameter accessGroup: The access group should be an `app group` on the developer account
     public init(accessGroup: String) {
         self.accessGroup = accessGroup
     }
 
     /// Save a value to the keychain
+    ///
+    /// - Parameters:
+    ///   - name: The name associated this item
+    ///   - value: The value to save
+    ///   - service: The service associated with this item
+    /// - Returns: True if saved, otherwise false.
     public func saveValue(name: String, value: String, service: String) -> Bool {
         guard let data = value.data(using: String.Encoding.utf8) else { return false }
         let query: [String: Any] = [
@@ -39,6 +48,12 @@ public class Keychain {
     }
 
     /// Update a value in the keychain
+    ///
+    /// - Parameters:
+    ///   - name: The name associated this item
+    ///   - value: The updated value
+    ///   - service: The service associated with this item
+    /// - Returns: True if updated, otherwise false.
     public func updateValue(name: String, value: String, service: String) -> Bool {
         guard let data = value.data(using: String.Encoding.utf8) else { return false }
         let query: [String: Any] = [
@@ -53,6 +68,10 @@ public class Keychain {
     }
 
     /// Delete an item from the keychain
+    ///
+    /// - Parameters:
+    ///   - name: The name of the item to delete
+    ///   - service: The service associated with this item
     public func delete(name: String, service: String) {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -64,6 +83,11 @@ public class Keychain {
     }
 
     /// Get a value from the keychain
+    ///
+    /// - Parameters:
+    ///   - name: The name of the item
+    ///   - service: The service associated with this item
+    /// - Returns: The value for the specifeid item
     public func getValue(name: String, service: String) -> String? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -81,6 +105,9 @@ public class Keychain {
     }
 
     /// Get a dictionary of values from the keychain for the specified service
+    ///
+    /// - Parameter service: A service name
+    /// - Returns: A dictionary of names and values for the specified service
     public func getValues(service: String) -> [String: String]? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -139,18 +166,26 @@ public class Keychain {
     }
 
     /// Delete key given the SecKey
+    ///
+    /// - Parameter secKey: The SecKey to delete
     public func deleteKey(secKey: SecKey) {
         let query = makeQueryForKey(key: secKey)
         SecItemDelete(query as CFDictionary)
     }
 
     /// Delete key if public key exists
+    ///
+    /// - Parameter publicKey: The public key of the key to delete
     public func deleteKey(publicKey: Data) {
         guard let privateSecKey = getPrivateSecKey(publicKey: publicKey) else { return }
         deleteKey(secKey: privateSecKey)
     }
 
     /// Update label
+    ///
+    /// - Parameters:
+    ///   - label: The new label value
+    ///   - publicKey: The public key of the key to update
     public func update(label: String, publicKey: Data) {
         guard let ecKey = getEllipticCurveKey(publicKey: publicKey) else { return }
         let query = makeQueryForKey(ecKey: ecKey)
@@ -171,6 +206,9 @@ public class Keychain {
     }
 
     /// Get an elliptic curve key given the public key
+    ///
+    /// - Parameter publicKey: The public key
+    /// - Returns: An ECKey corresponding to the public key
     public func getEllipticCurveKey(publicKey: Data) -> ECKey? {
         guard let allKeys = try? getAllEllipticCurveKeys() else {
             return nil
@@ -184,6 +222,10 @@ public class Keychain {
     }
 
     /// Get all elliptic curve keys with option to filter by tag
+    ///
+    /// - Parameter tag: The tag to filter by (defaults to nil)
+    /// - Returns: An array of ECKeys
+    /// - Throws: If there is an error in the key query
     public func getAllEllipticCurveKeys(tag: String? = nil) throws -> [ECKey] {
         var query: [String: Any] =  [
             kSecClass as String: kSecClassKey,
@@ -217,6 +259,9 @@ public class Keychain {
 
     /// Get all elliptic curve private Sec Keys
     /// For secure enclave private keys, the SecKey is a reference. It's not posible to export the actual private key data
+    ///
+    /// - Parameter tag: The tag to filter by (defaults to nil)
+    /// - Returns: An array of SecKeys
     public func getAllEllipticCurvePrivateSecKeys(tag: String? = nil) -> [SecKey]? {
         let query = makeQueryForAllEllipticCurveKeys(tag: tag)
         var items: CFTypeRef?
@@ -227,6 +272,8 @@ public class Keychain {
     }
 
     /// Get all elliptic curve keys and return the public keys
+    ///
+    /// - Returns: An array of public SecKeys
     public func getAllEllipticCurvePublicSecKeys() -> [SecKey]? {
         guard let privateKeys = getAllEllipticCurvePrivateSecKeys() else { return nil }
         var publicKeys = [SecKey]()
@@ -240,6 +287,9 @@ public class Keychain {
 
     /// Get the private SecKey for the public key if the key exists in the keychain
     /// Public key data can be in either compressed or uncompressed format
+    ///
+    /// - Parameter publicKey: A public key in either compressed or uncompressed format
+    /// - Returns: An SecKey
     public func getPrivateSecKey(publicKey: Data) -> SecKey? {
         guard let allPrivateKeys = getAllEllipticCurvePrivateSecKeys() else { return nil }
         for privateKey in allPrivateKeys {
@@ -253,6 +303,9 @@ public class Keychain {
     }
 
     /// Create **NON** secure enclave elliptic curve private key
+    ///
+    /// - Parameter isPermanent: Is the key stored permanently in the keychain
+    /// - Returns: An SecKey
     public func createEllipticCurvePrivateKey(isPermanent: Bool = false) -> SecKey? {
 
         guard let access = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleWhenUnlockedThisDeviceOnly, [], nil) else { return nil }
@@ -275,6 +328,13 @@ public class Keychain {
     }
 
     /// Import external elliptic curve private key
+    ///
+    /// - Parameters:
+    ///   - privateKey: The private key as data (97 bytes)
+    ///   - tag: A tag to associate with this key
+    ///   - label: A label to associate with this key
+    /// - Returns: The imported key as an ECKey
+    /// - Throws: If the key is not valid or cannot be imported
     public func importExternal(privateKey: Data, tag: String? = nil, label: String?  = nil) throws -> ECKey {
 
         //check data length
@@ -358,6 +418,13 @@ public class Keychain {
     }
 
     /// Create a new secure enclave key
+    ///
+    /// - Parameters:
+    ///   - tag: A tag to associate with this key
+    ///   - label: A label to associate with this key
+    ///   - accessFlag: AccessFlag for this key
+    /// - Returns: A secure enclave SecKey
+    /// - Throws: If an key cannot be created
     public func createSecureEnclaveSecKey(tag: String? = nil, label: String? = nil, accessFlag: SecAccessControlCreateFlags? = nil) throws -> SecKey {
         guard let access = makeSecSecAccessControl(accessFlag: accessFlag) else {
             throw EosioError(.keyManagementError, reason: "Error creating Access Control")
@@ -391,6 +458,12 @@ public class Keychain {
     }
 
     /// Sign if key is in the keychain
+    ///
+    /// - Parameters:
+    ///   - publicKey: The public key corresponding to a private key to use for signing
+    ///   - data: The data to sign
+    /// - Returns: A signature
+    /// - Throws: If no private key is not available
     public func sign(publicKey: Data, data: Data) throws -> Data {
         guard let privateKey = getPrivateSecKey(publicKey: publicKey) else {
             throw EosioError(.keyManagementError, reason: "Private key is not available for public key \(publicKey.hex)")
@@ -399,6 +472,12 @@ public class Keychain {
     }
 
     /// Sign with Secure Enclave or Keychain
+    ///
+    /// - Parameters:
+    ///   - privateKey: The private key to use for signing
+    ///   - data: The data to sign
+    /// - Returns: A signature
+    /// - Throws: An error is encountered attempting to sign
     public func sign(privateKey: SecKey, data: Data) throws -> Data {
         let algorithm: SecKeyAlgorithm = .ecdsaSignatureMessageX962SHA256
         guard SecKeyIsAlgorithmSupported(privateKey, .sign, algorithm) else {
@@ -412,6 +491,12 @@ public class Keychain {
     }
 
     /// Decrypt data using SecKeyAlgorithm.eciesEncryptionCofactorVariableIVX963SHA256AESGCM
+    ///
+    /// - Parameters:
+    ///   - publicKey: The public key corresponding to a private key to use for decrypting
+    ///   - message: The encrypted message
+    /// - Returns: The decrypted message
+    /// - Throws: If the private key is not found or the message cannot be decrypted
     public func decrypt(publicKey: Data, message: Data) throws -> Data {
         // lookup ecKey in the keychain
         guard let ecKey = getEllipticCurveKey(publicKey: publicKey) else {
@@ -429,6 +514,7 @@ public class Keychain {
 
 public extension Data {
 
+    /// Compress an uncompressed 65 byte public key to a 33 byte compressed public key
     var compressedPublicKey: Data? {
         guard self.count == 65 else { return nil }
         let uncompressedKey = self
@@ -444,6 +530,7 @@ public extension Data {
 
 public extension SecKey {
 
+    /// The externalRepresentation of a SecKey in ANSI X9.63 format
     var externalRepresentation: Data? {
         var error: Unmanaged<CFError>?
         if let cfdata = SecKeyCopyExternalRepresentation(self, &error) {
@@ -452,6 +539,7 @@ public extension SecKey {
         return nil
     }
 
+    /// The public key for a private SecKey
     var publicKey: SecKey? {
         return SecKeyCopyPublicKey(self)
     }
