@@ -10,7 +10,7 @@ import Foundation
 
 public extension Keychain {
 
-    public class ECKey {
+    class ECKey {
         private (set) public var label: String?
         private (set) public var tag: String?
         private (set) public var accessGroup: String

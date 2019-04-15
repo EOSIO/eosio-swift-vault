@@ -11,7 +11,7 @@ import EosioSwiftEcc
 
 public extension EosioVault {
 
-    public struct VaultKey {
+    struct VaultKey {
         private (set) public var eosioPublicKey: String
         private (set) public var label: String?
         private (set) public var tag: String?

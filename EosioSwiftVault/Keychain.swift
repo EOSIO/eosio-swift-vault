@@ -429,7 +429,7 @@ public class Keychain {
 
 public extension Data {
 
-    public var compressedPublicKey: Data? {
+    var compressedPublicKey: Data? {
         guard self.count == 65 else { return nil }
         let uncompressedKey = self
         guard uncompressedKey[0] == 4 else { return nil }
@@ -444,7 +444,7 @@ public extension Data {
 
 public extension SecKey {
 
-    public var externalRepresentation: Data? {
+    var externalRepresentation: Data? {
         var error: Unmanaged<CFError>?
         if let cfdata = SecKeyCopyExternalRepresentation(self, &error) {
             return cfdata as Data
@@ -452,7 +452,7 @@ public extension SecKey {
         return nil
     }
 
-    public var publicKey: SecKey? {
+    var publicKey: SecKey? {
         return SecKeyCopyPublicKey(self)
     }
 
