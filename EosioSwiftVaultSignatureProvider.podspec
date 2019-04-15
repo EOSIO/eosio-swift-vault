@@ -34,7 +34,7 @@ Pod::Spec.new do |s|
                             'SWIFT_COMPILATION_MODE' => 'wholemodule',
                             'ENABLE_BITCODE' => 'YES' }
 
-  s.ios.dependency 'EosioSwiftEcc', '~> 0.0.1'
-  s.ios.dependency 'EosioSwift', '~> 0.0.1'
+  s.ios.dependency 'EosioSwiftEcc', '~> 0.0.2'
+  s.ios.dependency 'EosioSwift', '~> 0.0.2'
   s.ios.dependency 'EosioSwiftVault', '~> 0.0.1'
 end
