@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
                          LICENSE
                        }
   s.author           = { 'Todd Bowden' => 'todd.bowden@block.one' }
-  s.source           = { :git => 'https://github.com/EOSIO/eosio-swift-vault.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/EOSIO/eosio-swift-vault.git', :tag => "v" + s.version.to_s }
 
   s.swift_version         = '4.2'
   s.ios.deployment_target = '11.3'
