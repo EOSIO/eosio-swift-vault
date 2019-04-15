@@ -15,6 +15,7 @@ if using_local_pods
     pod 'EosioSwift', :path => '../eosio-swift'
     pod 'EosioSwiftEcc', :path => '../eosio-swift-ecc'
     pod 'EosioSwiftVault', :path => '../eosio-swift-vault'
+    pod 'SwiftLint'
 
     target 'EosioSwiftVaultSignatureProviderTests' do
       inherit! :search_paths
@@ -31,6 +32,7 @@ else
     pod 'EosioSwift', '~> 0.0.1'
     pod 'EosioSwiftEcc', '~> 0.0.1'
     pod 'EosioSwiftSwift', '~> 0.0.1'
+    pod 'SwiftLint'
 
     target 'EosioSwiftVaultSignatureProviderTests' do
       inherit! :search_paths
