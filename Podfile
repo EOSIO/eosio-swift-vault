@@ -1,18 +1,36 @@
-# Uncomment the next line to define a global platform for your project
+using_local_pods = false
+
+unless using_local_pods
+  source 'https://github.com/EOSIO/eosio-swift-pod-specs.git'
+  source 'https://github.com/CocoaPods/Specs.git'
+end
+
 platform :ios, '11.3'
 
-target 'EosioSwiftVault' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
+if using_local_pods
+  # Pull pods from sibling directories if using local pods
+  target 'EosioSwiftVault' do
+    use_frameworks!
 
-  target 'EosioSwiftVaultTests' do
-    inherit! :search_paths
-    # Pods for testing
+    pod 'EosioSwift', :path => '../eosio-swift'
+    pod 'EosioSwiftEcc', :path => '../eosio-swift-ecc'
+    pod 'SwiftLint'
+
+    target 'EosioSwiftVaultTests' do
+      inherit! :search_paths
+    end
   end
+else
+  # Pull pods from sources above if not using local pods
+  target 'EosioSwiftVault' do
+    use_frameworks!
 
-  # Pods for EosioSwiftVault
-  pod 'EosioSwift', :path => '../eosio-swift'
-  pod 'EosioSwiftEcc', :path => '../eosio-swift-ecc'
-  pod 'SwiftLint'
-  
+    pod 'EosioSwift', '~> 0.0.2'
+    pod 'EosioSwiftEcc', '~> 0.0.2'
+    pod 'SwiftLint'
+
+    target 'EosioSwiftVaultTests' do
+      inherit! :search_paths
+    end
+  end
 end
