@@ -17,7 +17,7 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
 
     /// Require biometric identification for all signatures even if the key does not require it. Defaults to `false`.
     public var requireBio = false
-    
+
     /// Init an instance of EosioVaultSignatureProvider.
     ///
     /// - Parameters:
@@ -27,8 +27,7 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
         vault = EosioVault(accessGroup: accessGroup)
         self.requireBio = requireBio
     }
-    
-    
+
     /// Sign a transaction using an instance of EosioVault with the specified accessGroup.
     ///
     /// - Parameters:
@@ -36,7 +35,7 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
     ///   - completion: The transaction signature response.
     public func signTransaction(request: EosioTransactionSignatureRequest, completion: @escaping (EosioTransactionSignatureResponse) -> Void) {
         var response = EosioTransactionSignatureResponse()
-      
+
         guard let chainIdData = try? Data(hex: request.chainId) else {
             response.error = EosioError(.signatureProviderError, reason: "\(request.chainId) is not a valid chain id")
             return completion(response)
@@ -58,9 +57,9 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
             response.signedTransaction = signedTransaction
             completion(response)
         }
-    
+
     }
-    
+
     /// Recursive function to sign a message with public keys. If there are multiple keys, the function will sign with the first and call itself with the remaining keys.
     private func sign(message: Data, publicKeys: [String], completion: @escaping ([String]?, EosioError?) -> Void) {
         guard let firstPublicKey = publicKeys.first else {
@@ -72,7 +71,7 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
             }
             var remainingPublicKeys = publicKeys
             remainingPublicKeys.removeFirst()
-            
+
             if remainingPublicKeys.count == 0 {
                 return completion([signature], nil)
             }
@@ -87,9 +86,7 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
             })
         }
     }
-    
-    
-    
+
     /// Get all available EOSIO keys for the instance of EosioVault with the specified accessGroup.
     ///
     /// - Parameters:
