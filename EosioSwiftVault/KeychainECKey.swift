@@ -9,8 +9,8 @@
 import Foundation
 
 public extension Keychain {
-    
-    public class ECKey {
+
+    class ECKey {
         private (set) public var label: String?
         private (set) public var tag: String?
         private (set) public var accessGroup: String
@@ -19,18 +19,17 @@ public extension Keychain {
         private (set) public var publicSecKey: SecKey
         private (set) public var uncompressedPublicKey: Data
         private (set) public var compressedPublicKey: Data
-        
-        
-        public init?(attributes: [String:Any]) {
+
+        public init?(attributes: [String: Any]) {
             label = attributes[kSecAttrLabel as String] as? String
             tag = attributes[kSecAttrApplicationTag as String] as? String
             accessGroup = attributes[kSecAttrAccessGroup as String] as? String ?? ""
             let tokenID = attributes[kSecAttrTokenID as String] as? String ?? ""
-            isSecureEnclave = tokenID == kSecAttrTokenIDSecureEnclave as String 
-            guard let pk = attributes[kSecValueRef as String] else {
+            isSecureEnclave = tokenID == kSecAttrTokenIDSecureEnclave as String
+            guard let privkey = attributes[kSecValueRef as String] else {
                 return nil
             }
-            privateSecKey = pk as! SecKey // swiftlint:disable:this force_cast
+            privateSecKey = privkey as! SecKey // swiftlint:disable:this force_cast
             guard let pubKey = SecKeyCopyPublicKey(privateSecKey) else {
                 return nil
             }
@@ -46,5 +45,3 @@ public extension Keychain {
         }
     }
 }
-
-
