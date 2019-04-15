@@ -30,7 +30,7 @@ public extension Keychain {
             guard let pk = attributes[kSecValueRef as String] else {
                 return nil
             }
-            privateSecKey = pk as! SecKey
+            privateSecKey = pk as! SecKey // swiftlint:disable:this force_cast
             guard let pubKey = SecKeyCopyPublicKey(privateSecKey) else {
                 return nil
             }
