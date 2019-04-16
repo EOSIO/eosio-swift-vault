@@ -17,6 +17,7 @@ public final class EosioVault {
     private let keychain: Keychain
     private let vaultTag = "__VAULT__"
     private let eosioKeyMetadataService = "EosioKeyMetadataService"
+    /// The accessGroup -- allows multiple apps (including extensions) in the same team to share the same keychain
     public let accessGroup = ""
 
     public enum BioFactor: String {
@@ -27,7 +28,9 @@ public final class EosioVault {
 
     private var context: LAContext?
 
-    /// Init with accessGroup. The accessGroup allows multiple apps (including extensions) in the same team to share the same keychain.
+    /// Init with accessGroup. The accessGroup allows multiple apps (including extensions) in the same team to share the same keychain
+    ///
+    /// - Parameter accessGroup: The access group should be an `app group` on the developer account
     public init(accessGroup: String) {
         keychain = Keychain(accessGroup: accessGroup)
     }
@@ -38,6 +41,9 @@ public final class EosioVault {
 
     /// Get VaultIdentifierKey
     /// (special secure enclave key with tag "__VAULT__" - create if not present)
+    ///
+    /// - Returns: The vault Identifier Key (as ECKey)
+    /// - Throws: If a vault key does not exist and cannot be created
     public func vaultIdentifierKey() throws -> Keychain.ECKey {
         var vaultKeyArray = try keychain.getAllEllipticCurveKeys(tag: vaultTag)
 
@@ -52,12 +58,21 @@ public final class EosioVault {
     }
 
     /// VaultIdentifier is the VaultIdentifierKey public key as hex
+    ///
+    /// - Returns: The VaultIdentifierKey public key as hex
+    /// - Throws: If a vault key does not exist and cannot be created
     public func vaultIdentifier() throws -> String {
         let key = try vaultIdentifierKey()
         return key.uncompressedPublicKey.hex
     }
 
-    /// Create a new secure enclave key and return the Vault Key.
+    /// Create a new secure enclave key and return the Vault Key
+    ///
+    /// - Parameters:
+    ///   - bioFactor: The BioFactor for this key
+    ///   - metadata: Any metadata to associate with this key
+    /// - Returns: The new key as a VaultKey
+    /// - Throws: If a new key cannot be created
     public func newSecureEnclaveKey(bioFactor: BioFactor = .none, metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
         var tag: String?
         var accessFlag: SecAccessControlCreateFlags?
@@ -86,7 +101,13 @@ public final class EosioVault {
         return vaultKey
     }
 
-    /// Add external eosio private key. Returns VaultKey or throws error.
+    /// Add external eosio private key. Returns VaultKey or throws error
+    ///
+    /// - Parameters:
+    ///   - eosioPrivateKey: An eosio private key
+    ///   - metadata: Any metadata to associate with this key
+    /// - Returns: The imported key as a VaultKey
+    /// - Throws: If the key is not valid or cannot be imported
     public func addExternal(eosioPrivateKey: String, metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
         let eosioKeyComponents = try eosioPrivateKey.eosioComponents()
         let curve = try EllipticCurveType(eosioKeyComponents.version)
@@ -103,6 +124,9 @@ public final class EosioVault {
     }
 
     /// Delete a key given the public key. USE WITH CARE!
+    ///
+    /// - Parameter eosioPublicKey: The public key for the EOSIO key to delete
+    /// - Throws: If there is an error deleting the key
     public func deleteKey(eosioPublicKey: String) throws {
         let pubKeyData = try Data(eosioPublicKey: eosioPublicKey)
         keychain.deleteKey(publicKey: pubKeyData)
@@ -110,17 +134,28 @@ public final class EosioVault {
     }
 
     /// Update label
+    ///
+    /// - Parameters:
+    ///   - label: The new value for the label
+    ///   - publicKey: The public eosio key
+    /// - Throws: If the label cannot be updated
     public func update(label: String, publicKey: String) throws {
         let pubKeyData = try Data(eosioPublicKey: publicKey)
         keychain.update(label: label, publicKey: pubKeyData)
     }
 
     /// Update Key (the only items that are updatable are the metadata items)
+    ///
+    /// - Parameter key: The VaultKey to update
+    /// - Returns: True if the key was updated, othersize false
     public func update(key: EosioVault.VaultKey) -> Bool {
         return saveKeyMetadata(eosioPublicKey: key.eosioPublicKey, dictionary: key.metadata)
     }
 
     /// Get all Vault keys by combining all keychain keys (exculuding special vault identifier key) and all key metadata
+    ///
+    /// - Returns: An array of VaultKeys
+    /// - Throws: If there is an error getting the keys
     public func getAllVaultKeys() throws -> [EosioVault.VaultKey] {
         var vaultKeys = [String: VaultKey]()
 
@@ -144,6 +179,10 @@ public final class EosioVault {
     }
 
     /// Get the vault key for the eosioPublicKey
+    ///
+    /// - Parameter eosioPublicKey: An eosio public key
+    /// - Returns: A VaultKey
+    /// - Throws: The key cannot be found
     public func getVaultKey(eosioPublicKey: String) throws -> EosioVault.VaultKey {
         let pubKeyData = try Data(eosioPublicKey: eosioPublicKey)
         let ecKey = keychain.getEllipticCurveKey(publicKey: pubKeyData)
@@ -157,6 +196,12 @@ public final class EosioVault {
 
     /// Sign message with the private key corresponding to the public key if the private key is found in the keychain.
     /// Throws an error if the public key is not valid or the key is not found.
+    ///
+    /// - Parameters:
+    ///   - message: The message to sign
+    ///   - eosioPublicKey: The eosio public key corresponding to the key to use for signing
+    ///   - requireBio: Require biometric identification even if the key does not require it
+    ///   - completion: Closure returning an eosio signature or an error
     public func sign(message: Data, eosioPublicKey: String, requireBio: Bool, completion: @escaping (String?, EosioError?) -> Void) {
         do {
             let vaultKey = try getVaultKey(eosioPublicKey: eosioPublicKey)
@@ -166,6 +211,7 @@ public final class EosioVault {
         }
     }
 
+    // Sign with VaultKey
     private func sign(message: Data, vaultKey: VaultKey, requireBio: Bool, completion: @escaping (String?, EosioError?) -> Void) {
         // if require bio and the bio factor is none, then sign with software bio check
         if requireBio && vaultKey.bioFactor == .none {
@@ -182,6 +228,7 @@ public final class EosioVault {
         }
     }
 
+    // Sign with VaultKey after bio check
     private func signWithBioCheck(message: Data, vaultKey: VaultKey, completion: @escaping (String?, EosioError?) -> Void) {
         context = LAContext()
         guard let context = context else {
@@ -253,6 +300,11 @@ public final class EosioVault {
     }
 
     /// Save metadata for the eosioPublicKey
+    ///
+    /// - Parameters:
+    ///   - eosioPublicKey: The eosio public key
+    ///   - dictionary: A metadata dictionary to save
+    /// - Returns: True if the metadata was saved,otherwise false
     public func saveKeyMetadata(eosioPublicKey: String, dictionary: [String: Any]) -> Bool {
         guard let json = dictionary.jsonString else { return false }
         return saveKeyMetadata(eosioPublicKey: eosioPublicKey, json: json)
@@ -274,17 +326,24 @@ public final class EosioVault {
     }
 
     /// Delete metadata for the eosioPublicKey
+    ///
+    /// - Parameter publicKey: The public key
     public func deleteKeyMetadata(publicKey: String) {
         keychain.delete(name: publicKey, service: eosioKeyMetadataService)
     }
 
     /// Get metadata for the eosioPublicKey
+    ///
+    /// - Parameter eosioPublicKey: An eosio public key
+    /// - Returns: The metadata dictionary for the key, if existing
     public func getKeyMetadata(eosioPublicKey: String) -> [String: Any]? {
         guard let json = keychain.getValue(name: eosioPublicKey, service: eosioKeyMetadataService) else { return nil }
         return json.toJsonDictionary
     }
 
     /// Get metadata for all Keys
+    ///
+    /// - Returns: Dictionary of metadata dictionaries for all keys
     public func getAllKeysMetadata() -> [String: [String: Any]]? {
         guard let values = keychain.getValues(service: eosioKeyMetadataService) else { return nil }
         var keyMetadataArray = [String: [String: Any]]()
