@@ -29,7 +29,6 @@ public extension Keychain {
         /// The compressed public key in ANSI X9.63 format (33 bytes, starts with 02 or 03).
         private (set) public var compressedPublicKey: Data
 
-        
         /// Init an ECKey.
         ///
         /// - Parameter attributes: A dictionary of attributes from a Keychain query.

@@ -23,7 +23,6 @@ public final class EosioVault {
     /// The accessGroup allows multiple apps (including extensions) in the same team to share the same Keychain.
     public let accessGroup = ""
 
-
     /// Setting on the key dictating biometric authentication requirements and whether the key persists after device's biometric settings are modified.
     public enum BioFactor: String {
         /// Biometric authentication is not required for the key.

@@ -40,7 +40,6 @@ public extension EosioVault {
         /// Metadata for this key.
         public var metadata: [String: Any]
 
-        
         /// Init a VaultKey.
         ///
         /// - Parameters:
