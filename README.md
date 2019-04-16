@@ -25,7 +25,7 @@ The Signature Provider abstraction is arguably the most useful of all of the [EO
 * finding out what keys are available for signing (`getAvailableKeys`), and
 * requesting and obtaining transaction signatures with a subset of the available keys (`signTransaction`).
 
-By simply switching out the signature provider on a transaction, signature requests can be routed any number of ways. Need a signature from keys in the platform's Keychain or Secure Enclave? Configure the `EosioTransaction` with this signature provider. Need software signing? Take a look at the [Softkey Signature Provider](https://github.com/EOSIO/eosio-swift-softkey-signature-provider).
+By simply switching out the signature provider on a transaction, signature requests can be routed any number of ways. Need a signature from keys in the platform's Keychain or Secure Enclave? [Configure the `EosioTransaction`](https://github.com/EOSIO/eosio-swift#basic-usage) with this signature provider. Need software signing? Take a look at the [Softkey Signature Provider](https://github.com/EOSIO/eosio-swift-softkey-signature-provider).
 
 All signature providers must conform to the [EosioSignatureProviderProtocol](https://github.com/EOSIO/eosio-swift/blob/master/EosioSwift/EosioSignatureProviderProtocol/EosioSignatureProviderProtocol.swift) Protocol.
 
@@ -54,7 +54,7 @@ target "Your Target" do
   pod "EosioSwift", "~> 0.0.2" # EOSIO SDK for Swift core library
   pod "EosioSwiftVaultSignatureProvider", "~> 0.0.1" # pod for this library
   # add other providers for EOSIO SDK for Swift
-  pod "EosioSwiftAbieos", "~> 0.0.3" # serialization provider
+  pod "EosioSwiftAbieosSerializationProvider", "~> 0.0.3" # serialization provider
 end
 ```
 
@@ -64,7 +64,7 @@ Now Vault Signature Provider is ready for use within EOSIO SDK for Swift accordi
 
 ## Direct Usage
 
-Generally, signature providers are called by [EosioTransaction](https://github.com/EOSIO/eosio-swift#basic-usage) during signing. If you find, however, that you need to get available keys or request signing directly, this library can be invoked as follows:
+Generally, signature providers are called by [`EosioTransaction`](https://github.com/EOSIO/eosio-swift/blob/master/EosioSwift/EosioTransaction/EosioTransaction.swift) during signing. ([See an example here.](https://github.com/EOSIO/eosio-swift#basic-usage)) If you find, however, that you need to get available keys or request signing directly, this library can be invoked as follows:
 
 ```swift
 let signProvider = try? EosioVaultSignatureProvider(accessGroup: "YOUR_ACCESS_GROUP")
@@ -73,7 +73,7 @@ let publicKeysArray = signProvider?.getAvailableKeys() // Returns the public key
 
 _[Learn more about Access Groups here.](https://developer.apple.com/documentation/security/keychain_services/keychain_items/sharing_access_to_keychain_items_among_a_collection_of_apps)_
 
-To sign an `EosioTransaction`, create an `EosioTransactionSignatureRequest` object and call the `signTransaction(request:completion:)` method with the request:
+To sign an [`EosioTransaction`](https://github.com/EOSIO/eosio-swift/blob/master/EosioSwift/EosioTransaction/EosioTransaction.swift), create an [`EosioTransactionSignatureRequest`](https://github.com/EOSIO/eosio-swift/blob/master/EosioSwift/EosioSignatureProviderProtocol/EosioSignatureProviderProtocol.swift) object and call the `signTransaction(request:completion:)` method with the request:
 
 ```swift
 let signRequest = createSignatureRequest()
@@ -84,13 +84,16 @@ signProvider.signTransaction(request: signRequest) { (response) in
 
 ## Library Methods
 
-This library is an implementation of `EosioSignatureProviderProtocol`. It implements the following methods:
+This library is an implementation of [`EosioSignatureProviderProtocol`](https://github.com/EOSIO/eosio-swift/blob/master/EosioSwift/EosioSignatureProviderProtocol/EosioSignatureProviderProtocol.swift). It implements the following methods:
+
+* `signTransaction(request:completion:)` signs an [`EosioTransaction`](https://github.com/EOSIO/eosio-swift/blob/master/EosioSwift/EosioTransaction/EosioTransaction.swift).
+* `getAvailableKeys()` returns an array containing the public keys associated with the private keys that the object is initialized with.
+
+To initialize the implementation:
 
 * `init(accessGroup:requireBio:)` initializes the signature provider.
   * `accessGroup`: [Learn more about Access Groups here.](https://developer.apple.com/documentation/security/keychain_services/keychain_items/sharing_access_to_keychain_items_among_a_collection_of_apps)
   * `requireBio`: Defaults to `false`. Some keys may require biometric authentication no matter what this flag is set to. For keys that do not require biometric authentication themselves, this flag can force the bio check.
-* `signTransaction(request:completion:)` signs an `EosioTransaction`.
-* `getAvailableKeys()` returns an array containing the public keys associated with the private keys that the object is initialized with.
 
 Other Keychain and/or Secure Enclave functionality can be accessed by calling methods directly on [EOSIO SDK for Swift: Vault](https://github.com/EOSIO/eosio-swift-vault), which is included with this library as a dependency.
 
