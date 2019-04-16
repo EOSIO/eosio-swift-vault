@@ -14,7 +14,7 @@ public final class EosioVault {
 
     public static let updateNotification = Notification.Name("EosioVaultUpdateNotification")
 
-    var keychain: Keychain
+    private let keychain: Keychain
     private let vaultTag = "__VAULT__"
     private let eosioKeyMetadataService = "EosioKeyMetadataService"
 
@@ -37,7 +37,7 @@ public final class EosioVault {
         keychain = Keychain(accessGroup: accessGroup)
     }
 
-    func postUpdateNotification(eosioPublicKey: String, action: String) {
+    private func postUpdateNotification(eosioPublicKey: String, action: String) {
         NotificationCenter.default.post(name: EosioVault.updateNotification, object: nil, userInfo: ["eosioPublicKey": eosioPublicKey, "action": action])
     }
 
