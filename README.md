@@ -60,6 +60,8 @@ end
 
 Then run `pod install`.
 
+Next, you must configure your application as a member of an App Group. See [Apple's documentation here](https://developer.apple.com/documentation/security/keychain_services/keychain_items/sharing_access_to_keychain_items_among_a_collection_of_apps#2974917) for instructions on enabling and configuring the App Group Capability in Xcode.
+
 Now Vault Signature Provider is ready for use within EOSIO SDK for Swift according to the [EOSIO SDK for Swift Basic Usage instructions](https://github.com/EOSIO/eosio-swift/tree/master#basic-usage).
 
 ## Direct Usage
