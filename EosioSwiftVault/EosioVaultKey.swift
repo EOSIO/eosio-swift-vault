@@ -11,42 +11,42 @@ import EosioSwiftEcc
 
 public extension EosioVault {
 
-    /// VaultKey collects properties for a EOSIO elliptic curve key into a single object
+    /// VaultKey collects properties into a single object for an EOSIO elliptic curve key.
     struct VaultKey {
-        /// The EOSIO public key
+        /// The EOSIO public key.
         private (set) public var eosioPublicKey: String
-        /// The label for this key in the Keychain
+        /// The label for this key in the Keychain.
         private (set) public var label: String?
-        /// The tag for this key in the Keychain
+        /// The tag for this key in the Keychain.
         private (set) public var tag: String?
-        /// The curve for this key (r1 or k1)
+        /// The curve for this key (r1 or k1).
         private (set) public var curve: EllipticCurveType
-        /// The access group for this key in the Keychain
+        /// The access group for this key in the Keychain.
         private (set) public var accessGroup: String
         /// Is the private key stored in the Secure Enclave?
         private (set) public var isSecureEnclave: Bool
-        /// The biometric factor enforced on this key by the Keychain
+        /// The biometric factor enforced on this key by the Keychain.
         private (set) public var bioFactor: EosioVault.BioFactor
-        /// The private SecKey
+        /// The private SecKey.
         private (set) public var privateSecKey: SecKey?
-        /// The public SecKey
+        /// The public SecKey.
         private (set) public var publicSecKey: SecKey?
-        /// The uncompressed public key in ANSI X9.63 format (65 bytes, starts with 04)
+        /// The uncompressed public key in ANSI X9.63 format (65 bytes, starts with 04).
         private (set) public var uncompressedPublicKey: Data?
-        /// The compressed public key in ANSI X9.63 format (33 bytes, starts with 02 or 03)
+        /// The compressed public key in ANSI X9.63 format (33 bytes, starts with 02 or 03).
         private (set) public var compressedPublicKey: Data?
-        /// Is the key retired? Retired keys have metadata without a key in the Keychain
+        /// Is the key retired? Retired keys have metadata without a key in the Keychain.
         private (set) public var isRetired: Bool
-        /// Metadata for this key
+        /// Metadata for this key.
         public var metadata: [String: Any]
 
         
-        /// Init a VaultKey
+        /// Init a VaultKey.
         ///
         /// - Parameters:
-        ///   - eosioPublicKey: An EOSIO public key
-        ///   - ecKey: An ECKey
-        ///   - metadata: Metadata dictionary
+        ///   - eosioPublicKey: An EOSIO public key.
+        ///   - ecKey: An ECKey.
+        ///   - metadata: Metadata dictionary.
         init?(eosioPublicKey: String? = nil, ecKey: Keychain.ECKey?, metadata: [String: Any]?) {
 
             // Case of publicKey + metadata with no ecKey = retired key
