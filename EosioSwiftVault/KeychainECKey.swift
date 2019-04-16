@@ -10,16 +10,29 @@ import Foundation
 
 public extension Keychain {
 
+    /// ECKey collects properties for a an elliptic curve key into a single object
     class ECKey {
+        /// The label for this key in the Keychain
         private (set) public var label: String?
+        /// The tag for this key in the Keychain
         private (set) public var tag: String?
+        /// The access group for this key in the Keychain
         private (set) public var accessGroup: String
+        /// Is the private key stored in the Secure Enclave?
         private (set) public var isSecureEnclave: Bool
+        /// The private SecKey
         private (set) public var privateSecKey: SecKey
+        /// The public SecKey
         private (set) public var publicSecKey: SecKey
+        /// The uncompressed public key in ANSI X9.63 format (65 bytes, starts with 04)
         private (set) public var uncompressedPublicKey: Data
+        /// The compressed public key in ANSI X9.63 format (33 bytes, starts with 02 or 03)
         private (set) public var compressedPublicKey: Data
 
+        
+        /// Init an ECKey
+        ///
+        /// - Parameter attributes: A dictionary of attributes from a keychain query
         public init?(attributes: [String: Any]) {
             label = attributes[kSecAttrLabel as String] as? String
             tag = attributes[kSecAttrApplicationTag as String] as? String
