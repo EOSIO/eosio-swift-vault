@@ -17,12 +17,7 @@ public final class EosioVault {
     private let keychain: Keychain
     private let vaultTag = "__VAULT__"
     private let eosioKeyMetadataService = "EosioKeyMetadataService"
-
-    public var accessGroup = "" {
-        didSet {
-            keychain = Keychain(accessGroup: accessGroup)
-        }
-    }
+    public let accessGroup = ""
 
     public enum BioFactor: String {
         case none = ""
