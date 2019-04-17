@@ -6,7 +6,7 @@ PODS:
   - EosioSwiftEcc (0.0.2):
     - EosioSwift (~> 0.0.2)
     - GRKOpenSSLFramework (~> 1.0)
-  - EosioSwiftVault (0.0.1):
+  - EosioSwiftVault (0.0.2):
     - EosioSwift (~> 0.0.2)
     - EosioSwiftEcc (~> 0.0.2)
   - GRKOpenSSLFramework (1.0.2.16)
@@ -16,7 +16,7 @@ PODS:
 DEPENDENCIES:
   - EosioSwift (~> 0.0.2)
   - EosioSwiftEcc (~> 0.0.2)
-  - EosioSwiftVault (~> 0.0.1)
+  - EosioSwiftVault (~> 0.0.2)
   - SwiftLint
 
 SPEC REPOS:
@@ -34,11 +34,11 @@ SPEC CHECKSUMS:
   BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
   EosioSwift: 3ef3ac6485b25d8dfe629f836d93070fe88df4c1
   EosioSwiftEcc: a0051e1155839f58f04f0ad226013c42aaecf65f
-  EosioSwiftVault: 23da5976e792b689e35fdd1910a10de5635f725a
+  EosioSwiftVault: ea4fa8d26549e9d095a302d07e136ce1fadf7468
   GRKOpenSSLFramework: 35944e317e6336b2944ad70b059d84db6b2d8532
   SipHash: fad90a4683e420c52ef28063063dbbce248ea6d4
   SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
 
-PODFILE CHECKSUM: 566648b5d1d0823ce790c97d3e4e42f6280e0561
+PODFILE CHECKSUM: 4cb1a651b66d545cd3f2144f5caff104e4111d67
 
 COCOAPODS: 1.6.1

@@ -52,7 +52,7 @@ use_frameworks!
 
 target "Your Target" do
   pod "EosioSwift", "~> 0.0.2" # EOSIO SDK for Swift core library
-  pod "EosioSwiftVaultSignatureProvider", "~> 0.0.1" # pod for this library
+  pod "EosioSwiftVaultSignatureProvider", "~> 0.0.2" # pod for this library
   # add other providers for EOSIO SDK for Swift
   pod "EosioSwiftAbieosSerializationProvider", "~> 0.0.3" # serialization provider
 end
