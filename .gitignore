@@ -72,3 +72,4 @@ fastlane/screenshots/**/*.png
 fastlane/test_output
 
 .DS_Store
+docs/docsets/EosioSwiftVault.docset/Contents/Resources/Documents/undocumented.json
