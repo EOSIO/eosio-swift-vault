@@ -31,14 +31,14 @@ else
 
     pod 'EosioSwift', '~> 0.0.2'
     pod 'EosioSwiftEcc', '~> 0.0.2'
-    pod 'EosioSwiftVault', '~> 0.0.1'
+    pod 'EosioSwiftVault', '~> 0.0.2'
     pod 'SwiftLint'
 
     target 'EosioSwiftVaultSignatureProviderTests' do
       inherit! :search_paths
       pod 'EosioSwift', '~> 0.0.2'
       pod 'EosioSwiftEcc', '~> 0.0.2'
-      pod 'EosioSwiftVault', '~> 0.0.1'
+      pod 'EosioSwiftVault', '~> 0.0.2'
     end
   end
 end
