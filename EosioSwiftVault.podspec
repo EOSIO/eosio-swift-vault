@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'EosioSwiftVault'
-  s.version          = '0.0.1'
+  s.version          = '0.0.2'
   s.summary          = 'Keychain and Secure Enclave functions for EOSIO.'
   s.homepage         = 'https://github.com/EOSIO/eosio-swift-vault'
   s.license          = { :type => 'MIT', :text => <<-LICENSE
