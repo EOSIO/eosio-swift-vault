@@ -4,65 +4,89 @@
     <title>ECKey Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <script src="../../js/jquery.min.js" defer></script>
     <script src="../../js/jazzy.js" defer></script>
-
+    
+    <script src="../../js/lunr.min.js" defer></script>
+    <script src="../../js/typeahead.jquery.js" defer></script>
+    <script src="../../js/jazzy.search.js" defer></script>
   </head>
   <body>
+
     <a name="//apple_ref/swift/Class/ECKey" class="dashAnchor"></a>
+
     <a title="ECKey Class Reference"></a>
-    <header>
-      <div class="content-wrapper">
-        <p><a href="../../index.html">EosioSwiftVault Docs</a> (100% documented)</p>
-      </div>
-    </header>
-    <div class="content-wrapper">
-      <p id="breadcrumbs">
-        <a href="../../index.html">EosioSwiftVault Reference</a>
-        <img id="carat" src="../../img/carat.png" />
-        ECKey Class Reference
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../../index.html">
+          EosioSwiftVault Docs
+        </a>
+         (100% documented)
       </p>
-    </div>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/EOSIO/eosio-swift-vault">
+            <img class="header-icon" src="../../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../../index.html">EosioSwiftVault Reference</a>
+      <img class="carat" src="../../img/carat.png" />
+      ECKey Class Reference
+    </p>
+
     <div class="content-wrapper">
-      <nav class="sidebar">
+      <nav class="navigation">
         <ul class="nav-groups">
           <li class="nav-group-name">
-            <a href="../../Classes.html">Classes</a>
+            <a class="nav-group-name-link" href="../../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../../Classes/EosioVault.html">EosioVault</a>
+                <a class="nav-group-task-link" href="../../Classes/EosioVault.html">EosioVault</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Classes/EosioVault/BioFactor.html">– BioFactor</a>
+                <a class="nav-group-task-link" href="../../Classes/EosioVault/BioFactor.html">– BioFactor</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Classes/EosioVault/VaultKey.html">– VaultKey</a>
+                <a class="nav-group-task-link" href="../../Classes/EosioVault/VaultKey.html">– VaultKey</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Classes/Keychain.html">Keychain</a>
+                <a class="nav-group-task-link" href="../../Classes/Keychain.html">Keychain</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Classes/Keychain/ECKey.html">– ECKey</a>
+                <a class="nav-group-task-link" href="../../Classes/Keychain/ECKey.html">– ECKey</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../../Extensions.html">Extensions</a>
+            <a class="nav-group-name-link" href="../../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../../Extensions/Data.html">Data</a>
+                <a class="nav-group-task-link" href="../../Extensions/Data.html">Data</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Extensions/SecKey.html">SecKey</a>
+                <a class="nav-group-task-link" href="../../Extensions/SecKey.html">SecKey</a>
               </li>
             </ul>
           </li>
         </ul>
       </nav>
       <article class="main-content">
-        <section>
-          <section class="section">
+
+        <section class="section">
+          <div class="section-content">
             <h1>ECKey</h1>
               <div class="declaration">
                 <div class="language">
@@ -72,10 +96,13 @@
               </div>
             <p>ECKey collects properties into a single object for an elliptic curve key.</p>
 
-          </section>
-          <section class="section task-group-section">
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
             <div class="task-group">
-              <ul>
+              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -99,6 +126,9 @@
                           <pre class="highlight swift"><code><span class="kd">private(set)</span> <span class="kd">public</span> <span class="k">var</span> <span class="nv">label</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/KeychainECKey.swift#L16">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -127,6 +157,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/KeychainECKey.swift#L18">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -153,6 +186,9 @@
                           <pre class="highlight swift"><code><span class="kd">private(set)</span> <span class="kd">public</span> <span class="k">var</span> <span class="nv">accessGroup</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/KeychainECKey.swift#L20">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -181,6 +217,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/KeychainECKey.swift#L22">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -207,6 +246,9 @@
                           <pre class="highlight swift"><code><span class="kd">private(set)</span> <span class="kd">public</span> <span class="k">var</span> <span class="nv">privateSecKey</span><span class="p">:</span> <span class="kt">SecKey</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/KeychainECKey.swift#L24">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -235,6 +277,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/KeychainECKey.swift#L26">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -262,6 +307,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/KeychainECKey.swift#L28">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -288,6 +336,9 @@
                           <pre class="highlight swift"><code><span class="kd">private(set)</span> <span class="kd">public</span> <span class="k">var</span> <span class="nv">compressedPublicKey</span><span class="p">:</span> <span class="kt">Data</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/KeychainECKey.swift#L30">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -335,19 +386,23 @@
                           </tbody>
                         </table>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/KeychainECKey.swift#L35-L57">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
               </ul>
             </div>
-          </section>
+          </div>
         </section>
-        <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://github.com/EOSIO/eosio-swift-vault" target="_blank" rel="external">Todd Bowden</a>. All rights reserved. (Last updated: 2019-04-17)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
-        </section>
+
       </article>
     </div>
+    <section class="footer">
+      <p>Copyright (c) 2017-2019 block.one all rights reserved.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
   </body>
 </div>
 </html>
