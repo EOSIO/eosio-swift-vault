@@ -13,8 +13,7 @@ Used primarily as a dependency of the [EOSIO SDK for Swift: Vault Signature Prov
 
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-- [Direct Usage](#direct-usage)
-- [Library Methods](#library-methods)
+- [Library Usage & Methods](#library-usage--methods)
 - [Want to Help?](#want-to-help)
 - [License & Legal](#license)
 
@@ -40,13 +39,9 @@ end
 
 Then run `pod install`.
 
-## Direct Usage
+## Library Usage & Methods
 
-TBD
-
-## Library Methods
-
-TBD
+Please refer to the documentation by cloning this repo and opening the [`docs/index.html`](docs/index.html) file in your browser. The code is also documented inline.
 
 ## Want to help?
 
