@@ -1,4 +1,6 @@
+![Swift Logo](https://github.com/EOSIO/eosio-swift-vault/blob/master/img/swift-logo.png)
 # EOSIO SDK for Swift: Vault ![EOSIO Alpha](https://img.shields.io/badge/EOSIO-Alpha-blue.svg)
+
 [![Software License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/EOSIO/eosio-swift/blob/master/LICENSE)
 [![Swift 4.2](https://img.shields.io/badge/Language-Swift_4.2-orange.svg)](https://swift.org)
 ![](https://img.shields.io/badge/Deployment%20Target-iOS%2011.3-blue.svg)
@@ -13,7 +15,7 @@ Used primarily as a dependency of the [EOSIO SDK for Swift: Vault Signature Prov
 
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-- [Library Usage & Methods](#library-usage--methods)
+- [Documentation](#documentation)
 - [Want to Help?](#want-to-help)
 - [License & Legal](#license)
 
@@ -39,17 +41,17 @@ end
 
 Then run `pod install`.
 
-## Library Usage & Methods
+## Documentation
 
-Please refer to the documentation by cloning this repo and opening the [`docs/index.html`](docs/index.html) file in your browser. The code is also documented inline.
+Please refer to the generated code documentation by cloning this repo and opening the `docs/code/index.html` file in your browser. The code is also documented inline.
 
 ## Want to help?
 
-Interested in contributing? That's awesome! Here are some [Contribution Guidelines](./CONTRIBUTING.md) and the [Code of Conduct](./CONTRIBUTING.md#conduct).
+Interested in contributing? That's awesome! Here are some [Contribution Guidelines](https://github.com/EOSIO/eosio-swift-vault/blob/master/CONTRIBUTING.md) and the [Code of Conduct](https://github.com/EOSIO/eosio-swift-vault/blob/master/CONTRIBUTING.md#conduct).
 
 ## License
 
-[MIT](./LICENSE)
+[MIT](https://github.com/EOSIO/eosio-swift-vault/blob/master/LICENSE)
 
 ## Important
 
