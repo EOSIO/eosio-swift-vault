@@ -1,4 +1,6 @@
+![Swift Logo](https://github.com/EOSIO/eosio-swift-vault-signature-provider/blob/master/img/swift-logo.png)
 # EOSIO SDK for Swift: Vault Signature Provider ![EOSIO Alpha](https://img.shields.io/badge/EOSIO-Alpha-blue.svg)
+
 [![Software License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/EOSIO/eosio-swift/blob/master/LICENSE)
 [![Swift 4.2](https://img.shields.io/badge/Language-Swift_4.2-orange.svg)](https://swift.org)
 ![](https://img.shields.io/badge/Deployment%20Target-iOS%2011.3-blue.svg)
@@ -14,6 +16,7 @@ Vault Signature Provider is a pluggable signature provider for [EOSIO SDK for Sw
 - [Dependencies](#dependencies)
 - [Installation](#installation)
 - [Direct Usage](#direct-usage)
+- [Documentation](#documentation)
 - [Library Methods](#library-methods)
 - [Want to Help?](#want-to-help)
 - [License & Legal](#license)
@@ -75,7 +78,7 @@ let publicKeysArray = signProvider?.getAvailableKeys() // Returns the public key
 
 _[Learn more about Access Groups here.](https://developer.apple.com/documentation/security/keychain_services/keychain_items/sharing_access_to_keychain_items_among_a_collection_of_apps)_
 
-To sign an [`EosioTransaction`](https://github.com/EOSIO/eosio-swift/blob/master/EosioSwift/EosioTransaction/EosioTransaction.swift), create an [`EosioTransactionSignatureRequest`](https://github.com/EOSIO/eosio-swift/blob/master/EosioSwift/EosioSignatureProviderProtocol/EosioSignatureProviderProtocol.swift) object and call the `signTransaction(request:completion:)` method with the request:
+To sign an [`EosioTransaction`](https://github.com/EOSIO/eosio-swift/blob/master/EosioSwift/EosioTransaction/EosioTransaction.swift), create an [`EosioTransactionSignatureRequest`](https://github.com/EOSIO/eosio-swift/blob/master/EosioSwift/EosioSignatureProviderProtocol/EosioSignatureProviderProtocol.swift) object and call the `EosioVaultSignatureProvider.signTransaction(request:completion:)` method with the request:
 
 ```swift
 var signRequest = EosioTransactionSignatureRequest()
@@ -88,16 +91,20 @@ signProvider.signTransaction(request: signRequest) { (response) in
 }
 ```
 
+## Documentation
+
+Please refer to the generated code documentation by cloning this repo and opening the `docs/code/index.html` file in your browser. The code is also documented inline.
+
 ## Library Methods
 
 This library is an implementation of [`EosioSignatureProviderProtocol`](https://github.com/EOSIO/eosio-swift/blob/master/EosioSwift/EosioSignatureProviderProtocol/EosioSignatureProviderProtocol.swift). It implements the following protocol methods:
 
-* `signTransaction(request:completion:)` signs an [`EosioTransaction`](https://github.com/EOSIO/eosio-swift/blob/master/EosioSwift/EosioTransaction/EosioTransaction.swift).
-* `getAvailableKeys()` returns an array containing the public keys associated with the private keys that the object is initialized with.
+* `EosioVaultSignatureProvider.signTransaction(request:completion:)` signs an [`EosioTransaction`](https://github.com/EOSIO/eosio-swift/blob/master/EosioSwift/EosioTransaction/EosioTransaction.swift).
+* `EosioVaultSignatureProvider.getAvailableKeys(...)` returns an array containing the public keys associated with the private keys that the object is initialized with.
 
 To initialize the implementation:
 
-* `init(accessGroup:requireBio:)` initializes the signature provider.
+* `EosioVaultSignatureProvider.init(accessGroup:requireBio:)` initializes the signature provider.
   * `accessGroup`: [Learn more about Access Groups here.](https://developer.apple.com/documentation/security/keychain_services/keychain_items/sharing_access_to_keychain_items_among_a_collection_of_apps)
   * `requireBio`: Defaults to `false`. Some keys may require biometric authentication no matter what this flag is set to. For keys that do not require biometric authentication themselves, this flag can force the bio check.
 
@@ -105,11 +112,11 @@ Other Keychain and/or Secure Enclave functionality can be accessed by calling me
 
 ## Want to help?
 
-Interested in contributing? That's awesome! Here are some [Contribution Guidelines](./CONTRIBUTING.md) and the [Code of Conduct](./CONTRIBUTING.md#conduct).
+Interested in contributing? That's awesome! Here are some [Contribution Guidelines](https://github.com/EOSIO/eosio-swift-vault-signature-provider/blob/master/CONTRIBUTING.md) and the [Code of Conduct](https://github.com/EOSIO/eosio-swift-vault-signature-provider/blob/master/CONTRIBUTING.md#conduct).
 
 ## License
 
-[MIT](./LICENSE)
+[MIT](https://github.com/EOSIO/eosio-swift-vault-signature-provider/blob/master/LICENSE)
 
 ## Important
 
