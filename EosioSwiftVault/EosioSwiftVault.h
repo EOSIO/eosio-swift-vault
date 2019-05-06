@@ -3,7 +3,7 @@
 //  EosioSwiftVault
 //
 //  Created by Todd Bowden on 3/22/19.
-//  Copyright © 2018-2019 block.one.
+//  Copyright (c) 2017-2019 block.one and its contributors. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
