@@ -81,6 +81,18 @@ public final class EosioVault {
     /// - Returns: The new key as a VaultKey.
     /// - Throws: If a new key cannot be created.
     public func newSecureEnclaveKey(bioFactor: BioFactor = .none, metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
+        return try newVaultKey(secureEnclave: true, bioFactor: bioFactor, metadata: metadata)
+    }
+
+    /// Create a new elliptic curve key and return as a VaultKey.
+    ///
+    /// - Parameters:
+    ///   - secureEnclave: Generate this key in Secure Enclave?
+    ///   - bioFactor: The `BioFactor` for this key.
+    ///   - metadata: Any metadata to associate with this key.
+    /// - Returns: The new key as a VaultKey.
+    /// - Throws: If a new key cannot be created.
+    public func newVaultKey(secureEnclave: Bool, bioFactor: BioFactor = .none, metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
         var tag: String?
         var accessFlag: SecAccessControlCreateFlags?
         switch bioFactor {
@@ -95,7 +107,7 @@ public final class EosioVault {
             tag = nil
         }
 
-        let secKey = try keychain.createSecureEnclaveSecKey(tag: tag, label: nil, accessFlag: accessFlag)
+        let secKey = try keychain.createEllipticCurveSecKey(secureEnclave: secureEnclave, tag: tag, label: nil, accessFlag: accessFlag)
         guard let eosioPublicKey = secKey.publicKey?.externalRepresentation?.compressedPublicKey?.toEosioR1PublicKey else {
             throw EosioError(.keyManagementError, reason: "Unable to create public key")
         }
