@@ -346,7 +346,7 @@ public class Keychain {
             throw EosioError(.keyManagementError, reason: "Key already exists")
         }
 
-        guard let access = makeSecSecAccessControl() else {
+        guard let access = makeSecSecAccessControl(secureEnclave: false) else {
             throw EosioError(.keyManagementError, reason: "Error creating Access Control")
         }
 
@@ -397,23 +397,29 @@ public class Keychain {
         return key
     }
 
-    /// Make SecAccessControl -- two options, bio and auto (after first unlock).
-    private func makeSecSecAccessControl(accessFlag: SecAccessControlCreateFlags? = nil) -> SecAccessControl? {
+    /// Make SecAccessControl
+    private func makeSecSecAccessControl(secureEnclave: Bool, accessFlag: SecAccessControlCreateFlags? = nil) -> SecAccessControl? {
+        var flags: SecAccessControlCreateFlags
         if let accessFlag = accessFlag {
-            return SecAccessControlCreateWithFlags(
-                kCFAllocatorDefault,
-                kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-                [.privateKeyUsage, accessFlag],
-                nil
-            )
+            if secureEnclave {
+                flags = [.privateKeyUsage, accessFlag]
+            } else {
+                flags = [accessFlag]
+            }
         } else {
-            return SecAccessControlCreateWithFlags(
-                kCFAllocatorDefault,
-                kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-                [.privateKeyUsage],
-                nil
-            )
+            if secureEnclave {
+                flags = [.privateKeyUsage]
+            } else {
+                flags = []
+            }
         }
+        
+        return SecAccessControlCreateWithFlags(
+            kCFAllocatorDefault,
+            kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+            flags,
+            nil
+        )
     }
 
     /// Create a new Secure Enclave key.
@@ -425,7 +431,20 @@ public class Keychain {
     /// - Returns: A Secure Enclave SecKey.
     /// - Throws: If a key cannot be created.
     public func createSecureEnclaveSecKey(tag: String? = nil, label: String? = nil, accessFlag: SecAccessControlCreateFlags? = nil) throws -> SecKey {
-        guard let access = makeSecSecAccessControl(accessFlag: accessFlag) else {
+        return try createEllipticCurveSecKey(secureEnclave: true, tag: tag, label: label, accessFlag: accessFlag)
+    }
+
+    /// Create a new elliptic curve key.
+    ///
+    /// - Parameters:
+    ///   - secureEnclave: Generate this key in Secure Enclave?
+    ///   - tag: A tag to associate with this key.
+    ///   - label: A label to associate with this key.
+    ///   - accessFlag: accessFlag for this key.
+    /// - Returns: A SecKey.
+    /// - Throws: If a key cannot be created.
+    public func createEllipticCurveSecKey(secureEnclave: Bool, tag: String? = nil, label: String? = nil, accessFlag: SecAccessControlCreateFlags? = nil) throws -> SecKey {
+        guard let access = makeSecSecAccessControl(secureEnclave: secureEnclave, accessFlag: accessFlag) else {
             throw EosioError(.keyManagementError, reason: "Error creating Access Control")
         }
 
@@ -434,13 +453,16 @@ public class Keychain {
             kSecUseOperationPrompt as String: "",
             kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
             kSecAttrKeySizeInBits as String: 256,
-            kSecAttrTokenID as String: kSecAttrTokenIDSecureEnclave,
             kSecAttrAccessGroup as String: accessGroup,
             kSecPrivateKeyAttrs as String: [
                 kSecAttrIsPermanent as String: true,
                 kSecAttrAccessControl as String: access
             ]
         ]
+
+        if secureEnclave {
+            attributes[kSecAttrTokenID as String] = kSecAttrTokenIDSecureEnclave
+        }
 
         if let tag = tag {
             attributes[kSecAttrApplicationTag as String] = tag
