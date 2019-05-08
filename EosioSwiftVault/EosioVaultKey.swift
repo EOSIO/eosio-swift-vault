@@ -15,6 +15,16 @@ public extension EosioVault {
     struct VaultKey {
         /// The EOSIO public key.
         private (set) public var eosioPublicKey: String
+        /// The EOSIO public key. (nil for Secure Enclave keys).
+        public var eosioPrivateKey: String? {
+            guard let privateKey = privateKey else { return nil }
+            guard privateKey.count >= 32 else { return nil }
+            let pk32 = privateKey.suffix(32)
+            switch curve {
+            case .k1: return pk32.toEosioK1PrivateKey
+            case .r1: return pk32.toEosioR1PrivateKey
+            }
+        }
         /// The label for this key in the Keychain.
         private (set) public var label: String?
         /// The tag for this key in the Keychain.
@@ -29,6 +39,10 @@ public extension EosioVault {
         private (set) public var bioFactor: EosioVault.BioFactor
         /// The private SecKey.
         private (set) public var privateSecKey: SecKey?
+        /// The private key in ANSI X9.63 format. (nil for Secure Enclave keys).
+        public var privateKey: Data? {
+            return privateSecKey?.externalRepresentation
+        }
         /// The public SecKey.
         private (set) public var publicSecKey: SecKey?
         /// The uncompressed public key in ANSI X9.63 format (65 bytes, starts with 04).
