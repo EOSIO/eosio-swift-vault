@@ -15,7 +15,7 @@ public extension EosioVault {
     struct VaultKey {
         /// The EOSIO public key.
         private (set) public var eosioPublicKey: String
-        /// The EOSIO public key. (nil for Secure Enclave keys).
+        /// The EOSIO private key. (nil for Secure Enclave keys).
         public var eosioPrivateKey: String? {
             guard let privateKey = privateKey else { return nil }
             guard privateKey.count >= 32 else { return nil }

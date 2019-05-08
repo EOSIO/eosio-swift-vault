@@ -440,7 +440,7 @@ public class Keychain {
     ///   - secureEnclave: Generate this key in Secure Enclave?
     ///   - tag: A tag to associate with this key.
     ///   - label: A label to associate with this key.
-    ///   - accessFlag: accessFlag for this key.
+    ///   - accessFlag: The accessFlag for this key.
     /// - Returns: A SecKey.
     /// - Throws: If a key cannot be created.
     public func createEllipticCurveSecKey(secureEnclave: Bool, tag: String? = nil, label: String? = nil, accessFlag: SecAccessControlCreateFlags? = nil) throws -> SecKey {
