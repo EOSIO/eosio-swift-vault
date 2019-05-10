@@ -7,8 +7,7 @@
 
 EOSIO SDK for Swift: Vault is a utility library for working with public/private keys and signing with Apple's Keychain and Secure Enclave.
 
-The Vault library is a dependency of the [EOSIO SDK for Swift: Vault Signature Provider](https://github.com/EOSIO/eosio-swift-vault-signature-provider), and also exposes key generation, management and signing functions that can be called directly.
-
+The Vault library is a required dependency of the [EOSIO SDK for Swift: Vault Signature Provider](https://github.com/EOSIO/eosio-swift-vault-signature-provider). It additionally provides key generation, management and signing functions that can be called directly.
 *All product and company names are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them.*
 
 ## Contents
@@ -58,7 +57,9 @@ The `accessGroup` is a [App Group Identifier](https://developer.apple.com/docume
 
 ## Key Generation
 
-The Vault library exposes functions to generate new EOSIO keys. New keys can either be generated and stored in the device's [Secure Enclave](https://developer.apple.com/documentation/security/certificate_key_and_trust_services/keys/storing_keys_in_the_secure_enclave) or the Keychain. If the key is stored in Secure Enclave, it is not possible to directly access or export the private key. To create a key in Secure Enclave:
+The Vault library exposes functions to generate new EOSIO keys. New keys can either be generated and stored in the device's [Secure Enclave](https://developer.apple.com/documentation/security/certificate_key_and_trust_services/keys/storing_keys_in_the_secure_enclave) or the Keychain. **Note:** If the key is stored in Secure Enclave, it is not possible to directly access or export the private key. 
+
+To create a key in Secure Enclave:
 
 ```swift
 let newKey = try vault.newVaultKey(secureEnclave: true, bioFactor: .none, metadata: [String: Any])
@@ -77,7 +78,7 @@ let newKey = try vault.newVaultKey(secureEnclave: false, bioFactor: .none, metad
 
 The `bioFactor` is the type of biometric security that will be required by the keychain to sign messages with this key. The `metadata` can be any data you want to associate with this key.
 
-Each of the above function will return an `EosioVault.VaultKey`. To access the EOSIO public and private keys:
+Each of the above functions will return an `EosioVault.VaultKey`. To access the EOSIO public and private keys:
 
 ```swift
 let publicKey = newKey.eosioPublicKey
@@ -96,7 +97,7 @@ let signature = vault.sign(message: message, eosioPublicKey: publicKey, requireB
 }
 ```
 
-The `requireBio` flag will require biometric identification to sign with this key, even if the key does not require it. However, setting the `requireBio` to `false` will **not** disable biometric identification if required by the key.
+Biometric requirements can set as part of the key, itself, or enforced as a separate software check. The `requireBio` flag will require biometric identification to sign with this key, even if the key does not require it. However, setting the `requireBio` to `false` will **not** disable biometric identification if required by the key.
 
 ## Key Management
 
@@ -114,7 +115,7 @@ To get an array of all keys:
 let keys = try getAllVaultKeys() 
 ```
 
-To add an external key with the private key:
+To add an external key to the Keychain with the private key:
 
 ```swift
 try vault.addExternal(eosioPrivateKey: privateKey, metadata: [String: Any]) 
