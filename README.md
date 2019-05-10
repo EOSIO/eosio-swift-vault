@@ -43,7 +43,7 @@ Then run `pod install`.
 
 ## Documentation
 
-Please refer to the generated code documentation by cloning this repo and opening the `docs/code/index.html` file in your browser. The code is also documented inline.
+Please refer to the generated code documentation at https://eosio.github.io/eosio-swift-vault or by cloning this repo and opening the `docs/index.html` file in your browser.
 
 ## Want to help?
 
