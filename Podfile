@@ -33,15 +33,15 @@ else
     use_frameworks!
 
     pod 'EosioSwift', '~> 0.1.0'
-    pod 'EosioSwiftEcc', '~> 0.0.3'
-    pod 'EosioSwiftVault', '~> 0.0.3'
+    pod 'EosioSwiftEcc', '~> 0.0.4'
+    pod 'EosioSwiftVault', '~> 0.0.4'
     pod 'SwiftLint'
 
     target 'EosioSwiftVaultSignatureProviderTests' do
       inherit! :search_paths
-      pod 'EosioSwift', '~> 0.0.3'
-      pod 'EosioSwiftEcc', '~> 0.0.3'
-      pod 'EosioSwiftVault', '~> 0.0.3'
+      pod 'EosioSwift', '~> 0.1.0'
+      pod 'EosioSwiftEcc', '~> 0.0.4'
+      pod 'EosioSwiftVault', '~> 0.0.4'
     end
   end
 end
