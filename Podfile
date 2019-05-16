@@ -1,10 +1,5 @@
 using_local_pods = false
 
-unless using_local_pods
-  source 'https://github.com/EOSIO/eosio-swift-pod-specs.git'
-  source 'https://github.com/CocoaPods/Specs.git'
-end
-
 platform :ios, '11.3'
 
 if using_local_pods
@@ -26,7 +21,7 @@ else
     use_frameworks!
 
     pod 'EosioSwift', '~> 0.1.0'
-    pod 'EosioSwiftEcc', '~> 0.0.4'
+    pod 'EosioSwiftEcc', '~> 0.1.0'
     pod 'SwiftLint'
 
     target 'EosioSwiftVaultTests' do
