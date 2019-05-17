@@ -2,6 +2,9 @@ using_local_pods = false
 
 platform :ios, '11.3'
 
+# ignore all warnings from all pods
+inhibit_all_warnings!
+
 if using_local_pods
   # Pull pods from sibling directories if using local pods
   target 'EosioSwiftVault' do
@@ -20,8 +23,8 @@ else
   target 'EosioSwiftVault' do
     use_frameworks!
 
-    pod 'EosioSwift', '~> 0.1.0'
-    pod 'EosioSwiftEcc', '~> 0.1.0'
+    pod 'EosioSwift', '~> 0.1.1'
+    pod 'EosioSwiftEcc', '~> 0.1.1'
     pod 'SwiftLint'
 
     target 'EosioSwiftVaultTests' do
