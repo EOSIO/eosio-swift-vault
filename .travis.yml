@@ -1,0 +1,8 @@
+language: swift
+xcode_workspace: EosioSwiftVault.xcworkspace
+xcode_scheme: EosioSwiftVaultTests
+osx_image: xcode10.2
+xcode_destination: platform=iOS Simulator,OS=11.3,name=iPhone X
+before_install:
+- pod repo update
+- pod install
