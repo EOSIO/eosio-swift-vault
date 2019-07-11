@@ -33,6 +33,7 @@ else
     pod 'SwiftLint'
 
     target 'EosioSwiftVaultSignatureProviderTests' do
+      use_frameworks!
       inherit! :search_paths
       pod 'EosioSwift', '~> 0.1.1'
       pod 'EosioSwiftEcc', '~> 0.1.1'
