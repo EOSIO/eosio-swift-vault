@@ -51,7 +51,8 @@ docs/code/undocumented.json
 #
 Pods/
 xcworkspace.projects/
-EosioSwiftVault.xcworkspace/
+EosioSwiftVault.xcworkspace/contents.xcworkspacedata
+EosioSwiftVault.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
 
 # Carthage
 #
