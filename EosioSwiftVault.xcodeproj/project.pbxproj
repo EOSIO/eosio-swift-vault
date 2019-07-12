@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -250,11 +250,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EosioSwiftVault-EosioSwiftVaultTests/Pods-EosioSwiftVault-EosioSwiftVaultTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EosioSwiftVault-EosioSwiftVaultTests/Pods-EosioSwiftVault-EosioSwiftVaultTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -538,7 +538,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4181A0BF7F3B441177696301 /* Pods-EosioSwiftVault-EosioSwiftVaultTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9574LUMBYJ;
 				INFOPLIST_FILE = EosioSwiftVaultTests/Info.plist;
@@ -558,7 +558,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A5BDE72E84D4053FF236AD68 /* Pods-EosioSwiftVault-EosioSwiftVaultTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9574LUMBYJ;
 				INFOPLIST_FILE = EosioSwiftVaultTests/Info.plist;
