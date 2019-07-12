@@ -1,0 +1,9 @@
+language: swift
+xcode_workspace: EosioSwiftVault.xcworkspace
+xcode_scheme: EosioSwiftVaultTests
+osx_image: xcode10.2
+xcode_destination: platform=iOS Simulator,OS=11.3,name=iPhone X
+before_install:
+- gem install cocoapods -v 1.7.3
+- pod repo update
+- pod install
