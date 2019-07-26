@@ -118,7 +118,6 @@
 				28A85D347D1C1DE35B5387F2 /* Pods-EosioSwiftVault-EosioSwiftVaultTests.debug.xcconfig */,
 				011798E5589BB0E673C30B7A /* Pods-EosioSwiftVault-EosioSwiftVaultTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

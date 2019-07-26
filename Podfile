@@ -23,15 +23,15 @@ else
   target 'EosioSwiftVault' do
     use_frameworks!
 
-    pod 'EosioSwift', '~> 0.1.1'
-    pod 'EosioSwiftEcc', '~> 0.1.1'
+    pod 'EosioSwift', '~> 0.1.2'
+    pod 'EosioSwiftEcc', '~> 0.1.2'
     pod 'SwiftLint'
 
     target 'EosioSwiftVaultTests' do
       use_frameworks!
 
-      pod 'EosioSwift', '~> 0.1.1'
-      pod 'EosioSwiftEcc', '~> 0.1.1'
+      pod 'EosioSwift', '~> 0.1.2'
+      pod 'EosioSwiftEcc', '~> 0.1.2'
       pod 'SwiftLint'
     end
   end
