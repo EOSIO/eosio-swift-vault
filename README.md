@@ -38,7 +38,7 @@ If you wish to use Vault directly, add the following pods to your [Podfile](http
 use_frameworks!
 
 target "Your Target" do
-  pod "EosioSwiftVault", "~> 0.1.1"
+  pod "EosioSwiftVault", "~> 0.1.2"
 end
 ```
 
