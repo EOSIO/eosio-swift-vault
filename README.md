@@ -57,7 +57,9 @@ The `accessGroup` is a [App Group Identifier](https://developer.apple.com/docume
 
 ## Key Generation
 
-The Vault library exposes functions to generate new EOSIO keys. New keys can either be generated and stored in the device's [Secure Enclave](https://developer.apple.com/documentation/security/certificate_key_and_trust_services/keys/storing_keys_in_the_secure_enclave) or the Keychain. **Note:** If the key is stored in Secure Enclave, it is not possible to directly access or export the private key. 
+The Vault library exposes functions to generate new EOSIO keys. New keys can either be generated and stored in the device's [Secure Enclave](https://developer.apple.com/documentation/security/certificate_key_and_trust_services/keys/storing_keys_in_the_secure_enclave) or the Keychain. **Note:** If the key is stored in Secure Enclave, it is not possible to directly access or export the private key.
+
+**Important:** Currently key metadata must conform to the rules for conversion by [JSONSerialization](https://developer.apple.com/documentation/foundation/jsonserialization).  Failure to do so will result in application errors. 
 
 To create a key in Secure Enclave:
 
