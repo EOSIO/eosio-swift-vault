@@ -52,6 +52,8 @@ public extension EosioVault {
         /// Is the key retired? Retired keys have metadata without a key in the Keychain.
         private (set) public var isRetired: Bool
         /// Metadata for this key.
+        /// - Important: Metadata must follow the rules for JSONSerialization.
+        /// - SeeAlso: https://developer.apple.com/documentation/foundation/jsonserialization
         public var metadata: [String: Any]
 
         /// Init a VaultKey.
@@ -60,6 +62,8 @@ public extension EosioVault {
         ///   - eosioPublicKey: An EOSIO public key.
         ///   - ecKey: An ECKey.
         ///   - metadata: Metadata dictionary.
+        /// - Important: Metadata must follow the rules for JSONSerialization.
+        /// - SeeAlso: https://developer.apple.com/documentation/foundation/jsonserialization
         init?(eosioPublicKey: String? = nil, ecKey: Keychain.ECKey?, metadata: [String: Any]?) {
 
             // Case of publicKey + metadata with no ecKey = retired key

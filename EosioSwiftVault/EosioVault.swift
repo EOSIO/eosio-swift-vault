@@ -80,6 +80,8 @@ public final class EosioVault {
     ///   - metadata: Any metadata to associate with this key.
     /// - Returns: The new key as a VaultKey.
     /// - Throws: If a new key cannot be created.
+    /// - Important: Metadata must follow the rules for JSONSerialization.
+    /// - SeeAlso: https://developer.apple.com/documentation/foundation/jsonserialization
     public func newSecureEnclaveKey(bioFactor: BioFactor = .none, metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
         return try newVaultKey(secureEnclave: true, bioFactor: bioFactor, metadata: metadata)
     }
@@ -92,6 +94,8 @@ public final class EosioVault {
     ///   - metadata: Any metadata to associate with this key.
     /// - Returns: The new key as a VaultKey.
     /// - Throws: If a new key cannot be created.
+    /// - Important: Metadata must follow the rules for JSONSerialization.
+    /// - SeeAlso: https://developer.apple.com/documentation/foundation/jsonserialization
     public func newVaultKey(secureEnclave: Bool, bioFactor: BioFactor = .none, metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
         var tag: String?
         var accessFlag: SecAccessControlCreateFlags?
@@ -127,6 +131,8 @@ public final class EosioVault {
     ///   - metadata: Any metadata to associate with this key.
     /// - Returns: The imported key as a VaultKey.
     /// - Throws: If the key is not valid or cannot be imported.
+    /// - Important: Metadata must follow the rules for JSONSerialization.
+    /// - SeeAlso: https://developer.apple.com/documentation/foundation/jsonserialization
     public func addExternal(eosioPrivateKey: String, metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
         let eosioKeyComponents = try eosioPrivateKey.eosioComponents()
         let curve = try EllipticCurveType(eosioKeyComponents.version)
@@ -167,6 +173,8 @@ public final class EosioVault {
     ///
     /// - Parameter key: The VaultKey to update.
     /// - Returns: True if the key was updated, otherwise false.
+    /// - Important: Metadata must follow the rules for JSONSerialization.
+    /// - SeeAlso: https://developer.apple.com/documentation/foundation/jsonserialization
     public func update(key: EosioVault.VaultKey) -> Bool {
         return saveKeyMetadata(eosioPublicKey: key.eosioPublicKey, dictionary: key.metadata)
     }
@@ -324,12 +332,16 @@ public final class EosioVault {
     ///   - eosioPublicKey: The EOSIO public key.
     ///   - dictionary: A metadata dictionary to save.
     /// - Returns: True if the metadata was saved, otherwise false.
+    /// - Important: Metadata must follow the rules for JSONSerialization.
+    /// - SeeAlso: https://developer.apple.com/documentation/foundation/jsonserialization
     public func saveKeyMetadata(eosioPublicKey: String, dictionary: [String: Any]) -> Bool {
         guard let json = dictionary.jsonString else { return false }
         return saveKeyMetadata(eosioPublicKey: eosioPublicKey, json: json)
     }
 
     /// Save metadata for the eosioPublicKey
+    /// - Important: Metadata must follow the rules for JSONSerialization.
+    /// - SeeAlso: https://developer.apple.com/documentation/foundation/jsonserialization
     private func saveKeyMetadata(eosioPublicKey: String, json: String) -> Bool {
         let name = eosioPublicKey
         var result = false
@@ -347,6 +359,8 @@ public final class EosioVault {
     /// Delete metadata for the eosioPublicKey.
     ///
     /// - Parameter publicKey: The public key.
+    /// - Important: Metadata must follow the rules for JSONSerialization.
+    /// - SeeAlso: https://developer.apple.com/documentation/foundation/jsonserialization
     public func deleteKeyMetadata(publicKey: String) {
         keychain.delete(name: publicKey, service: eosioKeyMetadataService)
     }
@@ -355,6 +369,8 @@ public final class EosioVault {
     ///
     /// - Parameter eosioPublicKey: An EOSIO public key.
     /// - Returns: The metadata dictionary for the key, if existing.
+    /// - Important: Metadata must follow the rules for JSONSerialization.
+    /// - SeeAlso: https://developer.apple.com/documentation/foundation/jsonserialization
     public func getKeyMetadata(eosioPublicKey: String) -> [String: Any]? {
         guard let json = keychain.getValue(name: eosioPublicKey, service: eosioKeyMetadataService) else { return nil }
         return json.toJsonDictionary
@@ -363,6 +379,8 @@ public final class EosioVault {
     /// Get metadata for all keys.
     ///
     /// - Returns: Dictionary of metadata dictionaries for all keys.
+    /// - Important: Metadata must follow the rules for JSONSerialization.
+    /// - SeeAlso: https://developer.apple.com/documentation/foundation/jsonserialization
     public func getAllKeysMetadata() -> [String: [String: Any]]? {
         guard let values = keychain.getValues(service: eosioKeyMetadataService) else { return nil }
         var keyMetadataArray = [String: [String: Any]]()
