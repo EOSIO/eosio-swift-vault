@@ -30,7 +30,7 @@ DEPENDENCIES:
   - SwiftLint
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - BigInt
     - EosioSwift
     - EosioSwiftEcc
@@ -52,4 +52,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8bbf72fe539b8d9824eabd59ec80e299d1d7e649
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.3
