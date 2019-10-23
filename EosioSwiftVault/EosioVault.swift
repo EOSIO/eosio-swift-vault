@@ -160,7 +160,7 @@ public final class EosioVault {
         let curve = try EllipticCurveType(eosioKeyComponents.version)
         
         if !tag.isEmpty {
-            tag = "\(curve.rawValue),\(tag)"
+            tag = "\(curve.rawValue) \(tag)"
         } else {
             tag = curve.rawValue
         }
