@@ -332,9 +332,13 @@ public class Keychain {
     ///   - privateKey: The private key as data (97 bytes).
     ///   - tag: A tag to associate with this key.
     ///   - label: A label to associate with this key.
+    ///   - protection: CFString defaults to kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+    ///   - accessFlag: The accessFlag for this key.
     /// - Returns: The imported key as an ECKey.
     /// - Throws: If the key is not valid or cannot be imported.
-    public func importExternal(privateKey: Data, tag: String? = nil, label: String?  = nil) throws -> ECKey {
+    public func importExternal(privateKey: Data, tag: String? = nil, label: String?  = nil,
+                               protection: CFString = kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                               accessFlag: SecAccessControlCreateFlags? = nil) throws -> ECKey {
 
         //check data length
         guard privateKey.count == 97 else {
@@ -346,7 +350,7 @@ public class Keychain {
             throw EosioError(.keyManagementError, reason: "Key already exists")
         }
 
-        guard let access = makeSecSecAccessControl(secureEnclave: false) else {
+        guard let access = makeSecSecAccessControl(secureEnclave: false, protection: protection, accessFlag: accessFlag) else {
             throw EosioError(.keyManagementError, reason: "Error creating Access Control")
         }
 
@@ -398,7 +402,8 @@ public class Keychain {
     }
 
     /// Make SecAccessControl
-    private func makeSecSecAccessControl(secureEnclave: Bool, accessFlag: SecAccessControlCreateFlags? = nil) -> SecAccessControl? {
+    private func makeSecSecAccessControl(secureEnclave: Bool, protection: CFString = kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                                         accessFlag: SecAccessControlCreateFlags? = nil) -> SecAccessControl? {
         var flags: SecAccessControlCreateFlags
         if let accessFlag = accessFlag {
             if secureEnclave {
@@ -416,7 +421,7 @@ public class Keychain {
 
         return SecAccessControlCreateWithFlags(
             kCFAllocatorDefault,
-            kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+            protection,
             flags,
             nil
         )
@@ -443,8 +448,10 @@ public class Keychain {
     ///   - accessFlag: The accessFlag for this key.
     /// - Returns: A SecKey.
     /// - Throws: If a key cannot be created.
-    public func createEllipticCurveSecKey(secureEnclave: Bool, tag: String? = nil, label: String? = nil, accessFlag: SecAccessControlCreateFlags? = nil) throws -> SecKey {
-        guard let access = makeSecSecAccessControl(secureEnclave: secureEnclave, accessFlag: accessFlag) else {
+    public func createEllipticCurveSecKey(secureEnclave: Bool, tag: String? = nil, label: String? = nil,
+                                          protection: CFString = kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                                          accessFlag: SecAccessControlCreateFlags? = nil) throws -> SecKey {
+        guard let access = makeSecSecAccessControl(secureEnclave: secureEnclave, protection: protection, accessFlag: accessFlag) else {
             throw EosioError(.keyManagementError, reason: "Error creating Access Control")
         }
 
