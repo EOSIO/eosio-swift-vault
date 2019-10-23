@@ -143,21 +143,31 @@ public final class EosioVault {
                             bioFactor: BioFactor = .none,
                             metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
 
+        var tag = ""
         var accessFlag: SecAccessControlCreateFlags?
         switch bioFactor {
         case .flex:
             accessFlag = .biometryAny
+            tag = bioFactor.rawValue
         case .fixed:
             accessFlag = .biometryCurrentSet
+            tag = bioFactor.rawValue
         case .none:
             accessFlag = nil
         }
-
+        
         let eosioKeyComponents = try eosioPrivateKey.eosioComponents()
         let curve = try EllipticCurveType(eosioKeyComponents.version)
+        
+        if !tag.isEmpty {
+            tag = "\(curve.rawValue),\(tag)"
+        } else {
+            tag = curve.rawValue
+        }
+        
         let privateKeyData = try Data(eosioPrivateKey: eosioPrivateKey)
         let publicKeyData = try EccRecoverKey.recoverPublicKey(privateKey: privateKeyData, curve: curve)
-        let ecKey = try keychain.importExternal(privateKey: publicKeyData + privateKeyData, tag: curve.rawValue, protection: protection, accessFlag: accessFlag)
+        let ecKey = try keychain.importExternal(privateKey: publicKeyData + privateKeyData, tag: tag, protection: protection, accessFlag: accessFlag)
         var vaultKey = try getVaultKey(eosioPublicKey: ecKey.compressedPublicKey.toEosioPublicKey(curve: curve.rawValue))
         if let metadata = metadata {
             vaultKey.metadata = metadata
