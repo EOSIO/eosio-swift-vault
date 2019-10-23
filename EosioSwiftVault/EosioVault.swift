@@ -90,13 +90,17 @@ public final class EosioVault {
     ///
     /// - Parameters:
     ///   - secureEnclave: Generate this key in Secure Enclave?
+    ///   - protection: CFString defaults to kSecAttrAccessibleWhenUnlockedThisDeviceOnly
     ///   - bioFactor: The `BioFactor` for this key.
     ///   - metadata: Any metadata to associate with this key.
+
     /// - Returns: The new key as a VaultKey.
     /// - Throws: If a new key cannot be created.
     /// - Important: Metadata must follow the rules for JSONSerialization.
     /// - SeeAlso: https://developer.apple.com/documentation/foundation/jsonserialization
-    public func newVaultKey(secureEnclave: Bool, bioFactor: BioFactor = .none, metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
+    public func newVaultKey(secureEnclave: Bool, protection: CFString = kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                            bioFactor: BioFactor = .none,
+                            metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
         var tag: String?
         var accessFlag: SecAccessControlCreateFlags?
         switch bioFactor {
@@ -111,7 +115,7 @@ public final class EosioVault {
             tag = nil
         }
 
-        let secKey = try keychain.createEllipticCurveSecKey(secureEnclave: secureEnclave, tag: tag, label: nil, accessFlag: accessFlag)
+        let secKey = try keychain.createEllipticCurveSecKey(secureEnclave: secureEnclave, tag: tag, label: nil, protection: protection, accessFlag: accessFlag)
         guard let eosioPublicKey = secKey.publicKey?.externalRepresentation?.compressedPublicKey?.toEosioR1PublicKey else {
             throw EosioError(.keyManagementError, reason: "Unable to create public key")
         }
@@ -128,17 +132,32 @@ public final class EosioVault {
     ///
     /// - Parameters:
     ///   - eosioPrivateKey: An EOSIO private key.
+    ///   - protection: CFString defaults to kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+    ///   - bioFactor: The `BioFactor` for this key.
     ///   - metadata: Any metadata to associate with this key.
     /// - Returns: The imported key as a VaultKey.
     /// - Throws: If the key is not valid or cannot be imported.
     /// - Important: Metadata must follow the rules for JSONSerialization.
     /// - SeeAlso: https://developer.apple.com/documentation/foundation/jsonserialization
-    public func addExternal(eosioPrivateKey: String, metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
+    public func addExternal(eosioPrivateKey: String, protection: CFString = kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                            bioFactor: BioFactor = .none,
+                            metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
+
+        var accessFlag: SecAccessControlCreateFlags?
+        switch bioFactor {
+        case .flex:
+            accessFlag = .biometryAny
+        case .fixed:
+            accessFlag = .biometryCurrentSet
+        case .none:
+            accessFlag = nil
+        }
+
         let eosioKeyComponents = try eosioPrivateKey.eosioComponents()
         let curve = try EllipticCurveType(eosioKeyComponents.version)
         let privateKeyData = try Data(eosioPrivateKey: eosioPrivateKey)
         let publicKeyData = try EccRecoverKey.recoverPublicKey(privateKey: privateKeyData, curve: curve)
-        let ecKey = try keychain.importExternal(privateKey: publicKeyData + privateKeyData, tag: curve.rawValue)
+        let ecKey = try keychain.importExternal(privateKey: publicKeyData + privateKeyData, tag: curve.rawValue, protection: protection, accessFlag: accessFlag)
         var vaultKey = try getVaultKey(eosioPublicKey: ecKey.compressedPublicKey.toEosioPublicKey(curve: curve.rawValue))
         if let metadata = metadata {
             vaultKey.metadata = metadata
