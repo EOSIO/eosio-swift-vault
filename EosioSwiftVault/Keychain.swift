@@ -13,6 +13,30 @@ import EosioSwift
 /// General class for interacting with the Keychain and Secure Enclave.
 public class Keychain {
 
+    /// Accessibility of keychain item.
+    public enum AccessibleProtection {
+        case whenUnlocked
+        case afterFirstUnlock
+        case whenPasscodeSetThisDeviceOnly
+        case whenUnlockedThisDeviceOnly
+        case afterFirstUnlockThisDeviceOnly
+
+        var cfstringValue: CFString {
+            switch self {
+            case .whenUnlocked:
+                return kSecAttrAccessibleWhenUnlocked
+            case .afterFirstUnlock:
+                return kSecAttrAccessibleAfterFirstUnlock
+            case .whenPasscodeSetThisDeviceOnly:
+                return kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly
+            case .whenUnlockedThisDeviceOnly:
+                return kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+            case .afterFirstUnlockThisDeviceOnly:
+                return kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+            }
+        }
+    }
+
     /// The accessGroup allows multiple apps (including extensions) in the same team to share the same Keychain.
     public let accessGroup: String
 
@@ -332,12 +356,12 @@ public class Keychain {
     ///   - privateKey: The private key as data (97 bytes).
     ///   - tag: A tag to associate with this key.
     ///   - label: A label to associate with this key.
-    ///   - protection: CFString defaults to kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+    ///   - protection: Accessibility defaults to .whenUnlockedThisDeviceOnly
     ///   - accessFlag: The accessFlag for this key.
     /// - Returns: The imported key as an ECKey.
     /// - Throws: If the key is not valid or cannot be imported.
     public func importExternal(privateKey: Data, tag: String? = nil, label: String?  = nil,
-                               protection: CFString = kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                               protection: AccessibleProtection = .whenUnlockedThisDeviceOnly,
                                accessFlag: SecAccessControlCreateFlags? = nil) throws -> ECKey {
 
         //check data length
@@ -402,7 +426,8 @@ public class Keychain {
     }
 
     /// Make SecAccessControl
-    private func makeSecSecAccessControl(secureEnclave: Bool, protection: CFString = kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+    private func makeSecSecAccessControl(secureEnclave: Bool,
+                                         protection: AccessibleProtection = .whenUnlockedThisDeviceOnly,
                                          accessFlag: SecAccessControlCreateFlags? = nil) -> SecAccessControl? {
         var flags: SecAccessControlCreateFlags
         if let accessFlag = accessFlag {
@@ -421,7 +446,7 @@ public class Keychain {
 
         return SecAccessControlCreateWithFlags(
             kCFAllocatorDefault,
-            protection,
+            protection.cfstringValue,
             flags,
             nil
         )
@@ -445,11 +470,12 @@ public class Keychain {
     ///   - secureEnclave: Generate this key in Secure Enclave?
     ///   - tag: A tag to associate with this key.
     ///   - label: A label to associate with this key.
+    ///   - protection: Accessibility defaults to whenUnlockedThisDeviceOnly
     ///   - accessFlag: The accessFlag for this key.
     /// - Returns: A SecKey.
     /// - Throws: If a key cannot be created.
     public func createEllipticCurveSecKey(secureEnclave: Bool, tag: String? = nil, label: String? = nil,
-                                          protection: CFString = kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                                          protection: AccessibleProtection = .whenUnlockedThisDeviceOnly,
                                           accessFlag: SecAccessControlCreateFlags? = nil) throws -> SecKey {
         guard let access = makeSecSecAccessControl(secureEnclave: secureEnclave, protection: protection, accessFlag: accessFlag) else {
             throw EosioError(.keyManagementError, reason: "Error creating Access Control")

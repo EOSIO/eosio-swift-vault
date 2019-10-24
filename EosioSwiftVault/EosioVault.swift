@@ -90,7 +90,7 @@ public final class EosioVault {
     ///
     /// - Parameters:
     ///   - secureEnclave: Generate this key in Secure Enclave?
-    ///   - protection: CFString defaults to kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+    ///   - protection: Accessibility defaults to whenUnlockedThisDeviceOnly
     ///   - bioFactor: The `BioFactor` for this key.
     ///   - metadata: Any metadata to associate with this key.
 
@@ -98,7 +98,8 @@ public final class EosioVault {
     /// - Throws: If a new key cannot be created.
     /// - Important: Metadata must follow the rules for JSONSerialization.
     /// - SeeAlso: https://developer.apple.com/documentation/foundation/jsonserialization
-    public func newVaultKey(secureEnclave: Bool, protection: CFString = kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+    public func newVaultKey(secureEnclave: Bool,
+                            protection: Keychain.AccessibleProtection = .whenUnlockedThisDeviceOnly,
                             bioFactor: BioFactor = .none,
                             metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
         var tag: String?
@@ -132,39 +133,35 @@ public final class EosioVault {
     ///
     /// - Parameters:
     ///   - eosioPrivateKey: An EOSIO private key.
-    ///   - protection: CFString defaults to kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+    ///   - protection: Accessibility defaults to .whenUnlockedThisDeviceOnly
     ///   - bioFactor: The `BioFactor` for this key.
     ///   - metadata: Any metadata to associate with this key.
     /// - Returns: The imported key as a VaultKey.
     /// - Throws: If the key is not valid or cannot be imported.
     /// - Important: Metadata must follow the rules for JSONSerialization.
     /// - SeeAlso: https://developer.apple.com/documentation/foundation/jsonserialization
-    public func addExternal(eosioPrivateKey: String, protection: CFString = kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+    public func addExternal(eosioPrivateKey: String,
+                            protection: Keychain.AccessibleProtection = .whenUnlockedThisDeviceOnly,
                             bioFactor: BioFactor = .none,
                             metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
 
-        var tag = ""
+        let eosioKeyComponents = try eosioPrivateKey.eosioComponents()
+        let curve = try EllipticCurveType(eosioKeyComponents.version)
+
+        let tag: String
         var accessFlag: SecAccessControlCreateFlags?
         switch bioFactor {
         case .flex:
             accessFlag = .biometryAny
-            tag = bioFactor.rawValue
+            tag = "\(curve.rawValue) \(bioFactor.rawValue)"
         case .fixed:
             accessFlag = .biometryCurrentSet
-            tag = bioFactor.rawValue
+            tag = "\(curve.rawValue) \(bioFactor.rawValue)"
         case .none:
             accessFlag = nil
-        }
-        
-        let eosioKeyComponents = try eosioPrivateKey.eosioComponents()
-        let curve = try EllipticCurveType(eosioKeyComponents.version)
-        
-        if !tag.isEmpty {
-            tag = "\(curve.rawValue) \(tag)"
-        } else {
             tag = curve.rawValue
         }
-        
+
         let privateKeyData = try Data(eosioPrivateKey: eosioPrivateKey)
         let publicKeyData = try EccRecoverKey.recoverPublicKey(privateKey: privateKeyData, curve: curve)
         let ecKey = try keychain.importExternal(privateKey: publicKeyData + privateKeyData, tag: tag, protection: protection, accessFlag: accessFlag)
