@@ -76,14 +76,18 @@ public final class EosioVault {
     /// Create a new Secure Enclave key and return the Vault Key.
     ///
     /// - Parameters:
+    ///   - protection: Accessibility defaults to whenUnlockedThisDeviceOnly.
     ///   - bioFactor: The `BioFactor` for this key.
     ///   - metadata: Any metadata to associate with this key.
     /// - Returns: The new key as a VaultKey.
     /// - Throws: If a new key cannot be created.
     /// - Important: Metadata must follow the rules for JSONSerialization.
     /// - SeeAlso: https://developer.apple.com/documentation/foundation/jsonserialization
-    public func newSecureEnclaveKey(bioFactor: BioFactor = .none, metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
-        return try newVaultKey(secureEnclave: true, bioFactor: bioFactor, metadata: metadata)
+    public func newSecureEnclaveKey(protection: Keychain.AccessibleProtection = .whenUnlockedThisDeviceOnly,
+                                    bioFactor: BioFactor = .none,
+                                    metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
+
+        return try newVaultKey(secureEnclave: true, protection: protection, bioFactor: bioFactor, metadata: metadata)
     }
 
     /// Create a new elliptic curve key and return as a VaultKey.
