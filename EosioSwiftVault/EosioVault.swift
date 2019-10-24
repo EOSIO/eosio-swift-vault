@@ -90,7 +90,7 @@ public final class EosioVault {
     ///
     /// - Parameters:
     ///   - secureEnclave: Generate this key in Secure Enclave?
-    ///   - protection: Accessibility defaults to whenUnlockedThisDeviceOnly
+    ///   - protection: Accessibility defaults to whenUnlockedThisDeviceOnly.
     ///   - bioFactor: The `BioFactor` for this key.
     ///   - metadata: Any metadata to associate with this key.
 
@@ -133,7 +133,7 @@ public final class EosioVault {
     ///
     /// - Parameters:
     ///   - eosioPrivateKey: An EOSIO private key.
-    ///   - protection: Accessibility defaults to .whenUnlockedThisDeviceOnly
+    ///   - protection: Accessibility defaults to .whenUnlockedThisDeviceOnly.
     ///   - bioFactor: The `BioFactor` for this key.
     ///   - metadata: Any metadata to associate with this key.
     /// - Returns: The imported key as a VaultKey.

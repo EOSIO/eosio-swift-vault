@@ -356,7 +356,7 @@ public class Keychain {
     ///   - privateKey: The private key as data (97 bytes).
     ///   - tag: A tag to associate with this key.
     ///   - label: A label to associate with this key.
-    ///   - protection: Accessibility defaults to .whenUnlockedThisDeviceOnly
+    ///   - protection: Accessibility defaults to .whenUnlockedThisDeviceOnly.
     ///   - accessFlag: The accessFlag for this key.
     /// - Returns: The imported key as an ECKey.
     /// - Throws: If the key is not valid or cannot be imported.
@@ -470,7 +470,7 @@ public class Keychain {
     ///   - secureEnclave: Generate this key in Secure Enclave?
     ///   - tag: A tag to associate with this key.
     ///   - label: A label to associate with this key.
-    ///   - protection: Accessibility defaults to whenUnlockedThisDeviceOnly
+    ///   - protection: Accessibility defaults to whenUnlockedThisDeviceOnly.
     ///   - accessFlag: The accessFlag for this key.
     /// - Returns: A SecKey.
     /// - Throws: If a key cannot be created.
