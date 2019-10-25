@@ -66,6 +66,9 @@
                 <a class="nav-group-task-link" href="../Classes/Keychain.html">Keychain</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Keychain/AccessibleProtection.html">– AccessibleProtection</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Keychain/ECKey.html">– ECKey</a>
               </li>
             </ul>
@@ -324,9 +327,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:15EosioSwiftVault0aC0C19newSecureEnclaveKey9bioFactor8metadataAC0cG0VAC03BioI0O_SDySSypGSgtKF"></a>
-                    <a name="//apple_ref/swift/Method/newSecureEnclaveKey(bioFactor:metadata:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:15EosioSwiftVault0aC0C19newSecureEnclaveKey9bioFactor8metadataAC0cG0VAC03BioI0O_SDySSypGSgtKF">newSecureEnclaveKey(bioFactor:metadata:)</a>
+                    <a name="/s:15EosioSwiftVault0aC0C19newSecureEnclaveKey10protection9bioFactor8metadataAC0cG0VAA8KeychainC20AccessibleProtectionO_AC03BioJ0OSDySSypGSgtKF"></a>
+                    <a name="//apple_ref/swift/Method/newSecureEnclaveKey(protection:bioFactor:metadata:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C19newSecureEnclaveKey10protection9bioFactor8metadataAC0cG0VAA8KeychainC20AccessibleProtectionO_AC03BioJ0OSDySSypGSgtKF">newSecureEnclaveKey(protection:bioFactor:metadata:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -356,7 +359,9 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">newSecureEnclaveKey</span><span class="p">(</span><span class="nv">bioFactor</span><span class="p">:</span> <span class="kt"><a href="../Classes/EosioVault/BioFactor.html">BioFactor</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">none</span><span class="p">,</span> <span class="nv">metadata</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">EosioVault</span><span class="o">.</span><span class="kt"><a href="../Classes/EosioVault/VaultKey.html">VaultKey</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">newSecureEnclaveKey</span><span class="p">(</span><span class="nv">protection</span><span class="p">:</span> <span class="kt"><a href="../Classes/Keychain.html">Keychain</a></span><span class="o">.</span><span class="kt">AccessibleProtection</span> <span class="o">=</span> <span class="o">.</span><span class="n">whenUnlockedThisDeviceOnly</span><span class="p">,</span>
+                                <span class="nv">bioFactor</span><span class="p">:</span> <span class="kt"><a href="../Classes/EosioVault/BioFactor.html">BioFactor</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">none</span><span class="p">,</span>
+                                <span class="nv">metadata</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">EosioVault</span><span class="o">.</span><span class="kt"><a href="../Classes/EosioVault/VaultKey.html">VaultKey</a></span></code></pre>
 
                         </div>
                       </div>
@@ -364,6 +369,18 @@
                         <h4>Parameters</h4>
                         <table class="graybox">
                           <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>protection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Accessibility defaults to whenUnlockedThisDeviceOnly.</p>
+                                </div>
+                              </td>
+                            </tr>
                             <tr>
                               <td>
                                 <code>
@@ -396,7 +413,7 @@
                         <p>The new key as a VaultKey.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L85-L87">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L86-L91">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -404,9 +421,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:15EosioSwiftVault0aC0C03newC3Key13secureEnclave9bioFactor8metadataAC0cE0VSb_AC03BioI0OSDySSypGSgtKF"></a>
-                    <a name="//apple_ref/swift/Method/newVaultKey(secureEnclave:bioFactor:metadata:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:15EosioSwiftVault0aC0C03newC3Key13secureEnclave9bioFactor8metadataAC0cE0VSb_AC03BioI0OSDySSypGSgtKF">newVaultKey(secureEnclave:bioFactor:metadata:)</a>
+                    <a name="/s:15EosioSwiftVault0aC0C03newC3Key13secureEnclave10protection9bioFactor8metadataAC0cE0VSb_AA8KeychainC20AccessibleProtectionOAC03BioJ0OSDySSypGSgtKF"></a>
+                    <a name="//apple_ref/swift/Method/newVaultKey(secureEnclave:protection:bioFactor:metadata:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C03newC3Key13secureEnclave10protection9bioFactor8metadataAC0cE0VSb_AA8KeychainC20AccessibleProtectionOAC03BioJ0OSDySSypGSgtKF">newVaultKey(secureEnclave:protection:bioFactor:metadata:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -436,7 +453,10 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">newVaultKey</span><span class="p">(</span><span class="nv">secureEnclave</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">bioFactor</span><span class="p">:</span> <span class="kt"><a href="../Classes/EosioVault/BioFactor.html">BioFactor</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">none</span><span class="p">,</span> <span class="nv">metadata</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">EosioVault</span><span class="o">.</span><span class="kt"><a href="../Classes/EosioVault/VaultKey.html">VaultKey</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">newVaultKey</span><span class="p">(</span><span class="nv">secureEnclave</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+                        <span class="nv">protection</span><span class="p">:</span> <span class="kt"><a href="../Classes/Keychain.html">Keychain</a></span><span class="o">.</span><span class="kt">AccessibleProtection</span> <span class="o">=</span> <span class="o">.</span><span class="n">whenUnlockedThisDeviceOnly</span><span class="p">,</span>
+                        <span class="nv">bioFactor</span><span class="p">:</span> <span class="kt"><a href="../Classes/EosioVault/BioFactor.html">BioFactor</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">none</span><span class="p">,</span>
+                        <span class="nv">metadata</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">EosioVault</span><span class="o">.</span><span class="kt"><a href="../Classes/EosioVault/VaultKey.html">VaultKey</a></span></code></pre>
 
                         </div>
                       </div>
@@ -453,6 +473,18 @@
                               <td>
                                 <div>
                                   <p>Generate this key in Secure Enclave?</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>protection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Accessibility defaults to whenUnlockedThisDeviceOnly.</p>
                                 </div>
                               </td>
                             </tr>
@@ -488,7 +520,7 @@
                         <p>The new key as a VaultKey.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L99-L125">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L105-L134">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -496,9 +528,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:15EosioSwiftVault0aC0C11addExternal15eosioPrivateKey8metadataAC0cH0VSS_SDySSypGSgtKF"></a>
-                    <a name="//apple_ref/swift/Method/addExternal(eosioPrivateKey:metadata:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:15EosioSwiftVault0aC0C11addExternal15eosioPrivateKey8metadataAC0cH0VSS_SDySSypGSgtKF">addExternal(eosioPrivateKey:metadata:)</a>
+                    <a name="/s:15EosioSwiftVault0aC0C11addExternal15eosioPrivateKey10protection9bioFactor8metadataAC0cH0VSS_AA8KeychainC20AccessibleProtectionOAC03BioK0OSDySSypGSgtKF"></a>
+                    <a name="//apple_ref/swift/Method/addExternal(eosioPrivateKey:protection:bioFactor:metadata:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C11addExternal15eosioPrivateKey10protection9bioFactor8metadataAC0cH0VSS_AA8KeychainC20AccessibleProtectionOAC03BioK0OSDySSypGSgtKF">addExternal(eosioPrivateKey:protection:bioFactor:metadata:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -528,7 +560,10 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addExternal</span><span class="p">(</span><span class="nv">eosioPrivateKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">metadata</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">EosioVault</span><span class="o">.</span><span class="kt"><a href="../Classes/EosioVault/VaultKey.html">VaultKey</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addExternal</span><span class="p">(</span><span class="nv">eosioPrivateKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                        <span class="nv">protection</span><span class="p">:</span> <span class="kt"><a href="../Classes/Keychain.html">Keychain</a></span><span class="o">.</span><span class="kt">AccessibleProtection</span> <span class="o">=</span> <span class="o">.</span><span class="n">whenUnlockedThisDeviceOnly</span><span class="p">,</span>
+                        <span class="nv">bioFactor</span><span class="p">:</span> <span class="kt"><a href="../Classes/EosioVault/BioFactor.html">BioFactor</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">none</span><span class="p">,</span>
+                        <span class="nv">metadata</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">EosioVault</span><span class="o">.</span><span class="kt"><a href="../Classes/EosioVault/VaultKey.html">VaultKey</a></span></code></pre>
 
                         </div>
                       </div>
@@ -545,6 +580,30 @@
                               <td>
                                 <div>
                                   <p>An EOSIO private key.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>protection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Accessibility defaults to .whenUnlockedThisDeviceOnly.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bioFactor</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Classes/EosioVault/BioFactor.html">BioFactor</a></code> for this key.</p>
                                 </div>
                               </td>
                             </tr>
@@ -568,7 +627,7 @@
                         <p>The imported key as a VaultKey.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L136-L149">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L147-L179">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -622,7 +681,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L155-L159">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L185-L189">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -688,7 +747,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L167-L170">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L197-L200">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -751,7 +810,7 @@
                         <p>True if the key was updated, otherwise false.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L178-L180">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L208-L210">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -790,7 +849,7 @@
                         <p>An array of VaultKeys.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L186-L206">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L216-L236">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -848,7 +907,7 @@
                         <p>A VaultKey.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L213-L222">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L243-L252">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -934,7 +993,7 @@ Throws an error if the public key is not valid or the key is not found.</p>
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L232-L239">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L262-L269">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -964,7 +1023,7 @@ Throws an error if the public key is not valid or the key is not found.</p>
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L292-L294">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L322-L324">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1039,7 +1098,7 @@ Throws an error if the public key is not valid or the key is not found.</p>
                         <p>True if the metadata was saved, otherwise false.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L337-L340">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L367-L370">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1098,7 +1157,7 @@ Throws an error if the public key is not valid or the key is not found.</p>
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L364-L366">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L394-L396">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1161,7 +1220,7 @@ Throws an error if the public key is not valid or the key is not found.</p>
                         <p>The metadata dictionary for the key, if existing.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L374-L377">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L404-L407">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1205,7 +1264,7 @@ Throws an error if the public key is not valid or the key is not found.</p>
                         <p>Dictionary of metadata dictionaries for all keys.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L384-L393">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L414-L423">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1254,7 +1313,7 @@ Throws an error if the public key is not valid or the key is not found.</p>
     </div>
     <section class="footer">
       <p>Copyright (c) 2017-2019 block.one and its contributors. All rights reserved.</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

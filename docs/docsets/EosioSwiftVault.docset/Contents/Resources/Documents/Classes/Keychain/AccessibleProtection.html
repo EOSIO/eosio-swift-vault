@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>BioFactor Enumeration Reference</title>
+    <title>AccessibleProtection Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Enum/BioFactor" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Enum/AccessibleProtection" class="dashAnchor"></a>
 
-    <a title="BioFactor Enumeration Reference"></a>
+    <a title="AccessibleProtection Enumeration Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../../index.html">EosioSwiftVault Reference</a>
       <img class="carat" src="../../img/carat.png" />
-      BioFactor Enumeration Reference
+      AccessibleProtection Enumeration Reference
     </p>
 
     <div class="content-wrapper">
@@ -90,14 +90,14 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>BioFactor</h1>
+            <h1>AccessibleProtection</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">BioFactor</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">AccessibleProtection</span></code></pre>
 
                 </div>
               </div>
-            <p>Setting on the key dictating biometric authentication requirements and whether the key persists after device&rsquo;s biometric settings are modified.</p>
+            <p>Accessibility of keychain item.</p>
 
           </div>
         </section>
@@ -109,9 +109,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:15EosioSwiftVault0aC0C9BioFactorO4noneyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/none" class="dashAnchor"></a>
-                    <a class="token" href="#/s:15EosioSwiftVault0aC0C9BioFactorO4noneyA2EmF">none</a>
+                    <a name="/s:15EosioSwiftVault8KeychainC20AccessibleProtectionO12whenUnlockedyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/whenUnlocked" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault8KeychainC20AccessibleProtectionO12whenUnlockedyA2EmF">whenUnlocked</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -119,19 +119,18 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Biometric authentication is not required for the key.</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="k">none</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">whenUnlocked</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L30">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -139,9 +138,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:15EosioSwiftVault0aC0C9BioFactorO4flexyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/flex" class="dashAnchor"></a>
-                    <a class="token" href="#/s:15EosioSwiftVault0aC0C9BioFactorO4flexyA2EmF">flex</a>
+                    <a name="/s:15EosioSwiftVault8KeychainC20AccessibleProtectionO16afterFirstUnlockyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/afterFirstUnlock" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault8KeychainC20AccessibleProtectionO16afterFirstUnlockyA2EmF">afterFirstUnlock</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -149,19 +148,18 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Keys persist even after the device&rsquo;s biometric settings are modified.</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">flex</span> <span class="o">=</span> <span class="s">"bio flex"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">afterFirstUnlock</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L32">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -169,9 +167,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:15EosioSwiftVault0aC0C9BioFactorO5fixedyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/fixed" class="dashAnchor"></a>
-                    <a class="token" href="#/s:15EosioSwiftVault0aC0C9BioFactorO5fixedyA2EmF">fixed</a>
+                    <a name="/s:15EosioSwiftVault8KeychainC20AccessibleProtectionO29whenPasscodeSetThisDeviceOnlyyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/whenPasscodeSetThisDeviceOnly" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault8KeychainC20AccessibleProtectionO29whenPasscodeSetThisDeviceOnlyyA2EmF">whenPasscodeSetThisDeviceOnly</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -179,19 +177,76 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Keys are bricked in the event the device&rsquo;s biometric settings are modified.</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">fixed</span> <span class="o">=</span> <span class="s">"bio fixed"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">whenPasscodeSetThisDeviceOnly</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/EosioVault.swift#L34">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault8KeychainC20AccessibleProtectionO26whenUnlockedThisDeviceOnlyyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/whenUnlockedThisDeviceOnly" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault8KeychainC20AccessibleProtectionO26whenUnlockedThisDeviceOnlyyA2EmF">whenUnlockedThisDeviceOnly</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">whenUnlockedThisDeviceOnly</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault8KeychainC20AccessibleProtectionO30afterFirstUnlockThisDeviceOnlyyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/afterFirstUnlockThisDeviceOnly" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault8KeychainC20AccessibleProtectionO30afterFirstUnlockThisDeviceOnlyyA2EmF">afterFirstUnlockThisDeviceOnly</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">afterFirstUnlockThisDeviceOnly</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
