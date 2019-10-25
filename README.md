@@ -38,7 +38,7 @@ If you wish to use Vault directly, add the following pods to your [Podfile](http
 use_frameworks!
 
 target "Your Target" do
-  pod "EosioSwiftVault", "~> 0.1.3"
+  pod "EosioSwiftVault", "~> 0.2.0"
 end
 ```
 
@@ -64,7 +64,7 @@ The Vault library exposes functions to generate new EOSIO keys. New keys can eit
 To create a key in Secure Enclave:
 
 ```swift
-let newKey = try vault.newVaultKey(secureEnclave: true, bioFactor: .none, metadata: [String: Any])
+let newKey = try vault.newVaultKey(secureEnclave: true, protection: .whenUnlockedThisDeviceOnly, bioFactor: .none, metadata: [String: Any])
 ```
 or use the convenience function:
 
@@ -75,10 +75,12 @@ let newKey = try vault.newSecureEnclaveKey(bioFactor: .none, metadata: [String: 
 To create a key in Keychain: 
 
 ```swift
-let newKey = try vault.newVaultKey(secureEnclave: false, bioFactor: .none, metadata: [String: Any])
+let newKey = try vault.newVaultKey(secureEnclave: false, protection: .whenUnlockedThisDeviceOnly, bioFactor: .none, metadata: [String: Any])
 ```
 
 The `bioFactor` is the type of biometric security that will be required by the keychain to sign messages with this key. The `metadata` can be any data you want to associate with this key.
+
+`protection` is the accessibility to use the for key.
 
 Each of the above functions will return an `EosioVault.VaultKey`. To access the EOSIO public and private keys:
 
