@@ -2,7 +2,7 @@
 # EOSIO SDK for Swift: Vault ![EOSIO Alpha](https://img.shields.io/badge/EOSIO-Alpha-blue.svg)
 
 [![Software License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/EOSIO/eosio-swift/blob/master/LICENSE)
-[![Swift 4.2](https://img.shields.io/badge/Language-Swift_4.2-orange.svg)](https://swift.org)
+[![Swift 5.0](https://img.shields.io/badge/Language-Swift_5.0-orange.svg)](https://swift.org)
 ![](https://img.shields.io/badge/Deployment%20Target-iOS%2011.3-blue.svg)
 
 EOSIO SDK for Swift: Vault is a utility library for working with public/private keys and signing with Apple's Keychain and Secure Enclave.
