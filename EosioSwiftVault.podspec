@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'EosioSwiftVault'
-  s.version          = '0.2.0'
+  s.version          = '0.2.1'
   s.summary          = 'Keychain and Secure Enclave functions for EOSIO.'
   s.homepage         = 'https://github.com/EOSIO/eosio-swift-vault'
   s.license          = { :type => 'MIT', :text => <<-LICENSE
@@ -29,6 +29,6 @@ Pod::Spec.new do |s|
     'SWIFT_COMPILATION_MODE' => 'wholemodule',
     'ENABLE_BITCODE' => 'YES' }
 
-  s.ios.dependency 'EosioSwift', '~> 0.2.0'
-  s.ios.dependency 'EosioSwiftEcc', '~> 0.2.0'
+  s.ios.dependency 'EosioSwift', '~> 0.2.1'
+  s.ios.dependency 'EosioSwiftEcc', '~> 0.2.1'
 end
