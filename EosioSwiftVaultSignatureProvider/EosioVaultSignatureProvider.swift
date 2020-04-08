@@ -33,7 +33,20 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
     /// - Parameters:
     ///   - request: The transaction signature request.
     ///   - completion: The transaction signature response.
-    public func signTransaction(request: EosioTransactionSignatureRequest, completion: @escaping (EosioTransactionSignatureResponse) -> Void) {
+    public func signTransaction(request: EosioTransactionSignatureRequest,
+                                completion: @escaping (EosioTransactionSignatureResponse) -> Void) {
+        self.signTransaction(request: request, prompt: "Sign Transaction", completion: completion)
+    }
+
+    /// Sign a transaction using an instance of EosioVault with the specified accessGroup.
+    ///
+    /// - Parameters:
+    ///   - request: The transaction signature request.
+    ///   - prompt: Prompt for biometric authentication if required.
+    ///   - completion: The transaction signature response.
+    public func signTransaction(request: EosioTransactionSignatureRequest,
+                                prompt: String,
+                                completion: @escaping (EosioTransactionSignatureResponse) -> Void) {
         var response = EosioTransactionSignatureResponse()
 
         guard let chainIdData = try? Data(hex: request.chainId) else {
@@ -42,7 +55,7 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
         }
         let zeros = Data(repeating: 0, count: 32)
         let message = chainIdData + request.serializedTransaction + zeros
-        sign(message: message, publicKeys: request.publicKeys) { (signatures, error) in
+        sign(message: message, publicKeys: request.publicKeys, prompt: prompt) { (signatures, error) in
             guard let signatures = signatures else {
                 response.error = error
                 return completion(response)
@@ -61,11 +74,11 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
     }
 
     /// Recursive function to sign a message with public keys. If there are multiple keys, the function will sign with the first and call itself with the remaining keys.
-    private func sign(message: Data, publicKeys: [String], completion: @escaping ([String]?, EosioError?) -> Void) {
+    private func sign(message: Data, publicKeys: [String], prompt: String, completion: @escaping ([String]?, EosioError?) -> Void) {
         guard let firstPublicKey = publicKeys.first else {
             return completion([String](), nil)
         }
-        vault.sign(message: message, eosioPublicKey: firstPublicKey, requireBio: requireBio) { [weak self] (signature, error) in
+        vault.sign(message: message, eosioPublicKey: firstPublicKey, requireBio: requireBio, prompt: prompt) { [weak self] (signature, error) in
             guard let signature = signature else {
                 return completion(nil, error)
             }
@@ -78,7 +91,7 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
             guard let strongSelf = self else {
                 return completion(nil, EosioError(.unexpectedError, reason: "self does not exist"))
             }
-            strongSelf.sign(message: message, publicKeys: remainingPublicKeys, completion: { (signatures, error) in
+            strongSelf.sign(message: message, publicKeys: remainingPublicKeys, prompt: prompt, completion: { (signatures, error) in
                 guard let signatures = signatures else {
                     return completion(nil, error)
                 }
