@@ -15,6 +15,7 @@
 		2834BE82224970B500365888 /* EosioVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834BE81224970B500365888 /* EosioVault.swift */; };
 		2834BE84224971BE00365888 /* EosioVaultKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834BE83224971BE00365888 /* EosioVaultKey.swift */; };
 		41DFABAAB21A927F003D9B42 /* Pods_EosioSwiftVault.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20CD40027282A3D7833C56C /* Pods_EosioSwiftVault.framework */; };
+		B4145867243CC801007FE6DB /* BioFactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4145866243CC801007FE6DB /* BioFactor.swift */; };
 		EF96900B5E151A0543A3BC38 /* Pods_EosioSwiftVault_EosioSwiftVaultTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87863041FA306350C1BECE5 /* Pods_EosioSwiftVault_EosioSwiftVaultTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		2834BE83224971BE00365888 /* EosioVaultKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EosioVaultKey.swift; sourceTree = "<group>"; };
 		28A85D347D1C1DE35B5387F2 /* Pods-EosioSwiftVault-EosioSwiftVaultTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EosioSwiftVault-EosioSwiftVaultTests.debug.xcconfig"; path = "Target Support Files/Pods-EosioSwiftVault-EosioSwiftVaultTests/Pods-EosioSwiftVault-EosioSwiftVaultTests.debug.xcconfig"; sourceTree = "<group>"; };
 		513A2AC590D890E8FA76AE31 /* Pods-EosioSwiftVault.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EosioSwiftVault.release.xcconfig"; path = "Target Support Files/Pods-EosioSwiftVault/Pods-EosioSwiftVault.release.xcconfig"; sourceTree = "<group>"; };
+		B4145866243CC801007FE6DB /* BioFactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioFactor.swift; sourceTree = "<group>"; };
 		C20CD40027282A3D7833C56C /* Pods_EosioSwiftVault.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EosioSwiftVault.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C87863041FA306350C1BECE5 /* Pods_EosioSwiftVault_EosioSwiftVaultTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EosioSwiftVault_EosioSwiftVaultTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -97,6 +99,7 @@
 				2834BE83224971BE00365888 /* EosioVaultKey.swift */,
 				280B7DC5224564D300F6BA16 /* EosioSwiftVault.h */,
 				280B7DC6224564D300F6BA16 /* Info.plist */,
+				B4145866243CC801007FE6DB /* BioFactor.swift */,
 			);
 			path = EosioSwiftVault;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 			files = (
 				2834BE7E22456F4200365888 /* Keychain.swift in Sources */,
 				2834BE82224970B500365888 /* EosioVault.swift in Sources */,
+				B4145867243CC801007FE6DB /* BioFactor.swift in Sources */,
 				2834BE84224971BE00365888 /* EosioVaultKey.swift in Sources */,
 				2834BE8022456FC300365888 /* KeychainECKey.swift in Sources */,
 			);

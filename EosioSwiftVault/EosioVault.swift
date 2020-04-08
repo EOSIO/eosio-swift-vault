@@ -24,16 +24,6 @@ public final class EosioVault {
     /// The accessGroup allows multiple apps (including extensions) in the same team to share the same Keychain.
     public let accessGroup = ""
 
-    /// Setting on the key dictating biometric authentication requirements and whether the key persists after device's biometric settings are modified.
-    public enum BioFactor: String {
-        /// Biometric authentication is not required for the key.
-        case none = ""
-        /// Keys persist even after the device's biometric settings are modified.
-        case flex = "bio flex"
-        /// Keys are bricked in the event the device's biometric settings are modified.
-        case fixed = "bio fixed"
-    }
-
     private var context: LAContext?
 
     /// Init with accessGroup. The accessGroup allows multiple apps (including extensions) in the same team to share the same Keychain.
@@ -106,19 +96,9 @@ public final class EosioVault {
                             protection: Keychain.AccessibleProtection = .whenUnlockedThisDeviceOnly,
                             bioFactor: BioFactor = .none,
                             metadata: [String: Any]? = nil) throws -> EosioVault.VaultKey {
-        var tag: String?
-        var accessFlag: SecAccessControlCreateFlags?
-        switch bioFactor {
-        case .flex:
-            accessFlag = .biometryAny
-            tag = bioFactor.rawValue
-        case .fixed:
-            accessFlag = .biometryCurrentSet
-            tag = bioFactor.rawValue
-        case .none:
-            accessFlag = nil
-            tag = nil
-        }
+
+        let tag = bioFactor.tag
+        let accessFlag = bioFactor.accessFlag
 
         let secKey = try keychain.createEllipticCurveSecKey(secureEnclave: secureEnclave, tag: tag, label: nil, protection: protection, accessFlag: accessFlag)
         guard let eosioPublicKey = secKey.publicKey?.externalRepresentation?.compressedPublicKey?.toEosioR1PublicKey else {
@@ -152,19 +132,8 @@ public final class EosioVault {
         let eosioKeyComponents = try eosioPrivateKey.eosioComponents()
         let curve = try EllipticCurveType(eosioKeyComponents.version)
 
-        let tag: String
-        var accessFlag: SecAccessControlCreateFlags?
-        switch bioFactor {
-        case .flex:
-            accessFlag = .biometryAny
-            tag = "\(curve.rawValue) \(bioFactor.rawValue)"
-        case .fixed:
-            accessFlag = .biometryCurrentSet
-            tag = "\(curve.rawValue) \(bioFactor.rawValue)"
-        case .none:
-            accessFlag = nil
-            tag = curve.rawValue
-        }
+        let tag = bioFactor.tag == nil ? curve.rawValue : "\(curve.rawValue) " + (bioFactor.tag ?? "")
+        let accessFlag = bioFactor.accessFlag
 
         let privateKeyData = try Data(eosioPrivateKey: eosioPrivateKey)
         let publicKeyData = try EccRecoverKey.recoverPublicKey(privateKey: privateKeyData, curve: curve)
@@ -259,20 +228,20 @@ public final class EosioVault {
     ///   - eosioPublicKey: The EOSIO public key corresponding to the key to use for signing.
     ///   - requireBio: Require biometric identification even if the key does not require it.
     ///   - completion: Closure returning an EOSIO signature or an error.
-    public func sign(message: Data, eosioPublicKey: String, requireBio: Bool, completion: @escaping (String?, EosioError?) -> Void) {
+    public func sign(message: Data, eosioPublicKey: String, requireBio: Bool, prompt: String = "Sign Transaction", completion: @escaping (String?, EosioError?) -> Void) {
         do {
             let vaultKey = try getVaultKey(eosioPublicKey: eosioPublicKey)
-            sign(message: message, vaultKey: vaultKey, requireBio: requireBio, completion: completion)
+            sign(message: message, vaultKey: vaultKey, requireBio: requireBio, prompt: prompt, completion: completion)
         } catch {
             completion(nil, error.eosioError)
         }
     }
 
     // Sign with VaultKey.
-    private func sign(message: Data, vaultKey: VaultKey, requireBio: Bool, completion: @escaping (String?, EosioError?) -> Void) {
+    private func sign(message: Data, vaultKey: VaultKey, requireBio: Bool, prompt: String, completion: @escaping (String?, EosioError?) -> Void) {
         // if require bio and the bio factor is none, then sign with software bio check
         if requireBio && vaultKey.bioFactor == .none {
-            return signWithBioCheck(message: message, vaultKey: vaultKey, completion: completion)
+            return signWithBioCheck(message: message, vaultKey: vaultKey, prompt: prompt, completion: completion)
         }
         // otherwise just sign
         DispatchQueue.main.async {
@@ -286,7 +255,7 @@ public final class EosioVault {
     }
 
     // Sign with VaultKey after bio check.
-    private func signWithBioCheck(message: Data, vaultKey: VaultKey, completion: @escaping (String?, EosioError?) -> Void) {
+    private func signWithBioCheck(message: Data, vaultKey: VaultKey, prompt: String, completion: @escaping (String?, EosioError?) -> Void) {
         context = LAContext()
         guard let context = context else {
             return completion(nil, EosioError(.keySigningError, reason: "no LAContext")) // this should never happen
@@ -295,7 +264,7 @@ public final class EosioVault {
         guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) else {
             return completion(nil, error?.eosioError)
         }
-        context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Sign Transaction", reply: { (isValid, error) in
+        context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: prompt, reply: { (isValid, error) in
             if isValid {
                 do {
                     let sig = try self.sign(message: message, vaultKey: vaultKey)

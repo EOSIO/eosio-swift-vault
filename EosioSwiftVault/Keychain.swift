@@ -53,19 +53,44 @@ public class Keychain {
     ///   - name: The name associated with this item.
     ///   - value: The value to save.
     ///   - service: The service associated with this item.
+    ///   - protection: The device status protection level associated with this item.
+    ///   - bioFactor: The biometric presence factor associated with this item.
     /// - Returns: True if saved, otherwise false.
-    public func saveValue(name: String, value: String, service: String) -> Bool {
+    public func saveValue(name: String,
+                          value: String,
+                          service: String,
+                          protection: AccessibleProtection = .afterFirstUnlockThisDeviceOnly,
+                          bioFactor: BioFactor = .none) -> Bool {
         guard let data = value.data(using: String.Encoding.utf8) else { return false }
-        let query: [String: Any] = [
+
+        var query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: name,
             kSecAttrService as String: service,
             kSecValueData as String: data,
             kSecAttrAccessGroup as String: accessGroup,
-            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
             kSecAttrSynchronizable as String: false,
             kSecAttrIsInvisible as String: true
         ]
+
+        // Due to a bug in the iOS simulator when it is running iOS 13, adding values
+        // to the keychain with kSecAttrAccessControl makes them unreadable in the
+        // simulator only.  Works fine on real devices.  So if biometrics are not
+        // desired, use kSecAttrAccessible instead to allow the simulator to be used
+        // in these circumstances.  Filed as: http://openradar.appspot.com/7251207
+        // Hopefully Apple will fix this at some point.
+        switch bioFactor {
+        case .fixed,
+             .flex:
+            guard let access = SecAccessControlCreateWithFlags(kCFAllocatorDefault,
+            protection.cfstringValue,
+            bioFactor.accessFlag ?? [],
+            nil) else { return false }
+            query[kSecAttrAccessControl as String] = access
+        case .none:
+            query[kSecAttrAccessible as String] = protection.cfstringValue
+        }
+
         let status = SecItemAdd(query as CFDictionary, nil)
         return status == errSecSuccess
     }
@@ -402,6 +427,15 @@ public class Keychain {
             throw EosioError(.keyManagementError, reason: error.debugDescription)
         }
 
+        // We need to add:
+        //
+        // kSecAttrAccessControl as String: access
+        //
+        // to this to make the system respect the biometric requirements for access.
+        // However if we do that right now the import process does several readbacks
+        // and this triggers the biometric challenges, which is not what we want to
+        // do.  We'll need to rework the import flow to not require those readbacks
+        // before we can add that here and fix the issue.  SMM 2020/04/07
         attributes = [
             kSecClass as String: kSecClassKey,
             kSecValueRef as String: secKey,
