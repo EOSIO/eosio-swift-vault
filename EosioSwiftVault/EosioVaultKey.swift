@@ -36,7 +36,7 @@ public extension EosioVault {
         /// Is the private key stored in the Secure Enclave?
         private (set) public var isSecureEnclave: Bool
         /// The biometric factor enforced on this key by the Keychain.
-        private (set) public var bioFactor: EosioVault.BioFactor
+        private (set) public var bioFactor: BioFactor
         /// The private SecKey.
         private (set) public var privateSecKey: SecKey?
         /// The private key in ANSI X9.63 format. (nil for Secure Enclave keys).
@@ -103,9 +103,9 @@ public extension EosioVault {
             accessGroup = ecKey.accessGroup
 
             if let tag = self.tag {
-                if tag.contains(words: EosioVault.BioFactor.fixed.rawValue) {
+                if tag.contains(words: BioFactor.fixed.rawValue) {
                     bioFactor = .fixed
-                } else if tag.contains(words: EosioVault.BioFactor.flex.rawValue) {
+                } else if tag.contains(words: BioFactor.flex.rawValue) {
                     bioFactor = .flex
                 } else {
                     bioFactor = .none

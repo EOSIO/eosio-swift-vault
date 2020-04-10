@@ -57,9 +57,6 @@
                 <a class="nav-group-task-link" href="../Classes/EosioVault.html">EosioVault</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/EosioVault/BioFactor.html">– BioFactor</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/EosioVault/VaultKey.html">– VaultKey</a>
               </li>
               <li class="nav-group-task">
@@ -70,6 +67,14 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Keychain/ECKey.html">– ECKey</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/BioFactor.html">BioFactor</a>
               </li>
             </ul>
           </li>
@@ -219,9 +224,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:15EosioSwiftVault8KeychainC9saveValue4name5value7serviceSbSS_S2StF"></a>
-                    <a name="//apple_ref/swift/Method/saveValue(name:value:service:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:15EosioSwiftVault8KeychainC9saveValue4name5value7serviceSbSS_S2StF">saveValue(name:value:service:)</a>
+                    <a name="/s:15EosioSwiftVault8KeychainC9saveValue4name5value7service10protection9bioFactorSbSS_S2SAC20AccessibleProtectionOAA03BioL0OtF"></a>
+                    <a name="//apple_ref/swift/Method/saveValue(name:value:service:protection:bioFactor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault8KeychainC9saveValue4name5value7service10protection9bioFactorSbSS_S2SAC20AccessibleProtectionOAA03BioL0OtF">saveValue(name:value:service:protection:bioFactor:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -236,7 +241,11 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">saveValue</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">service</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">saveValue</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                      <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                      <span class="nv">service</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                      <span class="nv">protection</span><span class="p">:</span> <span class="kt"><a href="../Classes/Keychain/AccessibleProtection.html">AccessibleProtection</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">afterFirstUnlockThisDeviceOnly</span><span class="p">,</span>
+                      <span class="nv">bioFactor</span><span class="p">:</span> <span class="kt"><a href="../Enums/BioFactor.html">BioFactor</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">none</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -280,6 +289,30 @@
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>protection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The device status protection level associated with this item.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bioFactor</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The biometric presence factor associated with this item.</p>
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -288,7 +321,7 @@
                         <p>True if saved, otherwise false.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L57-L71">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L59-L96">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -365,7 +398,7 @@
                         <p>True if updated, otherwise false.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L80-L91">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L105-L116">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -426,7 +459,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L98-L106">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L123-L131">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -491,7 +524,7 @@
                         <p>The value for the specified item.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L114-L128">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L139-L153">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -544,7 +577,7 @@
                         <p>A dictionary of names and values for the specified service.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L134-L155">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L159-L180">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -593,7 +626,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L194-L197">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L219-L222">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -642,7 +675,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L202-L205">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L227-L230">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -703,7 +736,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L212-L219">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L237-L244">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -733,7 +766,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L222-L229">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L247-L254">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -786,7 +819,7 @@
                         <p>An ECKey corresponding to the public key.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L235-L245">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L260-L270">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -844,7 +877,7 @@
                         <p>An array of ECKeys.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L252-L281">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L277-L306">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -898,7 +931,7 @@ For Secure Enclave private keys, the SecKey is a reference. It&rsquo;s not posib
                         <p>An array of SecKeys.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L288-L295">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L313-L320">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -932,7 +965,7 @@ For Secure Enclave private keys, the SecKey is a reference. It&rsquo;s not posib
                         <p>An array of public SecKeys.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L300-L309">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L325-L334">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -986,7 +1019,7 @@ Public key data can be in either compressed or uncompressed format.</p>
                         <p>A SecKey.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L316-L326">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L341-L351">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1039,7 +1072,7 @@ Public key data can be in either compressed or uncompressed format.</p>
                         <p>A SecKey.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L332-L351">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L357-L376">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1147,7 +1180,7 @@ Public key data can be in either compressed or uncompressed format.</p>
                         <p>The imported key as an ECKey.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L363-L426">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L388-L460">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1229,7 +1262,7 @@ Public key data can be in either compressed or uncompressed format.</p>
                         <p>A Secure Enclave SecKey.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L463-L465">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L497-L499">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1337,7 +1370,7 @@ Public key data can be in either compressed or uncompressed format.</p>
                         <p>A SecKey.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L477-L512">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L511-L546">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1407,7 +1440,7 @@ Public key data can be in either compressed or uncompressed format.</p>
                         <p>A signature.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L521-L526">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L555-L560">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1477,7 +1510,7 @@ Public key data can be in either compressed or uncompressed format.</p>
                         <p>A signature.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L535-L545">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L569-L579">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1547,7 +1580,7 @@ Public key data can be in either compressed or uncompressed format.</p>
                         <p>The decrypted message.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L554-L566">Show on GitHub</a>
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/EosioSwiftVault/Keychain.swift#L588-L600">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
