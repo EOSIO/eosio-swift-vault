@@ -54,10 +54,10 @@ To use Vault Signature Provider with EOSIO SDK for Swift in your app, add the fo
 use_frameworks!
 
 target "Your Target" do
-  pod "EosioSwift", "~> 0.2.1" # EOSIO SDK for Swift core library
-  pod "EosioSwiftVaultSignatureProvider", "~> 0.2.1" # pod for this library
+  pod "EosioSwift", "~> 0.3.0" # EOSIO SDK for Swift core library
+  pod "EosioSwiftVaultSignatureProvider", "~> 0.3.0" # pod for this library
   # add other providers for EOSIO SDK for Swift
-  pod "EosioSwiftAbieosSerializationProvider", "~> 0.2.1" # serialization provider
+  pod "EosioSwiftAbieosSerializationProvider", "~> 0.3.0" # serialization provider
 end
 ```
 
