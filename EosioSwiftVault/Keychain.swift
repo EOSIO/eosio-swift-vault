@@ -199,7 +199,7 @@ public class Keychain {
     }
 
     /// Make query to retrieve all elliptic curve keys in the Keychain.
-    private func makeQueryForAllEllipticCurveKeys(tag: String? = nil) -> [String: Any] {
+    private func makeQueryForAllEllipticCurveKeys(tag: String? = nil, label: String? = nil, secureEnclave: Bool = false ) -> [String: Any] {
         var query: [String: Any] =  [
             kSecClass as String: kSecClassKey,
             kSecMatchLimit as String: kSecMatchLimitAll,
@@ -210,6 +210,13 @@ public class Keychain {
         if let tag = tag {
             query[kSecAttrApplicationTag as String] = tag
         }
+        if let label = label {
+            query[kSecAttrLabel as String] = label
+        }
+        if secureEnclave {
+            query[kSecAttrTokenID as String] = kSecAttrTokenIDSecureEnclave
+        }
+
         return query
     }
 
