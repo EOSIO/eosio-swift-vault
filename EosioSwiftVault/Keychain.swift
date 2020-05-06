@@ -402,6 +402,37 @@ public class Keychain {
     }
 
 
+    /// Compute the uncompressed R1 public key from the compressed key
+    /// - Parameter data: A public key
+    /// - Throws: If the data is not a valid public key
+    /// - Returns: The uncompressed R1 public key
+    func uncompressedR1PublicKey(data: Data) throws -> Data {
+        guard let firstByte = data.first else {
+            throw SCError(reason: "No key data provided.")
+        }
+        guard firstByte == 2 || firstByte == 3 || firstByte == 4 else {
+            throw SCError(reason: "\(data.hex) is not a valid public key.")
+        }
+        if firstByte == 4 {
+            guard data.count == 65 else {
+                throw SCError(reason: "\(data.hex) is not a valid public key. Expecting 65 bytes.")
+            }
+            return data
+        }
+        guard data.count == 33 else {
+            throw SCError(reason: "\(data.hex) is not a valid public key. Expecting 33 bytes.")
+        }
+
+        let xData = data[1..<data.count]
+        let x = BigInt(BigUInt(xData))
+        // assume secp256r1 (curve used in Secure Enclave)
+        let p = BigInt(BigUInt(Data(hexString: "FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF")!))
+        let a = BigInt(-3)
+        let b = BigInt(BigUInt(Data(hexString: "5AC635D8AA3A93E7B3EBBD55769886BC651D06B0CC53B0F63BCE3C3E27D2604B")!))
+        let y = ellipticCurveY(x: x, a: a, b: b, p: p, isOdd: firstByte == 3)
+        let four: UInt8 = 4
+        return [four] + xData + y.serialize()
+    }
 
     
     /// Import an external elliptic curve private key into the Keychain.
