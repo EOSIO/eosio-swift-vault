@@ -382,6 +382,28 @@ public class Keychain {
         return privateKey
     }
 
+
+    /// Calculate the Y component of an elliptic curve from the X and the curve params
+    /// - Parameters:
+    ///   - x: x
+    ///   - a: curve param a
+    ///   - b: curve param b
+    ///   - p: curve param p
+    ///   - isOdd: isOdd
+    /// - Returns: The Y component as a bigUInt
+    func ellipticCurveY(x: BigInt, a: BigInt, b: BigInt, p: BigInt, isOdd: Bool) -> BigUInt {
+        let y2 = (x.power(3, modulus: p) + (a * x) + b).modulus(p)
+        var y = y2.power((p+1)/4, modulus: p)
+        let yMod2 = y.modulus(2)
+        if isOdd && yMod2 != 1 || !isOdd && yMod2 != 0  {
+            y = p - y
+        }
+        return BigUInt(y)
+    }
+
+
+
+    
     /// Import an external elliptic curve private key into the Keychain.
     ///
     /// - Parameters:
