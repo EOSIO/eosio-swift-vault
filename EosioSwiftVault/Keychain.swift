@@ -409,19 +409,19 @@ public class Keychain {
     /// - Returns: The uncompressed R1 public key
     func uncompressedR1PublicKey(data: Data) throws -> Data {
         guard let firstByte = data.first else {
-            throw SCError(reason: "No key data provided.")
+            throw EosioError(.keyManagementError, reason: "No key data provided.")
         }
         guard firstByte == 2 || firstByte == 3 || firstByte == 4 else {
-            throw SCError(reason: "\(data.hex) is not a valid public key.")
+            throw EosioError(.keyManagementError, reason: "\(data.hex) is not a valid public key.")
         }
         if firstByte == 4 {
             guard data.count == 65 else {
-                throw SCError(reason: "\(data.hex) is not a valid public key. Expecting 65 bytes.")
+                throw EosioError(.keyManagementError, reason: "\(data.hex) is not a valid public key. Expecting 65 bytes.")
             }
             return data
         }
         guard data.count == 33 else {
-            throw SCError(reason: "\(data.hex) is not a valid public key. Expecting 33 bytes.")
+            throw EosioError(.keyManagementError, reason: "\(data.hex) is not a valid public key. Expecting 33 bytes.")
         }
 
         let xData = data[1..<data.count]
