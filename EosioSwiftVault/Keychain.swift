@@ -9,6 +9,7 @@
 import Foundation
 import Security
 import EosioSwift
+import BigInt
 
 /// General class for interacting with the Keychain and Secure Enclave.
 public class Keychain {
