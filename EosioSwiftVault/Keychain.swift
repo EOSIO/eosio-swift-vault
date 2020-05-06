@@ -383,7 +383,6 @@ public class Keychain {
         return privateKey
     }
 
-
     /// Calculate the Y component of an elliptic curve from the X and the curve params
     /// - Parameters:
     ///   - x: x
@@ -392,16 +391,15 @@ public class Keychain {
     ///   - p: curve param p
     ///   - isOdd: isOdd
     /// - Returns: The Y component as a bigUInt
-    func ellipticCurveY(x: BigInt, a: BigInt, b: BigInt, p: BigInt, isOdd: Bool) -> BigUInt {
-        let y2 = (x.power(3, modulus: p) + (a * x) + b).modulus(p)
-        var y = y2.power((p+1)/4, modulus: p)
+    func ellipticCurveY(x: BigInt, a: BigInt, b: BigInt, p: BigInt, isOdd: Bool) -> BigUInt { // swiftlint:disable:this identifier_name
+        let y2 = (x.power(3, modulus: p) + (a * x) + b).modulus(p) // swiftlint:disable:this identifier_name
+        var y = y2.power((p+1)/4, modulus: p) // swiftlint:disable:this identifier_name
         let yMod2 = y.modulus(2)
-        if isOdd && yMod2 != 1 || !isOdd && yMod2 != 0  {
+        if isOdd && yMod2 != 1 || !isOdd && yMod2 != 0 {
             y = p - y
         }
         return BigUInt(y)
     }
-
 
     /// Compute the uncompressed R1 public key from the compressed key
     /// - Parameter data: A public key
@@ -427,15 +425,14 @@ public class Keychain {
         let xData = data[1..<data.count]
         let x = BigInt(BigUInt(xData))
         // assume secp256r1 (curve used in Secure Enclave)
-        let p = BigInt(BigUInt(Data(hexString: "FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF")!))
-        let a = BigInt(-3)
-        let b = BigInt(BigUInt(Data(hexString: "5AC635D8AA3A93E7B3EBBD55769886BC651D06B0CC53B0F63BCE3C3E27D2604B")!))
-        let y = ellipticCurveY(x: x, a: a, b: b, p: p, isOdd: firstByte == 3)
+        let p = BigInt(BigUInt(Data(hexString: "FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF")!)) // swiftlint:disable:this identifier_name
+        let a = BigInt(-3) // swiftlint:disable:this identifier_name
+        let b = BigInt(BigUInt(Data(hexString: "5AC635D8AA3A93E7B3EBBD55769886BC651D06B0CC53B0F63BCE3C3E27D2604B")!)) // swiftlint:disable:this identifier_name
+        let y = ellipticCurveY(x: x, a: a, b: b, p: p, isOdd: firstByte == 3) // swiftlint:disable:this identifier_name
         let four: UInt8 = 4
         return [four] + xData + y.serialize()
     }
 
-    
     /// Import an external elliptic curve private key into the Keychain.
     ///
     /// - Parameters:
