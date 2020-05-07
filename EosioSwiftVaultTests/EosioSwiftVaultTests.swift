@@ -31,4 +31,22 @@ class EosioSwiftVaultTests: XCTestCase {
         }
     }
 
+    func testCompressUncompressR1KeysRoundTrip() {
+        let keychain = Keychain(accessGroup: "")
+         for _ in 0...100 {
+            let key = keychain.createEllipticCurvePrivateKey(isPermanent: false)
+            guard let uncompressedPubKey = key?.publicKey?.externalRepresentation else {
+                return XCTFail("Not a valid key")
+            }
+
+            guard let compressedPubKey = uncompressedPubKey.compressedPublicKey else {
+                return XCTFail("Not a valid key")
+            }
+
+            guard let uncompressedPubKey2 = try? keychain.uncompressedR1PublicKey(data: compressedPubKey) else {
+                return XCTFail("uncompression error")
+            }
+            XCTAssertEqual(uncompressedPubKey, uncompressedPubKey2)
+         }
+    }
 }
