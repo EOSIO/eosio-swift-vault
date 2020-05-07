@@ -430,7 +430,11 @@ public class Keychain {
         let b = BigInt(BigUInt(Data(hexString: "5AC635D8AA3A93E7B3EBBD55769886BC651D06B0CC53B0F63BCE3C3E27D2604B")!)) // swiftlint:disable:this identifier_name
         let y = ellipticCurveY(x: x, a: a, b: b, p: p, isOdd: firstByte == 3) // swiftlint:disable:this identifier_name
         let four: UInt8 = 4
-        return [four] + xData + y.serialize()
+        var yData = y.serialize()
+        while yData.count < 32 {
+            yData = [0x00] + yData
+        }
+        return [four] + xData + yData
     }
 
     /// Import an external elliptic curve private key into the Keychain.
