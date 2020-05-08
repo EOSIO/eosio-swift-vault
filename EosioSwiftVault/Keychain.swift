@@ -313,6 +313,45 @@ public class Keychain {
         return keys
     }
 
+    /// Get all attributes for elliptic curve keys with option to filter by tag.
+    ///
+    /// - Parameter tag: The tag to filter by (defaults to `nil`).
+    /// - Returns: An array of ECKeys.
+    /// - Throws: If there is an error in the key query.
+    public func getAttributesForAllEllipticCurveKeys(tag: String? = nil, label: String? = nil, matchLimitAll: Bool = true) throws -> [[String: Any]] {
+        var query: [String: Any] =  [
+            kSecClass as String: kSecClassKey,
+            kSecAttrAccessGroup as String: accessGroup,
+            kSecReturnAttributes as String: true,
+            kSecReturnRef as String: true
+        ]
+        if matchLimitAll {
+            query[kSecMatchLimit as String as String] = kSecMatchLimitAll
+        } else {
+            query[kSecMatchLimit as String as String] = kSecMatchLimitOne
+        }
+        if let tag = tag {
+            query[kSecAttrApplicationTag as String] = tag
+        }
+        if let label = label {
+            query[kSecAttrLabel as String] = label
+        }
+        var items: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &items)
+        if status == errSecItemNotFound {
+            return [[String: Any]]()
+        }
+        guard status == errSecSuccess else {
+            throw EosioError(.keyManagementError, reason: "Get Attributes query error \(status).")
+        }
+        guard let array = items as? [[String: Any]] else {
+            throw EosioError(.keyManagementError, reason: "Get Attributes items not an array of dictionaries.")
+        }
+        return array
+    }
+
+    
+
     /// Get all elliptic curve private Sec Keys.
     /// For Secure Enclave private keys, the SecKey is a reference. It's not posible to export the actual private key data.
     ///
