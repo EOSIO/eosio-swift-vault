@@ -401,19 +401,12 @@ public class Keychain {
 
     /// Get the private SecKey for the public key if the key exists in the Keychain.
     /// Public key data can be in either compressed or uncompressed format.
+    /// IMPORTANT: If the key  requires a biometric check for access, the system will prompt the user for FaceID/TouchID
     ///
     /// - Parameter publicKey: A public key in either compressed or uncompressed format.
     /// - Returns: A SecKey.
     public func getPrivateSecKey(publicKey: Data) -> SecKey? {
-        guard let allPrivateKeys = getAllEllipticCurvePrivateSecKeys() else { return nil }
-        for privateKey in allPrivateKeys {
-            if let uncompressedPubKey = privateKey.publicKey?.externalRepresentation {
-                if uncompressedPubKey == publicKey || uncompressedPubKey.compressedPublicKey == publicKey {
-                    return privateKey
-                }
-            }
-        }
-        return nil
+        return getEllipticCurveKey(publicKey: publicKey)?.privateSecKey
     }
 
     /// Create a **NON**-Secure-Enclave elliptic curve private key.
