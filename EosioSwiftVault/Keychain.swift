@@ -350,7 +350,34 @@ public class Keychain {
         return array
     }
 
-    
+
+    /// Get an elliptic curve keys for the provided application label (for ec keys this is the sha1 hash of the public key)
+    /// - Parameter applicationLabel: The application label to search for
+    /// - Throws: If there is a error getting the key
+    /// - Returns: An ECKey
+    public func getEllipticCurveKey(applicationLabel: Data) throws -> ECKey {
+        //print(applicationLabel.hex)
+        let query: [String: Any] =  [
+            kSecClass as String: kSecClassKey,
+            kSecAttrAccessGroup as String: accessGroup,
+            kSecReturnAttributes as String: true,
+            kSecReturnRef as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne,
+            kSecAttrApplicationLabel as String: applicationLabel
+        ]
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &item)
+        if status == errSecItemNotFound {
+            throw EosioError(.keyManagementError, reason: "\(applicationLabel) not found.")
+        }
+        guard status == errSecSuccess else {
+            throw EosioError(.keyManagementError, reason: "Get key query error \(status)")
+        }
+        guard let attributes = item as? [String: Any] else {
+            throw EosioError(.keyManagementError, reason: "Cannot get attributes for \(applicationLabel)")
+        }
+        return try ECKey.new(attributes: attributes)
+    }
 
     /// Get all elliptic curve private Sec Keys.
     /// For Secure Enclave private keys, the SecKey is a reference. It's not posible to export the actual private key data.
