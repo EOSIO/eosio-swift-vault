@@ -267,15 +267,7 @@ public class Keychain {
     /// - Parameter publicKey: The public key.
     /// - Returns: An ECKey corresponding to the public key.
     public func getEllipticCurveKey(publicKey: Data) -> ECKey? {
-        guard let allKeys = try? getAllEllipticCurveKeys() else {
-            return nil
-        }
-        for key in allKeys {
-            if key.compressedPublicKey == publicKey || key.uncompressedPublicKey == publicKey {
-                return key
-            }
-        }
-        return nil
+        return try? getR1EllipticCurveKey(publicKey: publicKey)
     }
 
     /// Get all elliptic curve keys with option to filter by tag.
