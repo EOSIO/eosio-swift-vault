@@ -351,7 +351,6 @@ public class Keychain {
         return array
     }
 
-
     /// Get an elliptic curve keys for the provided application label (for ec keys this is the sha1 hash of the public key)
     /// - Parameter applicationLabel: The application label to search for
     /// - Throws: If there is a error getting the key
