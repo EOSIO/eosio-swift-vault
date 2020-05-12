@@ -279,37 +279,27 @@ public class Keychain {
     }
 
     /// Get all elliptic curve keys with option to filter by tag.
+    /// IMPORTANT: If any of the keys returned by the  search query require a biometric check for access, the system will prompt the user for FaceID/TouchID
     ///
     /// - Parameter tag: The tag to filter by (defaults to `nil`).
     /// - Returns: An array of ECKeys.
     /// - Throws: If there is an error in the key query.
-    public func getAllEllipticCurveKeys(tag: String? = nil) throws -> [ECKey] {
-        var query: [String: Any] =  [
-            kSecClass as String: kSecClassKey,
-            kSecMatchLimit as String: kSecMatchLimitAll,
-            kSecAttrAccessGroup as String: accessGroup,
-            kSecReturnAttributes as String: true,
-            kSecReturnRef as String: true
-        ]
-        if let tag = tag {
-            query[kSecAttrApplicationTag as String] = tag
-        }
-        var items: CFTypeRef?
-        let status = SecItemCopyMatching(query as CFDictionary, &items)
-        if status == errSecItemNotFound {
-            return [ECKey]()
-        }
-        guard status == errSecSuccess else {
-            throw EosioError(.keyManagementError, reason: "Get keys query error \(status)")
-        }
-        guard let array = items as? [[String: Any]] else {
-            throw EosioError(.keyManagementError, reason: "Get keys items not an array of dictionaries")
-        }
+    public func getAllEllipticCurveKeys(tag: String? = nil, label: String? = nil) throws -> [ECKey] {
         var keys = [ECKey]()
-        for item in array {
-            if let key = ECKey(attributes: item) {
+        let array = try getAttributesForAllEllipticCurveKeys(tag: tag, label: label)
+        for attributes in array {
+            if let key = ECKey(attributes: attributes) {
                 keys.append(key)
+            } else {
+                // if error try to lookup this key again using the applicationLabel (sha1 of the public key)
+                // sometimes if there are a large number of keys returned, the key ref seems to me missing, but getting the key again with the application label works
+                if let applicationLabel = attributes[kSecAttrApplicationLabel as String] as? Data, let key = try? getEllipticCurveKey(applicationLabel: applicationLabel) {
+                    keys.append(key)
+                }
             }
+        }
+        if keys.count == 0 && array.count > 0 {
+            throw EosioError(.keyManagementError, reason: "Unable to create any ECKeys from \(array.count) items.")
         }
         return keys
     }
