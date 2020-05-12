@@ -10,6 +10,7 @@ import Foundation
 import Security
 import EosioSwift
 import BigInt
+import CommonCrypto
 
 /// General class for interacting with the Keychain and Secure Enclave.
 public class Keychain {
@@ -726,6 +727,30 @@ public class Keychain {
         }
         return decryptedData as Data
     }
+
+}
+
+private extension Data {
+
+    var toUnsafeMutablePointerBytes: UnsafeMutablePointer<UInt8> {
+        let pointerBytes = UnsafeMutablePointer<UInt8>.allocate(capacity: self.count)
+        self.copyBytes(to: pointerBytes, count: self.count)
+        return pointerBytes
+    }
+
+    var toUnsafePointerBytes: UnsafePointer<UInt8> {
+        return UnsafePointer(self.toUnsafeMutablePointerBytes)
+    }
+
+    /// Returns the SHA1hash of the data.
+    var sha1: Data {
+        var hash = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH))
+        let p = self.toUnsafePointerBytes // swiftlint:disable:this identifier_name
+        _ = CC_SHA1(p, CC_LONG(self.count), &hash)
+        p.deallocate()
+        return Data(hash)
+    }
+
 }
 
 public extension Data {
