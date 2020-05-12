@@ -380,6 +380,16 @@ public class Keychain {
         return try ECKey.new(attributes: attributes)
     }
 
+    /// Get an elliptic curve keys for the provided public key
+    /// - Parameter publicKey: The publickey
+    /// - Throws: If there is a error getting the key
+    /// - Returns: An ECKey
+    public func getR1EllipticCurveKey(publicKey: Data) throws -> ECKey {
+        let uncompressedPublicKey = try uncompressedR1PublicKey(data: publicKey)
+        print(uncompressedPublicKey.hex)
+        return try getEllipticCurveKey(applicationLabel: uncompressedPublicKey.sha1)
+    }
+
     /// Get all elliptic curve private Sec Keys.
     /// For Secure Enclave private keys, the SecKey is a reference. It's not posible to export the actual private key data.
     ///
