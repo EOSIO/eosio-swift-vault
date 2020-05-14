@@ -297,6 +297,7 @@ public class Keychain {
     }
 
     /// Get all attributes for elliptic curve keys with option to filter by tag.
+    /// IMPORTANT: If any of the keys returned by the  search query require a biometric check for access, the system will prompt the user for FaceID/TouchID
     ///
     /// - Parameter tag: The tag to filter by (defaults to `nil`).
     /// - Returns: An array of ECKeys.
@@ -334,6 +335,8 @@ public class Keychain {
     }
 
     /// Get an elliptic curve keys for the provided application label (for ec keys this is the sha1 hash of the public key)
+    /// IMPORTANT: If the key  requires a biometric check for access, the system will prompt the user for FaceID/TouchID
+    ///
     /// - Parameter applicationLabel: The application label to search for
     /// - Throws: If there is a error getting the key
     /// - Returns: An ECKey
@@ -362,6 +365,8 @@ public class Keychain {
     }
 
     /// Get an elliptic curve keys for the provided public key
+    /// IMPORTANT: If the key  requires a biometric check for access, the system will prompt the user for FaceID/TouchID
+    ///
     /// - Parameter publicKey: The publickey
     /// - Throws: If there is a error getting the key
     /// - Returns: An ECKey
@@ -386,6 +391,7 @@ public class Keychain {
     }
 
     /// Get all elliptic curve keys and return the public keys.
+    /// IMPORTANT: If any of the keys returned by the  search query require a biometric check for access, the system will prompt the user for FaceID/TouchID
     ///
     /// - Returns: An array of public SecKeys.
     public func getAllEllipticCurvePublicSecKeys() -> [SecKey]? {
