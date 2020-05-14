@@ -555,10 +555,13 @@ public class Keychain {
         // and this triggers the biometric challenges, which is not what we want to
         // do.  We'll need to rework the import flow to not require those readbacks
         // before we can add that here and fix the issue.  SMM 2020/04/07
+        //
+        // Added. See comment below. THB 2020/05/13
         attributes = [
             kSecClass as String: kSecClassKey,
             kSecValueRef as String: secKey,
-            kSecAttrAccessGroup as String: accessGroup
+            kSecAttrAccessGroup as String: accessGroup,
+            kSecAttrAccessControl as String: access
         ]
         if let tag = tag {
             attributes[kSecAttrApplicationTag as String] = tag
@@ -572,9 +575,20 @@ public class Keychain {
             throw EosioError(.keyManagementError, reason: "Unable to add key \(publicKey) to Keychain")
         }
 
-        guard let key = getEllipticCurveKey(publicKey: publicKey) else {
-            throw EosioError(.keyManagementError, reason: "Unable to find key \(publicKey) in Keychain")
+        // Previously at this point the key was read back from the keychain and returned. (See comment above)
+        // However, if the key had a biometric restriction, the system would prompt with a biometric challenge.
+        // So, instead construct the key attributes dictionary from in scope data to create the ECKey to return
+        var keyatt: [String:Any] = [
+            kSecAttrAccessGroup as String: accessGroup,
+            kSecValueRef as String: secKey
+        ]
+        if let tag = tag {
+            keyatt[kSecAttrApplicationTag as String] = tag
         }
+        if let label = label {
+            keyatt[kSecAttrLabel as String] = label
+        }
+        let key = try ECKey.new(attributes: keyatt)
         return key
     }
 
