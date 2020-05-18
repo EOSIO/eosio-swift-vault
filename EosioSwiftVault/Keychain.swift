@@ -578,7 +578,7 @@ public class Keychain {
         // Previously at this point the key was read back from the keychain and returned. (See comment above)
         // However, if the key had a biometric restriction, the system would prompt with a biometric challenge.
         // So, instead construct the key attributes dictionary from in scope data to create the ECKey to return
-        var keyatt: [String:Any] = [
+        var keyatt: [String: Any] = [
             kSecAttrAccessGroup as String: accessGroup,
             kSecValueRef as String: secKey
         ]
@@ -689,12 +689,12 @@ public class Keychain {
     /// - Returns: An ECKey.
     /// - Throws: If a key cannot be created.
     public func createEllipticCurveKey(secureEnclave: Bool, tag: String? = nil, label: String? = nil,
-                                          protection: AccessibleProtection = .whenUnlockedThisDeviceOnly,
-                                          accessFlag: SecAccessControlCreateFlags? = nil) throws -> ECKey {
+                                       protection: AccessibleProtection = .whenUnlockedThisDeviceOnly,
+                                       accessFlag: SecAccessControlCreateFlags? = nil) throws -> ECKey {
 
         let secKey = try createEllipticCurveSecKey(secureEnclave: secureEnclave, tag: tag, label: label, protection: protection, accessFlag: accessFlag)
 
-        var keyatt: [String:Any] = [
+        var keyatt: [String: Any] = [
             kSecAttrAccessGroup as String: accessGroup,
             kSecValueRef as String: secKey
         ]
