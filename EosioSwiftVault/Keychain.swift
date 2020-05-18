@@ -678,6 +678,36 @@ public class Keychain {
         return privateKey
     }
 
+    /// Create a new elliptic curve key.
+    ///
+    /// - Parameters:
+    ///   - secureEnclave: Generate this key in Secure Enclave?
+    ///   - tag: A tag to associate with this key.
+    ///   - label: A label to associate with this key.
+    ///   - protection: Accessibility defaults to whenUnlockedThisDeviceOnly.
+    ///   - accessFlag: The accessFlag for this key.
+    /// - Returns: An ECKey.
+    /// - Throws: If a key cannot be created.
+    public func createEllipticCurveKey(secureEnclave: Bool, tag: String? = nil, label: String? = nil,
+                                          protection: AccessibleProtection = .whenUnlockedThisDeviceOnly,
+                                          accessFlag: SecAccessControlCreateFlags? = nil) throws -> ECKey {
+
+        let secKey = try createEllipticCurveSecKey(secureEnclave: secureEnclave, tag: tag, label: label, protection: protection, accessFlag: accessFlag)
+
+        var keyatt: [String:Any] = [
+            kSecAttrAccessGroup as String: accessGroup,
+            kSecValueRef as String: secKey
+        ]
+        if let tag = tag {
+            keyatt[kSecAttrApplicationTag as String] = tag
+        }
+        if let label = label {
+            keyatt[kSecAttrLabel as String] = label
+        }
+        let key = try ECKey.new(attributes: keyatt)
+        return key
+    }
+
     /// Sign if the key is in the Keychain.
     ///
     /// - Parameters:
