@@ -100,16 +100,17 @@ public final class EosioVault {
         let tag = bioFactor.tag
         let accessFlag = bioFactor.accessFlag
 
-        let secKey = try keychain.createEllipticCurveSecKey(secureEnclave: secureEnclave, tag: tag, label: nil, protection: protection, accessFlag: accessFlag)
-        guard let eosioPublicKey = secKey.publicKey?.externalRepresentation?.compressedPublicKey?.toEosioR1PublicKey else {
-            throw EosioError(.keyManagementError, reason: "Unable to create public key")
+        let ecKey = try keychain.createEllipticCurveKey(secureEnclave: secureEnclave, tag: tag, label: nil, protection: protection, accessFlag: accessFlag)
+
+        // Don't read from the keychain as this might trigger a biometric check, instead create the vaultKey from the eosioPublicKey, ecKey & metadata
+        guard var vaultKey = VaultKey(ecKey: ecKey, metadata: metadata) else {
+            throw EosioError(.keyManagementError, reason: "Unable to create vault key")
         }
-        var vaultKey = try getVaultKey(eosioPublicKey: eosioPublicKey)
         if let metadata = metadata {
             vaultKey.metadata = metadata
             _ = update(key: vaultKey)
         }
-        postUpdateNotification(eosioPublicKey: eosioPublicKey, action: "new")
+        postUpdateNotification(eosioPublicKey: vaultKey.eosioPublicKey, action: "new")
         return vaultKey
     }
 
