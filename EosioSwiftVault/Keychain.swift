@@ -458,11 +458,12 @@ public class Keychain {
         return BigUInt(y)
     }
 
-    /// Compute the uncompressed R1 public key from the compressed key
+    /// Compute the uncompressed public key from the compressed key
     /// - Parameter data: A public key
+    /// - Parameter curve: The curve (R1 and K1 are supported)
     /// - Throws: If the data is not a valid public key
-    /// - Returns: The uncompressed R1 public key
-    func uncompressedR1PublicKey(data: Data) throws -> Data {
+    /// - Returns: The uncompressed public key
+    func uncompressedPublicKey(data: Data, curve: String = "R1") throws -> Data {
         guard let firstByte = data.first else {
             throw EosioError(.keyManagementError, reason: "No key data provided.")
         }
@@ -481,10 +482,23 @@ public class Keychain {
 
         let xData = data[1..<data.count]
         let x = BigInt(BigUInt(xData))
-        // assume secp256r1 (curve used in Secure Enclave)
-        let p = BigInt(BigUInt(Data(hexString: "FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF")!)) // swiftlint:disable:this identifier_name
-        let a = BigInt(-3) // swiftlint:disable:this identifier_name
-        let b = BigInt(BigUInt(Data(hexString: "5AC635D8AA3A93E7B3EBBD55769886BC651D06B0CC53B0F63BCE3C3E27D2604B")!)) // swiftlint:disable:this identifier_name
+        var p: BigInt // swiftlint:disable:this identifier_name
+        var a: BigInt // swiftlint:disable:this identifier_name
+        var b: BigInt // swiftlint:disable:this identifier_name
+
+        switch curve.uppercased() {
+        case "R1" :
+            p = BigInt(BigUInt(Data(hexString: "FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF")!))
+            a = BigInt(-3)
+            b = BigInt(BigUInt(Data(hexString: "5AC635D8AA3A93E7B3EBBD55769886BC651D06B0CC53B0F63BCE3C3E27D2604B")!))
+        case "K1" :
+            p = BigInt(BigUInt(Data(hexString: "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F")!))
+            a = BigInt(0)
+            b = BigInt(7)
+        default:
+            throw EosioError(.keyManagementError, reason: "\(curve) is not a valid curve.")
+        }
+
         let y = ellipticCurveY(x: x, a: a, b: b, p: p, isOdd: firstByte == 3) // swiftlint:disable:this identifier_name
         let four: UInt8 = 4
         var yData = y.serialize()
@@ -492,6 +506,14 @@ public class Keychain {
             yData = [0x00] + yData
         }
         return [four] + xData + yData
+    }
+
+    /// Compute the uncompressed R1 public key from the compressed key
+    /// - Parameter data: A public key
+    /// - Throws: If the data is not a valid public key
+    /// - Returns: The uncompressed R1 public key
+    func uncompressedR1PublicKey(data: Data) throws -> Data {
+        return try uncompressedPublicKey(data: data, curve: "R1")
     }
 
     /// Import an external elliptic curve private key into the Keychain.
