@@ -370,10 +370,9 @@ public class Keychain {
     /// - Parameter publicKey: The publickey
     /// - Throws: If there is a error getting the key
     /// - Returns: An ECKey
-    public func getR1EllipticCurveKey(publicKey: Data) throws -> ECKey {
-        let uncompressedPublicKey = try uncompressedR1PublicKey(data: publicKey)
-        print(uncompressedPublicKey.hex)
-        return try getEllipticCurveKey(applicationLabel: uncompressedPublicKey.sha1)
+    public func getEllipticCurveKey(publicKey: Data) throws -> ECKey {
+        let uncPublicKey = try uncompressedPublicKey(data: publicKey)
+        return try getEllipticCurveKey(applicationLabel: uncPublicKey.sha1)
     }
 
     /// Get all elliptic curve private Sec Keys.
@@ -506,14 +505,6 @@ public class Keychain {
             yData = [0x00] + yData
         }
         return [four] + xData + yData
-    }
-
-    /// Compute the uncompressed R1 public key from the compressed key
-    /// - Parameter data: A public key
-    /// - Throws: If the data is not a valid public key
-    /// - Returns: The uncompressed R1 public key
-    func uncompressedR1PublicKey(data: Data) throws -> Data {
-        return try uncompressedPublicKey(data: data, curve: "R1")
     }
 
     /// Import an external elliptic curve private key into the Keychain.
