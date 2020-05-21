@@ -263,11 +263,17 @@ public class Keychain {
     }
 
     /// Get an elliptic curve key given the public key.
+    /// IMPORTANT: If the key  requires a biometric check for access, the system will prompt the user for FaceID/TouchID
     ///
     /// - Parameter publicKey: The public key.
     /// - Returns: An ECKey corresponding to the public key.
     public func getEllipticCurveKey(publicKey: Data) -> ECKey? {
-        return try? getR1EllipticCurveKey(publicKey: publicKey)
+        do {
+            let eckey: ECKey = try getEllipticCurveKey(publicKey: publicKey)
+            return eckey
+        } catch {
+            return nil
+        }
     }
 
     /// Get all elliptic curve keys with option to filter by tag.
