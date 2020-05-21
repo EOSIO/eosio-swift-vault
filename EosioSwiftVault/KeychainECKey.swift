@@ -29,7 +29,6 @@ public extension Keychain {
         private (set) public var uncompressedPublicKey: Data
         /// The compressed public key in ANSI X9.63 format (33 bytes, starts with 02 or 03).
         private (set) public var compressedPublicKey: Data
-        
 
         static func new(attributes: [String: Any]) throws -> ECKey {
             if let key = ECKey(attributes: attributes) {
@@ -47,7 +46,7 @@ public extension Keychain {
                 throw EosioError(.keyManagementError, reason: "Cannot get public key external representation.")
             }
             let uncompressedPublicKey = ucpk
-            guard let _ = uncompressedPublicKey.compressedPublicKey else {
+            guard uncompressedPublicKey.compressedPublicKey != nil else {
                 throw EosioError(.keyManagementError, reason: "Cannot get compressed public key.")
             }
             throw EosioError(.keyManagementError, reason: "Cannot create key")
