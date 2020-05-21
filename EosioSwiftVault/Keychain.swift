@@ -523,7 +523,8 @@ public class Keychain {
     ///   - accessFlag: The accessFlag for this key.
     /// - Returns: The imported key as an ECKey.
     /// - Throws: If the key is not valid or cannot be imported.
-    public func importExternal(privateKey: Data, tag: String? = nil, label: String?  = nil,
+    // swiftlint:disable:next cyclomatic_complexity
+    public func importExternal(privateKey: Data, tag: String? = nil, label: String?  = nil, // swiftlint:disable:this function_body_length
                                protection: AccessibleProtection = .whenUnlockedThisDeviceOnly,
                                accessFlag: SecAccessControlCreateFlags? = nil) throws -> ECKey {
 
