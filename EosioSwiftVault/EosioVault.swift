@@ -63,6 +63,16 @@ public final class EosioVault {
         return key.uncompressedPublicKey.hex
     }
 
+    /// Compute the uncompressed public key for an eosio key
+    /// - Parameter eosioPublicKey: The eosio public key
+    /// - Throws: If the uncompressed public key cannot be computed
+    /// - Returns: The uncompressed public key
+    public func getUncompressedPublicKey(eosioPublicKey: String) throws -> Data {
+        let components = try eosioPublicKey.eosioComponents()
+        let cPubKeyData = try Data(eosioPublicKey: eosioPublicKey)
+        return try keychain.uncompressedPublicKey(data: cPubKeyData, curve: components.version)
+    }
+
     /// Create a new Secure Enclave key and return the Vault Key.
     ///
     /// - Parameters:
@@ -100,16 +110,17 @@ public final class EosioVault {
         let tag = bioFactor.tag
         let accessFlag = bioFactor.accessFlag
 
-        let secKey = try keychain.createEllipticCurveSecKey(secureEnclave: secureEnclave, tag: tag, label: nil, protection: protection, accessFlag: accessFlag)
-        guard let eosioPublicKey = secKey.publicKey?.externalRepresentation?.compressedPublicKey?.toEosioR1PublicKey else {
-            throw EosioError(.keyManagementError, reason: "Unable to create public key")
+        let ecKey = try keychain.createEllipticCurveKey(secureEnclave: secureEnclave, tag: tag, label: nil, protection: protection, accessFlag: accessFlag)
+
+        // Don't read from the keychain as this might trigger a biometric check, instead create the vaultKey from the eosioPublicKey, ecKey & metadata
+        guard var vaultKey = VaultKey(ecKey: ecKey, metadata: metadata) else {
+            throw EosioError(.keyManagementError, reason: "Unable to create vault key")
         }
-        var vaultKey = try getVaultKey(eosioPublicKey: eosioPublicKey)
         if let metadata = metadata {
             vaultKey.metadata = metadata
             _ = update(key: vaultKey)
         }
-        postUpdateNotification(eosioPublicKey: eosioPublicKey, action: "new")
+        postUpdateNotification(eosioPublicKey: vaultKey.eosioPublicKey, action: "new")
         return vaultKey
     }
 
@@ -137,8 +148,16 @@ public final class EosioVault {
 
         let privateKeyData = try Data(eosioPrivateKey: eosioPrivateKey)
         let publicKeyData = try EccRecoverKey.recoverPublicKey(privateKey: privateKeyData, curve: curve)
-        let ecKey = try keychain.importExternal(privateKey: publicKeyData + privateKeyData, tag: tag, protection: protection, accessFlag: accessFlag)
-        var vaultKey = try getVaultKey(eosioPublicKey: ecKey.compressedPublicKey.toEosioPublicKey(curve: curve.rawValue))
+        guard let compressedPublicKey = publicKeyData.compressedPublicKey else {
+            throw EosioError(.keyManagementError, reason: "Unable to create compressed public key")
+        }
+        let eosioPublicKey = try compressedPublicKey.toEosioPublicKey(curve: curve.rawValue)
+        let ecKey = try keychain.importExternal(privateKey: publicKeyData + privateKeyData, tag: tag, label: nil, protection: protection, accessFlag: accessFlag)
+
+        // Don't read from the keychain as this might trigger a biometric check, instead create the vaultKey from the eosioPublicKey, ecKey & metadata
+        guard var vaultKey = VaultKey(eosioPublicKey: eosioPublicKey, ecKey: ecKey, metadata: metadata) else {
+            throw EosioError(.keyManagementError, reason: "Unable to create vault key")
+        }
         if let metadata = metadata {
             vaultKey.metadata = metadata
             _ = update(key: vaultKey)
@@ -152,9 +171,11 @@ public final class EosioVault {
     /// - Parameter eosioPublicKey: The public key for the EOSIO key to delete.
     /// - Throws: If there is an error deleting the key.
     public func deleteKey(eosioPublicKey: String) throws {
-        let pubKeyData = try Data(eosioPublicKey: eosioPublicKey)
-        keychain.deleteKey(publicKey: pubKeyData)
-        deleteKeyMetadata(publicKey: eosioPublicKey)
+        let vaultKey = try getVaultKey(eosioPublicKey: eosioPublicKey)
+        if let privateSecKey = vaultKey.privateSecKey {
+            keychain.deleteKey(secKey: privateSecKey)
+            deleteKeyMetadata(publicKey: eosioPublicKey)
+        }
     }
 
     /// Update the label identifying the key.
@@ -205,13 +226,14 @@ public final class EosioVault {
     }
 
     /// Get the vault key for the eosioPublicKey.
+    /// IMPORTANT: If the key  requires a biometric check for access, the system will prompt the user for FaceID/TouchID
     ///
     /// - Parameter eosioPublicKey: An EOSIO public key.
     /// - Returns: A VaultKey.
     /// - Throws: If the key cannot be found.
     public func getVaultKey(eosioPublicKey: String) throws -> EosioVault.VaultKey {
-        let pubKeyData = try Data(eosioPublicKey: eosioPublicKey)
-        let ecKey = keychain.getEllipticCurveKey(publicKey: pubKeyData)
+        let uncPubKeyData = try getUncompressedPublicKey(eosioPublicKey: eosioPublicKey)
+        let ecKey: Keychain.ECKey = try keychain.getEllipticCurveKey(publicKey: uncPubKeyData)
         let metadata = getKeyMetadata(eosioPublicKey: eosioPublicKey)
         if let key = EosioVault.VaultKey(ecKey: ecKey, metadata: metadata) {
             return key

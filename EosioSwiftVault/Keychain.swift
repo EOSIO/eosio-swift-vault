@@ -9,6 +9,8 @@
 import Foundation
 import Security
 import EosioSwift
+import BigInt
+import CommonCrypto
 
 /// General class for interacting with the Keychain and Secure Enclave.
 public class Keychain {
@@ -199,7 +201,7 @@ public class Keychain {
     }
 
     /// Make query to retrieve all elliptic curve keys in the Keychain.
-    private func makeQueryForAllEllipticCurveKeys(tag: String? = nil) -> [String: Any] {
+    private func makeQueryForAllEllipticCurveKeys(tag: String? = nil, label: String? = nil, secureEnclave: Bool = false ) -> [String: Any] {
         var query: [String: Any] =  [
             kSecClass as String: kSecClassKey,
             kSecMatchLimit as String: kSecMatchLimitAll,
@@ -210,6 +212,13 @@ public class Keychain {
         if let tag = tag {
             query[kSecAttrApplicationTag as String] = tag
         }
+        if let label = label {
+            query[kSecAttrLabel as String] = label
+        }
+        if secureEnclave {
+            query[kSecAttrTokenID as String] = kSecAttrTokenIDSecureEnclave
+        }
+
         return query
     }
 
@@ -254,55 +263,122 @@ public class Keychain {
     }
 
     /// Get an elliptic curve key given the public key.
+    /// IMPORTANT: If the key  requires a biometric check for access, the system will prompt the user for FaceID/TouchID
     ///
     /// - Parameter publicKey: The public key.
     /// - Returns: An ECKey corresponding to the public key.
     public func getEllipticCurveKey(publicKey: Data) -> ECKey? {
-        guard let allKeys = try? getAllEllipticCurveKeys() else {
+        do {
+            let eckey: ECKey = try getEllipticCurveKey(publicKey: publicKey)
+            return eckey
+        } catch {
             return nil
         }
-        for key in allKeys {
-            if key.compressedPublicKey == publicKey || key.uncompressedPublicKey == publicKey {
-                return key
-            }
-        }
-        return nil
     }
 
     /// Get all elliptic curve keys with option to filter by tag.
+    /// IMPORTANT: If any of the keys returned by the  search query require a biometric check for access, the system will prompt the user for FaceID/TouchID
     ///
     /// - Parameter tag: The tag to filter by (defaults to `nil`).
     /// - Returns: An array of ECKeys.
     /// - Throws: If there is an error in the key query.
-    public func getAllEllipticCurveKeys(tag: String? = nil) throws -> [ECKey] {
+    public func getAllEllipticCurveKeys(tag: String? = nil, label: String? = nil) throws -> [ECKey] {
+        var keys = [ECKey]()
+        let array = try getAttributesForAllEllipticCurveKeys(tag: tag, label: label)
+        for attributes in array {
+            if let key = ECKey(attributes: attributes) {
+                keys.append(key)
+            } else {
+                // if error try to lookup this key again using the applicationLabel (sha1 of the public key)
+                // sometimes if there are a large number of keys returned, the key ref seems to be missing, but getting the key again with the application label works
+                if let applicationLabel = attributes[kSecAttrApplicationLabel as String] as? Data, let key = try? getEllipticCurveKey(applicationLabel: applicationLabel) {
+                    keys.append(key)
+                }
+            }
+        }
+        if keys.count == 0 && array.count > 0 {
+            throw EosioError(.keyManagementError, reason: "Unable to create any ECKeys from \(array.count) items.")
+        }
+        return keys
+    }
+
+    /// Get all attributes for elliptic curve keys with option to filter by tag.
+    /// IMPORTANT: If any of the keys returned by the  search query require a biometric check for access, the system will prompt the user for FaceID/TouchID
+    ///
+    /// - Parameter tag: The tag to filter by (defaults to `nil`).
+    /// - Returns: An array of ECKeys.
+    /// - Throws: If there is an error in the key query.
+    public func getAttributesForAllEllipticCurveKeys(tag: String? = nil, label: String? = nil, matchLimitAll: Bool = true) throws -> [[String: Any]] {
         var query: [String: Any] =  [
             kSecClass as String: kSecClassKey,
-            kSecMatchLimit as String: kSecMatchLimitAll,
             kSecAttrAccessGroup as String: accessGroup,
             kSecReturnAttributes as String: true,
             kSecReturnRef as String: true
         ]
+        if matchLimitAll {
+            query[kSecMatchLimit as String] = kSecMatchLimitAll
+        } else {
+            query[kSecMatchLimit as String] = kSecMatchLimitOne
+        }
         if let tag = tag {
             query[kSecAttrApplicationTag as String] = tag
+        }
+        if let label = label {
+            query[kSecAttrLabel as String] = label
         }
         var items: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &items)
         if status == errSecItemNotFound {
-            return [ECKey]()
+            return [[String: Any]]()
         }
         guard status == errSecSuccess else {
-            throw EosioError(.keyManagementError, reason: "Get keys query error \(status)")
+            throw EosioError(.keyManagementError, reason: "Get Attributes query error \(status).")
         }
         guard let array = items as? [[String: Any]] else {
-            throw EosioError(.keyManagementError, reason: "Get keys items not an array of dictionaries")
+            throw EosioError(.keyManagementError, reason: "Get Attributes items not an array of dictionaries.")
         }
-        var keys = [ECKey]()
-        for item in array {
-            if let key = ECKey(attributes: item) {
-                keys.append(key)
-            }
+        return array
+    }
+
+    /// Get an elliptic curve keys for the provided application label (for ec keys this is the sha1 hash of the public key)
+    /// IMPORTANT: If the key  requires a biometric check for access, the system will prompt the user for FaceID/TouchID
+    ///
+    /// - Parameter applicationLabel: The application label to search for
+    /// - Throws: If there is a error getting the key
+    /// - Returns: An ECKey
+    public func getEllipticCurveKey(applicationLabel: Data) throws -> ECKey {
+        //print(applicationLabel.hex)
+        let query: [String: Any] =  [
+            kSecClass as String: kSecClassKey,
+            kSecAttrAccessGroup as String: accessGroup,
+            kSecReturnAttributes as String: true,
+            kSecReturnRef as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne,
+            kSecAttrApplicationLabel as String: applicationLabel
+        ]
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &item)
+        if status == errSecItemNotFound {
+            throw EosioError(.keyManagementError, reason: "\(applicationLabel) not found.")
         }
-        return keys
+        guard status == errSecSuccess else {
+            throw EosioError(.keyManagementError, reason: "Get key query error \(status)")
+        }
+        guard let attributes = item as? [String: Any] else {
+            throw EosioError(.keyManagementError, reason: "Cannot get attributes for \(applicationLabel)")
+        }
+        return try ECKey.new(attributes: attributes)
+    }
+
+    /// Get an elliptic curve keys for the provided public key
+    /// IMPORTANT: If the key  requires a biometric check for access, the system will prompt the user for FaceID/TouchID
+    ///
+    /// - Parameter publicKey: The publickey
+    /// - Throws: If there is a error getting the key
+    /// - Returns: An ECKey
+    public func getEllipticCurveKey(publicKey: Data) throws -> ECKey {
+        let uncPublicKey = try uncompressedPublicKey(data: publicKey)
+        return try getEllipticCurveKey(applicationLabel: uncPublicKey.sha1)
     }
 
     /// Get all elliptic curve private Sec Keys.
@@ -320,6 +396,7 @@ public class Keychain {
     }
 
     /// Get all elliptic curve keys and return the public keys.
+    /// IMPORTANT: If any of the keys returned by the  search query require a biometric check for access, the system will prompt the user for FaceID/TouchID
     ///
     /// - Returns: An array of public SecKeys.
     public func getAllEllipticCurvePublicSecKeys() -> [SecKey]? {
@@ -335,19 +412,12 @@ public class Keychain {
 
     /// Get the private SecKey for the public key if the key exists in the Keychain.
     /// Public key data can be in either compressed or uncompressed format.
+    /// IMPORTANT: If the key  requires a biometric check for access, the system will prompt the user for FaceID/TouchID
     ///
     /// - Parameter publicKey: A public key in either compressed or uncompressed format.
     /// - Returns: A SecKey.
     public func getPrivateSecKey(publicKey: Data) -> SecKey? {
-        guard let allPrivateKeys = getAllEllipticCurvePrivateSecKeys() else { return nil }
-        for privateKey in allPrivateKeys {
-            if let uncompressedPubKey = privateKey.publicKey?.externalRepresentation {
-                if uncompressedPubKey == publicKey || uncompressedPubKey.compressedPublicKey == publicKey {
-                    return privateKey
-                }
-            }
-        }
-        return nil
+        return getEllipticCurveKey(publicKey: publicKey)?.privateSecKey
     }
 
     /// Create a **NON**-Secure-Enclave elliptic curve private key.
@@ -375,6 +445,74 @@ public class Keychain {
         return privateKey
     }
 
+    /// Calculate the Y component of an elliptic curve from the X and the curve params
+    /// - Parameters:
+    ///   - x: x
+    ///   - a: curve param a
+    ///   - b: curve param b
+    ///   - p: curve param p
+    ///   - isOdd: isOdd
+    /// - Returns: The Y component as a bigUInt
+    func ellipticCurveY(x: BigInt, a: BigInt, b: BigInt, p: BigInt, isOdd: Bool) -> BigUInt { // swiftlint:disable:this identifier_name
+        let y2 = (x.power(3, modulus: p) + (a * x) + b).modulus(p) // swiftlint:disable:this identifier_name
+        var y = y2.power((p+1)/4, modulus: p) // swiftlint:disable:this identifier_name
+        let yMod2 = y.modulus(2)
+        if isOdd && yMod2 != 1 || !isOdd && yMod2 != 0 {
+            y = p - y
+        }
+        return BigUInt(y)
+    }
+
+    /// Compute the uncompressed public key from the compressed key
+    /// - Parameter data: A public key
+    /// - Parameter curve: The curve (R1 and K1 are supported)
+    /// - Throws: If the data is not a valid public key
+    /// - Returns: The uncompressed public key
+    func uncompressedPublicKey(data: Data, curve: String = "R1") throws -> Data {
+        guard let firstByte = data.first else {
+            throw EosioError(.keyManagementError, reason: "No key data provided.")
+        }
+        guard firstByte == 2 || firstByte == 3 || firstByte == 4 else {
+            throw EosioError(.keyManagementError, reason: "\(data.hex) is not a valid public key.")
+        }
+        if firstByte == 4 {
+            guard data.count == 65 else {
+                throw EosioError(.keyManagementError, reason: "\(data.hex) is not a valid public key. Expecting 65 bytes.")
+            }
+            return data
+        }
+        guard data.count == 33 else {
+            throw EosioError(.keyManagementError, reason: "\(data.hex) is not a valid public key. Expecting 33 bytes.")
+        }
+
+        let xData = data[1..<data.count]
+        let x = BigInt(BigUInt(xData))
+        var p: BigInt // swiftlint:disable:this identifier_name
+        var a: BigInt // swiftlint:disable:this identifier_name
+        var b: BigInt // swiftlint:disable:this identifier_name
+
+        switch curve.uppercased() {
+        case "R1" :
+            p = BigInt(BigUInt(Data(hexString: "FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF")!))
+            a = BigInt(-3)
+            b = BigInt(BigUInt(Data(hexString: "5AC635D8AA3A93E7B3EBBD55769886BC651D06B0CC53B0F63BCE3C3E27D2604B")!))
+        case "K1" :
+            p = BigInt(BigUInt(Data(hexString: "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F")!))
+            a = BigInt(0)
+            b = BigInt(7)
+        default:
+            throw EosioError(.keyManagementError, reason: "\(curve) is not a valid curve.")
+        }
+
+        let y = ellipticCurveY(x: x, a: a, b: b, p: p, isOdd: firstByte == 3) // swiftlint:disable:this identifier_name
+        let four: UInt8 = 4
+        var yData = y.serialize()
+        while yData.count < 32 {
+            yData = [0x00] + yData
+        }
+        return [four] + xData + yData
+    }
+
     /// Import an external elliptic curve private key into the Keychain.
     ///
     /// - Parameters:
@@ -385,7 +523,8 @@ public class Keychain {
     ///   - accessFlag: The accessFlag for this key.
     /// - Returns: The imported key as an ECKey.
     /// - Throws: If the key is not valid or cannot be imported.
-    public func importExternal(privateKey: Data, tag: String? = nil, label: String?  = nil,
+    // swiftlint:disable:next cyclomatic_complexity
+    public func importExternal(privateKey: Data, tag: String? = nil, label: String?  = nil, // swiftlint:disable:this function_body_length
                                protection: AccessibleProtection = .whenUnlockedThisDeviceOnly,
                                accessFlag: SecAccessControlCreateFlags? = nil) throws -> ECKey {
 
@@ -436,10 +575,13 @@ public class Keychain {
         // and this triggers the biometric challenges, which is not what we want to
         // do.  We'll need to rework the import flow to not require those readbacks
         // before we can add that here and fix the issue.  SMM 2020/04/07
+        //
+        // Added. See comment below. THB 2020/05/13
         attributes = [
             kSecClass as String: kSecClassKey,
             kSecValueRef as String: secKey,
-            kSecAttrAccessGroup as String: accessGroup
+            kSecAttrAccessGroup as String: accessGroup,
+            kSecAttrAccessControl as String: access
         ]
         if let tag = tag {
             attributes[kSecAttrApplicationTag as String] = tag
@@ -453,9 +595,20 @@ public class Keychain {
             throw EosioError(.keyManagementError, reason: "Unable to add key \(publicKey) to Keychain")
         }
 
-        guard let key = getEllipticCurveKey(publicKey: publicKey) else {
-            throw EosioError(.keyManagementError, reason: "Unable to find key \(publicKey) in Keychain")
+        // Previously at this point the key was read back from the keychain and returned. (See comment above)
+        // However, if the key had a biometric restriction, the system would prompt with a biometric challenge.
+        // So, instead construct the key attributes dictionary from in scope data to create the ECKey to return
+        var keyatt: [String: Any] = [
+            kSecAttrAccessGroup as String: accessGroup,
+            kSecValueRef as String: secKey
+        ]
+        if let tag = tag {
+            keyatt[kSecAttrApplicationTag as String] = tag
         }
+        if let label = label {
+            keyatt[kSecAttrLabel as String] = label
+        }
+        let key = try ECKey.new(attributes: keyatt)
         return key
     }
 
@@ -545,6 +698,36 @@ public class Keychain {
         return privateKey
     }
 
+    /// Create a new elliptic curve key.
+    ///
+    /// - Parameters:
+    ///   - secureEnclave: Generate this key in Secure Enclave?
+    ///   - tag: A tag to associate with this key.
+    ///   - label: A label to associate with this key.
+    ///   - protection: Accessibility defaults to whenUnlockedThisDeviceOnly.
+    ///   - accessFlag: The accessFlag for this key.
+    /// - Returns: An ECKey.
+    /// - Throws: If a key cannot be created.
+    public func createEllipticCurveKey(secureEnclave: Bool, tag: String? = nil, label: String? = nil,
+                                       protection: AccessibleProtection = .whenUnlockedThisDeviceOnly,
+                                       accessFlag: SecAccessControlCreateFlags? = nil) throws -> ECKey {
+
+        let secKey = try createEllipticCurveSecKey(secureEnclave: secureEnclave, tag: tag, label: label, protection: protection, accessFlag: accessFlag)
+
+        var keyatt: [String: Any] = [
+            kSecAttrAccessGroup as String: accessGroup,
+            kSecValueRef as String: secKey
+        ]
+        if let tag = tag {
+            keyatt[kSecAttrApplicationTag as String] = tag
+        }
+        if let label = label {
+            keyatt[kSecAttrLabel as String] = label
+        }
+        let key = try ECKey.new(attributes: keyatt)
+        return key
+    }
+
     /// Sign if the key is in the Keychain.
     ///
     /// - Parameters:
@@ -598,6 +781,30 @@ public class Keychain {
         }
         return decryptedData as Data
     }
+
+}
+
+private extension Data {
+
+    var toUnsafeMutablePointerBytes: UnsafeMutablePointer<UInt8> {
+        let pointerBytes = UnsafeMutablePointer<UInt8>.allocate(capacity: self.count)
+        self.copyBytes(to: pointerBytes, count: self.count)
+        return pointerBytes
+    }
+
+    var toUnsafePointerBytes: UnsafePointer<UInt8> {
+        return UnsafePointer(self.toUnsafeMutablePointerBytes)
+    }
+
+    /// Returns the SHA1hash of the data.
+    var sha1: Data {
+        var hash = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH))
+        let p = self.toUnsafePointerBytes // swiftlint:disable:this identifier_name
+        _ = CC_SHA1(p, CC_LONG(self.count), &hash)
+        p.deallocate()
+        return Data(hash)
+    }
+
 }
 
 public extension Data {

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import EosioSwift
 
 public extension Keychain {
 
@@ -28,6 +29,28 @@ public extension Keychain {
         private (set) public var uncompressedPublicKey: Data
         /// The compressed public key in ANSI X9.63 format (33 bytes, starts with 02 or 03).
         private (set) public var compressedPublicKey: Data
+
+        static func new(attributes: [String: Any]) throws -> ECKey {
+            if let key = ECKey(attributes: attributes) {
+                return key
+            }
+            guard let privkey = attributes[kSecValueRef as String] else {
+                throw EosioError(.keyManagementError, reason: "Cannot get private key reference.")
+            }
+            let privateSecKey = privkey as! SecKey // swiftlint:disable:this force_cast
+            guard let pubKey = SecKeyCopyPublicKey(privateSecKey) else {
+                throw EosioError(.keyManagementError, reason: "Cannot get public key from private key.")
+            }
+            let publicSecKey = pubKey
+            guard let ucpk = publicSecKey.externalRepresentation else {
+                throw EosioError(.keyManagementError, reason: "Cannot get public key external representation.")
+            }
+            let uncompressedPublicKey = ucpk
+            guard uncompressedPublicKey.compressedPublicKey != nil else {
+                throw EosioError(.keyManagementError, reason: "Cannot get compressed public key.")
+            }
+            throw EosioError(.keyManagementError, reason: "Cannot create key")
+        }
 
         /// Init an ECKey.
         ///
