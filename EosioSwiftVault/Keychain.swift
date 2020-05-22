@@ -290,7 +290,7 @@ public class Keychain {
                 keys.append(key)
             } else {
                 // if error try to lookup this key again using the applicationLabel (sha1 of the public key)
-                // sometimes if there are a large number of keys returned, the key ref seems to me missing, but getting the key again with the application label works
+                // sometimes if there are a large number of keys returned, the key ref seems to be missing, but getting the key again with the application label works
                 if let applicationLabel = attributes[kSecAttrApplicationLabel as String] as? Data, let key = try? getEllipticCurveKey(applicationLabel: applicationLabel) {
                     keys.append(key)
                 }
@@ -316,9 +316,9 @@ public class Keychain {
             kSecReturnRef as String: true
         ]
         if matchLimitAll {
-            query[kSecMatchLimit as String as String] = kSecMatchLimitAll
+            query[kSecMatchLimit as String] = kSecMatchLimitAll
         } else {
-            query[kSecMatchLimit as String as String] = kSecMatchLimitOne
+            query[kSecMatchLimit as String] = kSecMatchLimitOne
         }
         if let tag = tag {
             query[kSecAttrApplicationTag as String] = tag
