@@ -63,6 +63,16 @@ public final class EosioVault {
         return key.uncompressedPublicKey.hex
     }
 
+    /// Compute the uncompressed public key for an eosio key
+    /// - Parameter eosioPublicKey: The eosio public key
+    /// - Throws: If the uncompressed public key cannot be computed
+    /// - Returns: The uncompressed public key
+    public func getUncompressedPublicKey(eosioPublicKey: String) throws -> Data {
+        let components = try eosioPublicKey.eosioComponents()
+        let cPubKeyData = try Data(eosioPublicKey: eosioPublicKey)
+        return try keychain.uncompressedPublicKey(data: cPubKeyData, curve: components.version)
+    }
+
     /// Create a new Secure Enclave key and return the Vault Key.
     ///
     /// - Parameters:
