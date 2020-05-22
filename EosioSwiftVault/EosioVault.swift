@@ -174,9 +174,11 @@ public final class EosioVault {
     /// - Parameter eosioPublicKey: The public key for the EOSIO key to delete.
     /// - Throws: If there is an error deleting the key.
     public func deleteKey(eosioPublicKey: String) throws {
-        let pubKeyData = try Data(eosioPublicKey: eosioPublicKey)
-        keychain.deleteKey(publicKey: pubKeyData)
-        deleteKeyMetadata(publicKey: eosioPublicKey)
+        let vaultKey = try getVaultKey(eosioPublicKey: eosioPublicKey)
+        if let privateSecKey = vaultKey.privateSecKey {
+            keychain.deleteKey(secKey: privateSecKey)
+            deleteKeyMetadata(publicKey: eosioPublicKey)
+        }
     }
 
     /// Update the label identifying the key.
@@ -227,13 +229,14 @@ public final class EosioVault {
     }
 
     /// Get the vault key for the eosioPublicKey.
+    /// IMPORTANT: If the key  requires a biometric check for access, the system will prompt the user for FaceID/TouchID
     ///
     /// - Parameter eosioPublicKey: An EOSIO public key.
     /// - Returns: A VaultKey.
     /// - Throws: If the key cannot be found.
     public func getVaultKey(eosioPublicKey: String) throws -> EosioVault.VaultKey {
-        let pubKeyData = try Data(eosioPublicKey: eosioPublicKey)
-        let ecKey = keychain.getEllipticCurveKey(publicKey: pubKeyData)
+        let uncPubKeyData = try getUncompressedPublicKey(eosioPublicKey: eosioPublicKey)
+        let ecKey: Keychain.ECKey = try keychain.getEllipticCurveKey(publicKey: uncPubKeyData)
         let metadata = getKeyMetadata(eosioPublicKey: eosioPublicKey)
         if let key = EosioVault.VaultKey(ecKey: ecKey, metadata: metadata) {
             return key
