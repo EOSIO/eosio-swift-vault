@@ -152,10 +152,7 @@ public final class EosioVault {
             throw EosioError(.keyManagementError, reason: "Unable to create compressed public key")
         }
         let eosioPublicKey = try compressedPublicKey.toEosioPublicKey(curve: curve.rawValue)
-        guard let label = publicKeyData.compressedPublicKey?.hex else {
-            throw EosioError(.keyManagementError, reason: "Unable to create public key")
-        }
-        let ecKey = try keychain.importExternal(privateKey: publicKeyData + privateKeyData, tag: tag, label: label, protection: protection, accessFlag: accessFlag)
+        let ecKey = try keychain.importExternal(privateKey: publicKeyData + privateKeyData, tag: tag, label: nil, protection: protection, accessFlag: accessFlag)
 
         // Don't read from the keychain as this might trigger a biometric check, instead create the vaultKey from the eosioPublicKey, ecKey & metadata
         guard var vaultKey = VaultKey(eosioPublicKey: eosioPublicKey, ecKey: ecKey, metadata: metadata) else {
