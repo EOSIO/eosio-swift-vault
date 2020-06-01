@@ -54,8 +54,8 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
             return completion(response)
         }
         var contextFreeDataHash = Data(repeating: 0, count: 32)
-        if request.contextFreeData.count > 0 {
-            contextFreeDataHash = request.contextFreeData.sha256
+        if request.serializedContextFreeData.count > 0 {
+            contextFreeDataHash = request.serializedContextFreeData.sha256
         }
         let message = chainIdData + request.serializedTransaction + contextFreeDataHash
         sign(message: message, publicKeys: request.publicKeys, prompt: prompt) { (signatures, error) in
@@ -70,6 +70,7 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
             var signedTransaction = EosioTransactionSignatureResponse.SignedTransaction()
             signedTransaction.signatures = signatures
             signedTransaction.serializedTransaction = request.serializedTransaction
+            signedTransaction.serializedContextFreeData = request.serializedContextFreeData
             response.signedTransaction = signedTransaction
             completion(response)
         }
