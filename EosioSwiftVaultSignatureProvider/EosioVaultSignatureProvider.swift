@@ -53,8 +53,11 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
             response.error = EosioError(.signatureProviderError, reason: "\(request.chainId) is not a valid chain id")
             return completion(response)
         }
-        let zeros = Data(repeating: 0, count: 32)
-        let message = chainIdData + request.serializedTransaction + zeros
+        var contextFreeDataHash = Data(repeating: 0, count: 32)
+        if request.serializedContextFreeData.count > 0 {
+            contextFreeDataHash = request.serializedContextFreeData.sha256
+        }
+        let message = chainIdData + request.serializedTransaction + contextFreeDataHash
         sign(message: message, publicKeys: request.publicKeys, prompt: prompt) { (signatures, error) in
             guard let signatures = signatures else {
                 response.error = error
@@ -67,6 +70,7 @@ public final class EosioVaultSignatureProvider: EosioSignatureProviderProtocol {
             var signedTransaction = EosioTransactionSignatureResponse.SignedTransaction()
             signedTransaction.signatures = signatures
             signedTransaction.serializedTransaction = request.serializedTransaction
+            signedTransaction.serializedContextFreeData = request.serializedContextFreeData
             response.signedTransaction = signedTransaction
             completion(response)
         }
