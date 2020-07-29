@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'EosioSwiftVault'
-  s.version          = '0.4.0'
+  s.version          = '1.0.0'
   s.summary          = 'Keychain and Secure Enclave functions for EOSIO.'
   s.homepage         = 'https://github.com/EOSIO/eosio-swift-vault'
   s.license          = { :type => 'MIT', :text => <<-LICENSE
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.swift_version         = '5.0'
   s.ios.deployment_target = '11.3'
 
-  s.source_files = 'EosioSwiftVault/**/*.swift'
+  s.source_files = 'Sources/**/*.swift'
 
   s.pod_target_xcconfig = {
     'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
@@ -29,6 +29,6 @@ Pod::Spec.new do |s|
     'SWIFT_COMPILATION_MODE' => 'wholemodule',
     'ENABLE_BITCODE' => 'YES' }
 
-  s.ios.dependency 'EosioSwift', '~> 0.4.0'
-  s.ios.dependency 'EosioSwiftEcc', '~> 0.4.0'
+  s.ios.dependency 'EosioSwift', '~> 1.0.0'
+  s.ios.dependency 'EosioSwiftEcc', '~> 1.0.0'
 end
