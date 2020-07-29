@@ -14,9 +14,7 @@
 		2834BE8022456FC300365888 /* KeychainECKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834BE7F22456FC300365888 /* KeychainECKey.swift */; };
 		2834BE82224970B500365888 /* EosioVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834BE81224970B500365888 /* EosioVault.swift */; };
 		2834BE84224971BE00365888 /* EosioVaultKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834BE83224971BE00365888 /* EosioVaultKey.swift */; };
-		41DFABAAB21A927F003D9B42 /* Pods_EosioSwiftVault.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20CD40027282A3D7833C56C /* Pods_EosioSwiftVault.framework */; };
 		B4145867243CC801007FE6DB /* BioFactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4145866243CC801007FE6DB /* BioFactor.swift */; };
-		EF96900B5E151A0543A3BC38 /* Pods_EosioSwiftVault_EosioSwiftVaultTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87863041FA306350C1BECE5 /* Pods_EosioSwiftVault_EosioSwiftVaultTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,8 +28,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		011798E5589BB0E673C30B7A /* Pods-EosioSwiftVault-EosioSwiftVaultTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EosioSwiftVault-EosioSwiftVaultTests.release.xcconfig"; path = "Target Support Files/Pods-EosioSwiftVault-EosioSwiftVaultTests/Pods-EosioSwiftVault-EosioSwiftVaultTests.release.xcconfig"; sourceTree = "<group>"; };
-		0EDA2629C871BAB2306F27AB /* Pods-EosioSwiftVault.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EosioSwiftVault.debug.xcconfig"; path = "Target Support Files/Pods-EosioSwiftVault/Pods-EosioSwiftVault.debug.xcconfig"; sourceTree = "<group>"; };
 		280B7DC2224564D300F6BA16 /* EosioSwiftVault.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EosioSwiftVault.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		280B7DC5224564D300F6BA16 /* EosioSwiftVault.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EosioSwiftVault.h; sourceTree = "<group>"; };
 		280B7DC6224564D300F6BA16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -42,11 +38,7 @@
 		2834BE7F22456FC300365888 /* KeychainECKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainECKey.swift; sourceTree = "<group>"; };
 		2834BE81224970B500365888 /* EosioVault.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EosioVault.swift; sourceTree = "<group>"; };
 		2834BE83224971BE00365888 /* EosioVaultKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EosioVaultKey.swift; sourceTree = "<group>"; };
-		28A85D347D1C1DE35B5387F2 /* Pods-EosioSwiftVault-EosioSwiftVaultTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EosioSwiftVault-EosioSwiftVaultTests.debug.xcconfig"; path = "Target Support Files/Pods-EosioSwiftVault-EosioSwiftVaultTests/Pods-EosioSwiftVault-EosioSwiftVaultTests.debug.xcconfig"; sourceTree = "<group>"; };
-		513A2AC590D890E8FA76AE31 /* Pods-EosioSwiftVault.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EosioSwiftVault.release.xcconfig"; path = "Target Support Files/Pods-EosioSwiftVault/Pods-EosioSwiftVault.release.xcconfig"; sourceTree = "<group>"; };
 		B4145866243CC801007FE6DB /* BioFactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioFactor.swift; sourceTree = "<group>"; };
-		C20CD40027282A3D7833C56C /* Pods_EosioSwiftVault.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EosioSwiftVault.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C87863041FA306350C1BECE5 /* Pods_EosioSwiftVault_EosioSwiftVaultTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EosioSwiftVault_EosioSwiftVaultTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +46,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41DFABAAB21A927F003D9B42 /* Pods_EosioSwiftVault.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,7 +54,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				280B7DCC224564D300F6BA16 /* EosioSwiftVault.framework in Frameworks */,
-				EF96900B5E151A0543A3BC38 /* Pods_EosioSwiftVault_EosioSwiftVaultTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,7 +67,6 @@
 				280B7DCF224564D300F6BA16 /* EosioSwiftVaultTests */,
 				280B7DC3224564D300F6BA16 /* Products */,
 				6D029697AC9E5D247BAD7725 /* Pods */,
-				9181BDC5C932FBAA7E374918 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,21 +105,8 @@
 		6D029697AC9E5D247BAD7725 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0EDA2629C871BAB2306F27AB /* Pods-EosioSwiftVault.debug.xcconfig */,
-				513A2AC590D890E8FA76AE31 /* Pods-EosioSwiftVault.release.xcconfig */,
-				28A85D347D1C1DE35B5387F2 /* Pods-EosioSwiftVault-EosioSwiftVaultTests.debug.xcconfig */,
-				011798E5589BB0E673C30B7A /* Pods-EosioSwiftVault-EosioSwiftVaultTests.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		9181BDC5C932FBAA7E374918 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C20CD40027282A3D7833C56C /* Pods_EosioSwiftVault.framework */,
-				C87863041FA306350C1BECE5 /* Pods_EosioSwiftVault_EosioSwiftVaultTests.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,7 +127,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 280B7DD6224564D300F6BA16 /* Build configuration list for PBXNativeTarget "EosioSwiftVault" */;
 			buildPhases = (
-				0F3EFADFB07F9BCFA9318525 /* [CP] Check Pods Manifest.lock */,
 				280B7DBD224564D300F6BA16 /* Headers */,
 				280B7DBE224564D300F6BA16 /* Sources */,
 				280B7DBF224564D300F6BA16 /* Frameworks */,
@@ -171,11 +146,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 280B7DD9224564D300F6BA16 /* Build configuration list for PBXNativeTarget "EosioSwiftVaultTests" */;
 			buildPhases = (
-				44589F0126FAD5A9E5F1E1AF /* [CP] Check Pods Manifest.lock */,
 				280B7DC7224564D300F6BA16 /* Sources */,
 				280B7DC8224564D300F6BA16 /* Frameworks */,
 				280B7DC9224564D300F6BA16 /* Resources */,
-				2A94AFBA6454865E662220B1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -243,28 +216,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0F3EFADFB07F9BCFA9318525 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-EosioSwiftVault-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		282C8B392264DECE0064E8C7 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -281,45 +232,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
-		};
-		2A94AFBA6454865E662220B1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EosioSwiftVault-EosioSwiftVaultTests/Pods-EosioSwiftVault-EosioSwiftVaultTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EosioSwiftVault-EosioSwiftVaultTests/Pods-EosioSwiftVault-EosioSwiftVaultTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EosioSwiftVault-EosioSwiftVaultTests/Pods-EosioSwiftVault-EosioSwiftVaultTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		44589F0126FAD5A9E5F1E1AF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-EosioSwiftVault-EosioSwiftVaultTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -481,7 +393,6 @@
 		};
 		280B7DD7224564D300F6BA16 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0EDA2629C871BAB2306F27AB /* Pods-EosioSwiftVault.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -511,7 +422,6 @@
 		};
 		280B7DD8224564D300F6BA16 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 513A2AC590D890E8FA76AE31 /* Pods-EosioSwiftVault.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -540,7 +450,6 @@
 		};
 		280B7DDA224564D300F6BA16 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 28A85D347D1C1DE35B5387F2 /* Pods-EosioSwiftVault-EosioSwiftVaultTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
@@ -560,7 +469,6 @@
 		};
 		280B7DDB224564D300F6BA16 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 011798E5589BB0E673C30B7A /* Pods-EosioSwiftVault-EosioSwiftVaultTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
