@@ -53,7 +53,7 @@ public class Keychain {
     ///
     /// - Parameters:
     ///   - name: The name associated with this item.
-    ///   - value: The value to save.
+    ///   - value: The value to save as String.
     ///   - service: The service associated with this item.
     ///   - protection: The device status protection level associated with this item.
     ///   - bioFactor: The biometric presence factor associated with this item.
@@ -64,12 +64,33 @@ public class Keychain {
                           protection: AccessibleProtection = .afterFirstUnlockThisDeviceOnly,
                           bioFactor: BioFactor = .none) -> Bool {
         guard let data = value.data(using: String.Encoding.utf8) else { return false }
+        return saveValue(name: name,
+                         value: data,
+                         service: service,
+                         protection: protection,
+                         bioFactor: bioFactor)
+    }
+
+    /// Save a value to the Keychain.
+    ///
+    /// - Parameters:
+    ///   - name: The name associated with this item.
+    ///   - value: The value to save as Data.
+    ///   - service: The service associated with this item.
+    ///   - protection: The device status protection level associated with this item.
+    ///   - bioFactor: The biometric presence factor associated with this item.
+    /// - Returns: True if saved, otherwise false.
+    public func saveValue(name: String,
+                          value: Data,
+                          service: String,
+                          protection: AccessibleProtection = .afterFirstUnlockThisDeviceOnly,
+                          bioFactor: BioFactor = .none) -> Bool {
 
         var query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: name,
             kSecAttrService as String: service,
-            kSecValueData as String: data,
+            kSecValueData as String: value,
             kSecAttrAccessGroup as String: accessGroup,
             kSecAttrSynchronizable as String: false,
             kSecAttrIsInvisible as String: true
@@ -106,13 +127,24 @@ public class Keychain {
     /// - Returns: True if updated, otherwise false.
     public func updateValue(name: String, value: String, service: String) -> Bool {
         guard let data = value.data(using: String.Encoding.utf8) else { return false }
+        return updateValue(name: name, value: data, service: service)
+    }
+
+    /// Update a value in the Keychain.
+    ///
+    /// - Parameters:
+    ///   - name: The name associated with this item.
+    ///   - value: The updated value.
+    ///   - service: The service associated with this item.
+    /// - Returns: True if updated, otherwise false.
+    public func updateValue(name: String, value: Data, service: String) -> Bool {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: name,
             kSecAttrService as String: service,
             kSecAttrAccessGroup as String: accessGroup
         ]
-        let attributes: [String: Any] = [kSecValueData as String: data]
+        let attributes: [String: Any] = [kSecValueData as String: value]
         let status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
         return status == errSecSuccess
     }
@@ -137,8 +169,8 @@ public class Keychain {
     /// - Parameters:
     ///   - name: The name of the item.
     ///   - service: The service associated with this item.
-    /// - Returns: The value for the specified item.
-    public func getValue(name: String, service: String) -> String? {
+    /// - Returns: The value for the specified item as Data.
+    public func getValueAsData(name: String, service: String) -> Data? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: name,
@@ -150,15 +182,56 @@ public class Keychain {
         let status = SecItemCopyMatching(query as CFDictionary, &item)
         guard status == errSecSuccess else { return nil }
         let data = item as! CFData // swiftlint:disable:this force_cast
-        guard let value = String(data: data as Data, encoding: .utf8) else { return nil }
+        return data as Data
+    }
+
+    /// Get a value from the Keychain.
+    ///
+    /// - Parameters:
+    ///   - name: The name of the item.
+    ///   - service: The service associated with this item.
+    /// - Returns: The value for the specified item as String.
+    public func getValue(name: String, service: String) -> String? {
+        guard let data = getValueAsData(name: name, service: service) else { return nil }
+        guard let value = String(data: data, encoding: .utf8) else { return nil }
         return value
     }
 
     /// Get a dictionary of values from the Keychain for the specified service.
     ///
     /// - Parameter service: A service name.
-    /// - Returns: A dictionary of names and values for the specified service.
+    /// - Returns: A dictionary of names and Data values for the specified service.
+    public func getValuesAsData(service: String) -> [String: Data]? {
+        var values = [String: Data]()
+
+        guard let array = getValuesAsAny(service: service) else { return nil }
+
+        for item in array {
+            if let name = item[kSecAttrAccount as String] as? String, let data = item["v_Data"] as? Data {
+                values[name] = data
+            }
+        }
+        return values
+    }
+
+    /// Get a dictionary of values from the Keychain for the specified service.
+    ///
+    /// - Parameter service: A service name.
+    /// - Returns: A dictionary of names and String values for the specified service.
     public func getValues(service: String) -> [String: String]? {
+        var values = [String: String]()
+
+        guard let array = getValuesAsAny(service: service) else { return nil }
+        for item in array {
+            if let name = item[kSecAttrAccount as String] as? String, let data = item["v_Data"] as? Data, let value = String(data: data as Data, encoding: .utf8) {
+                values[name] = value
+            }
+        }
+        return values
+    }
+
+    /// Retrieve all values for service
+    private func getValuesAsAny(service: String) -> [[String: Any]]? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
@@ -170,15 +243,9 @@ public class Keychain {
         var items: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &items)
         guard status == errSecSuccess else { return nil }
-        var values = [String: String]()
 
         guard let array = items as? [[String: Any]] else { return nil }
-        for item in array {
-            if let name = item[kSecAttrAccount as String] as? String, let data = item["v_Data"] as? Data, let value = String(data: data as Data, encoding: .utf8) {
-                values[name] = value
-            }
-        }
-        return values
+        return array
     }
 
     /// Make query for Key.
