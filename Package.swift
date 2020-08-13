@@ -6,9 +6,13 @@ import PackageDescription
 let package = Package(
     name: "EosioSwiftVault",
     platforms: [
-        .iOS(.v12)
+        .iOS(.v12),
+        .macOS(.v10_14)
     ],
     products: [
+        .library(
+            name: "EosioSwiftVaultSignatureProvider",
+            targets: ["EosioSwiftVaultSignatureProvider"]),
         .library(
             name: "EosioSwiftVault",
             targets: ["EosioSwiftVault"]),
@@ -21,9 +25,19 @@ let package = Package(
     targets: [
         .target(
             name: "EosioSwiftVault",
-            dependencies: ["EosioSwift", "EosioSwiftEcc"]),
+            dependencies: ["EosioSwift", "EosioSwiftEcc"],
+            path: "Sources/EosioSwiftVault"),
+        .target(
+            name: "EosioSwiftVaultSignatureProvider",
+            dependencies: ["EosioSwift", "EosioSwiftEcc", "EosioSwiftVault"],
+            path: "Sources/EosioSwiftVaultSignatureProvider"),
         .testTarget(
             name: "EosioSwiftVaultTests",
-            dependencies: ["EosioSwiftVault"]),
+            dependencies: ["EosioSwiftVault"],
+            path: "Tests/EosioSwiftVaultTests"),
+        .testTarget(
+            name: "EosioSwiftVaultSignatureProviderTests",
+            dependencies: ["EosioSwiftVaultSignatureProvider"],
+            path: "Tests/EosioSwiftVaultSignatureProviderTests"),
     ]
 )
