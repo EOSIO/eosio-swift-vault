@@ -18,18 +18,24 @@ let package = Package(
             targets: ["EosioSwiftVault"]),
     ],
     dependencies: [
-        .package(name: "EosioSwift", url: "https://github.com/EOSIO/eosio-swift", .branch("spm-support")),
-        .package(name: "EosioSwiftEcc", url: "https://github.com/EOSIO/eosio-swift-ecc", .branch("spm-support")),
+        .package(name: "EosioSwift", url: "https://github.com/EOSIO/eosio-swift", .branch("spm-consolidate")),
         .package(url: "https://github.com/realm/SwiftLint", from: "0.39.1")
     ],
     targets: [
         .target(
             name: "EosioSwiftVault",
-            dependencies: ["EosioSwift", "EosioSwiftEcc"],
+            dependencies: [
+                .product(name: "EosioSwift", package: "EosioSwift"),
+                .product(name: "EosioSwiftEcc", package: "EosioSwift")
+            ],
             path: "Sources/EosioSwiftVault"),
         .target(
             name: "EosioSwiftVaultSignatureProvider",
-            dependencies: ["EosioSwift", "EosioSwiftEcc", "EosioSwiftVault"],
+            dependencies: [
+                .product(name: "EosioSwift", package: "EosioSwift"),
+                .product(name: "EosioSwiftEcc", package: "EosioSwift"),
+                "EosioSwiftVault"
+            ],
             path: "Sources/EosioSwiftVaultSignatureProvider"),
         .testTarget(
             name: "EosioSwiftVaultTests",
