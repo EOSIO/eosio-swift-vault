@@ -37,8 +37,8 @@ Pod::Spec.new do |s|
       'SWIFT_COMPILATION_MODE' => 'wholemodule',
       'ENABLE_BITCODE' => 'YES' }
 
-    ss.ios.dependency 'EosioSwift', '~> 1.0.0'
-    ss.ios.dependency 'EosioSwiftEcc', '~> 1.0.0'
+    ss.ios.dependency 'EosioSwift/Core', '~> 1.0.0'
+    ss.ios.dependency 'EosioSwift/Ecc', '~> 1.0.0'
   end
 
   s.subspec 'VaultSignatureProvider' do |ss|
@@ -50,8 +50,8 @@ Pod::Spec.new do |s|
       'SWIFT_COMPILATION_MODE' => 'wholemodule',
       'ENABLE_BITCODE' => 'YES' }
 
-    ss.ios.dependency 'EosioSwift', '~> 1.0.0'
-    ss.ios.dependency 'EosioSwiftEcc', '~> 1.0.0'
+    ss.ios.dependency 'EosioSwift/Core', '~> 1.0.0'
+    ss.ios.dependency 'EosioSwift/Ecc', '~> 1.0.0'
     ss.ios.dependency 'EosioSwiftVault/Vault'
   end
 
