@@ -9,7 +9,6 @@
 import Foundation
 import LocalAuthentication
 import EosioSwift
-import EosioSwiftEcc
 
 /// Utility library for managing keys and signing with Apple's Keychain and Secure Enclave.
 public final class EosioVault {

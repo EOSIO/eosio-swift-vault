@@ -7,7 +7,11 @@
 //
 
 import Foundation
+#if SWIFT_PACKAGE
 import EosioSwiftEcc
+#else
+import EosioSwift
+#endif
 
 public extension EosioVault {
 
