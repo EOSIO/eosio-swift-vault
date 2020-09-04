@@ -12,6 +12,7 @@ Vault is a utility library for working with public/private keys and signing with
 Vault Signature Provider is a pluggable signature provider for [EOSIO SDK for Swift](https://github.com/EOSIO/eosio-swift). It allows for signing transactions using keys stored in Keychain or the device's Secure Enclave.
 
 The Vault component is a required dependency of Vault Signature Provider. It additionally provides key generation, management and signing functions that can be called directly.
+
 *All product and company names are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them.*
 
 ## Contents
@@ -47,7 +48,7 @@ All signature providers must conform to the [EosioSignatureProviderProtocol](htt
 
 * Xcode 11 or higher
 * CocoaPods 1.9.3 or higher
-* Swift Package Manager swift-tools 5.2 or higher
+* Swift Package Manager 5.2 or higher
 * For iOS, iOS 12.0+
 
 ## Swift Package Manager Installation
@@ -167,7 +168,7 @@ To initialize the implementation:
   * `accessGroup`: [Learn more about Access Groups here.](https://developer.apple.com/documentation/security/keychain_services/keychain_items/sharing_access_to_keychain_items_among_a_collection_of_apps)
   * `requireBio`: Defaults to `false`. Some keys may require biometric authentication no matter what this flag is set to. For keys that do not require biometric authentication themselves, this flag can force the bio check.
 
-Other Keychain and/or Secure Enclave functionality can be accessed by calling methods directly on [EOSIO SDK for Swift: Vault](https://github.com/EOSIO/eosio-swift-vault), which is included with this library as a dependency.
+Other Keychain and/or Secure Enclave functionality can be accessed by calling methods directly on the Vault component, which is included with Vault Signature Provider as a dependency.
 
 ## Vault Usage
 
