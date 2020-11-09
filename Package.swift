@@ -18,7 +18,8 @@ let package = Package(
             targets: ["EosioSwiftVault"]),
     ],
     dependencies: [
-        .package(name: "EosioSwift", url: "https://github.com/EOSIO/eosio-swift", .branch("spm-consolidate")),
+        // When the eosio-swift repository gets tagged with 1.0.0 we need to update this to reference it rather than a branch.
+        .package(name: "EosioSwift", url: "https://github.com/EOSIO/eosio-swift", .branch("eosio-2.1")),
         .package(url: "https://github.com/realm/SwiftLint", from: "0.39.1")
     ],
     targets: [
