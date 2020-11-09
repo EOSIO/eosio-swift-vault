@@ -12,23 +12,47 @@ Pod::Spec.new do |s|
   s.summary          = 'Keychain and Secure Enclave functions for EOSIO.'
   s.homepage         = 'https://github.com/EOSIO/eosio-swift-vault'
   s.license          = { :type => 'MIT', :text => <<-LICENSE
-                           Copyright (c) 2017-2019 block.one and its contributors.  All rights reserved.
+                           Copyright (c) 2017-2020 block.one and its contributors.  All rights reserved.
                          LICENSE
                        }
-  s.author           = { 'Todd Bowden' => 'todd.bowden@block.one' }
+  s.author           = { 'Todd Bowden' => 'todd.bowden@block.one',
+                         'Serguei Vinnitskii' => 'serguei.vinnitskii@block.one',
+                         'Farid Rahmani' => 'farid.rahmani@block.one',
+                         'Brandon Fancher' => 'brandon.fancher@block.one',
+                         'Mark Johnson' => 'mark.johnson@block.one',
+                         'Paul Kim' => 'paul.kim@block.one',
+                         'Steve McCoole' => 'steve.mccoole@objectpartners.com',
+                         'Ben Martell' => 'ben.martell@objectpartners.com' }
   s.source           = { :git => 'https://github.com/EOSIO/eosio-swift-vault.git', :tag => "v" + s.version.to_s }
 
   s.swift_version         = '5.0'
-  s.ios.deployment_target = '11.3'
+  s.ios.deployment_target = '12.0'
 
-  s.source_files = 'Sources/**/*.swift'
+  s.subspec 'Vault' do |ss|
+    ss.source_files = 'Sources/EosioSwiftVault/**/*.swift'
 
-  s.pod_target_xcconfig = {
-    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
-    'CLANG_ENABLE_MODULES' => 'YES',
-    'SWIFT_COMPILATION_MODE' => 'wholemodule',
-    'ENABLE_BITCODE' => 'YES' }
+    ss.pod_target_xcconfig = {
+      'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
+      'CLANG_ENABLE_MODULES' => 'YES',
+      'SWIFT_COMPILATION_MODE' => 'wholemodule',
+      'ENABLE_BITCODE' => 'YES' }
 
-  s.ios.dependency 'EosioSwift', '~> 1.0.0'
-  s.ios.dependency 'EosioSwiftEcc', '~> 1.0.0'
+    ss.ios.dependency 'EosioSwift/Core', '~> 1.0.0'
+    ss.ios.dependency 'EosioSwift/Ecc', '~> 1.0.0'
+  end
+
+  s.subspec 'VaultSignatureProvider' do |ss|
+    ss.source_files = 'Sources/EosioSwiftVaultSignatureProvider/**/*.swift'
+
+    ss.pod_target_xcconfig = {
+      'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
+      'CLANG_ENABLE_MODULES' => 'YES',
+      'SWIFT_COMPILATION_MODE' => 'wholemodule',
+      'ENABLE_BITCODE' => 'YES' }
+
+    ss.ios.dependency 'EosioSwift/Core', '~> 1.0.0'
+    ss.ios.dependency 'EosioSwift/Ecc', '~> 1.0.0'
+    ss.ios.dependency 'EosioSwiftVault/Vault'
+  end
+
 end
