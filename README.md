@@ -1,17 +1,15 @@
 ![Swift Logo](https://github.com/EOSIO/eosio-swift-vault/raw/master/img/swift-logo.png)
-# EOSIO SDK for Swift: Vault ![EOSIO Alpha](https://img.shields.io/badge/EOSIO-Alpha-blue.svg)
+# EOSIO SDK for Swift: Vault
 
 [![Software License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/EOSIO/eosio-swift/blob/master/LICENSE)
 [![Swift 5.0](https://img.shields.io/badge/Language-Swift_5.0-orange.svg)](https://swift.org)
 ![](https://img.shields.io/badge/Deployment%20Target-iOS%2011.3-blue.svg)
 
-EOSIO SDK for Swift: Vault consists of two main components; Vault and Vault Signature Provider.  
+EOSIO SDK for Swift: Vault consists of two main components; _Vault_ and _Vault Signature Provider_.
 
-Vault is a utility library for working with public/private keys and signing with Apple's Keychain and Secure Enclave.
+_Vault_ is a utility library for working with public/private keys and signing with Apple's Keychain and Secure Enclave. It exposes key generation, management and signing functions that can be called directly.
 
-Vault Signature Provider is a pluggable signature provider for [EOSIO SDK for Swift](https://github.com/EOSIO/eosio-swift). It allows for signing transactions using keys stored in Keychain or the device's Secure Enclave.
-
-The Vault component is a required dependency of Vault Signature Provider. It additionally provides key generation, management and signing functions that can be called directly.
+_Vault Signature Provider_ is a pluggable signature provider for [EOSIO SDK for Swift](https://github.com/EOSIO/eosio-swift) that depends on _Vault_. It allows for signing transactions using keys stored in Keychain or the device's Secure Enclave.
 
 *All product and company names are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them.*
 
@@ -176,20 +174,20 @@ If you wish, Vault can be worked with directly, rather than through Vault Signat
 
 ## EosioVault
 
-The primary class for interacting with the EOSIO SDK for Swift: Vault is `EosioVault`. A instance of `EosioVault` is instantiated with an `accessGroup` as follows:
+The primary class for interacting with the EOSIO SDK for Swift: Vault is `EosioVault`. An instance of `EosioVault` is instantiated with an `accessGroup` as follows:
 
 ```swift
 import EosioSwiftVault
 
 let vault = EosioVault(accessGroup: accessGroup)
 ```
-The `accessGroup` is a [App Group Identifier](https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_application-groups) or a [Keychain Access Group Identifier](https://developer.apple.com/documentation/bundleresources/entitlements/keychain-access-groups) that allows the keys to be shared between different apps and app extensions in the same developer account.
+The `accessGroup` is an [App Group Identifier](https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_application-groups) or a [Keychain Access Group Identifier](https://developer.apple.com/documentation/bundleresources/entitlements/keychain-access-groups) that allows the keys to be shared between different apps and app extensions in the same developer account.
 
 ## Key Generation
 
 The Vault library exposes functions to generate new EOSIO keys. New keys can either be generated and stored in the device's [Secure Enclave](https://developer.apple.com/documentation/security/certificate_key_and_trust_services/keys/storing_keys_in_the_secure_enclave) or the Keychain. **Note:** If the key is stored in Secure Enclave, it is not possible to directly access or export the private key.
 
-**Important:** Currently key metadata must conform to the rules for conversion by [JSONSerialization](https://developer.apple.com/documentation/foundation/jsonserialization).  Failure to do so will result in application errors. 
+**Important:** Currently key metadata must conform to the rules for conversion by [JSONSerialization](https://developer.apple.com/documentation/foundation/jsonserialization).  Failure to do so will result in application errors.
 
 To create a key in Secure Enclave:
 
@@ -202,15 +200,13 @@ or use the convenience function:
 let newKey = try vault.newSecureEnclaveKey(bioFactor: .none, metadata: [String: Any])
 ```
 
-To create a key in Keychain: 
+To create a key in Keychain:
 
 ```swift
 let newKey = try vault.newVaultKey(secureEnclave: false, protection: .whenUnlockedThisDeviceOnly, bioFactor: .none, metadata: [String: Any])
 ```
 
-The `bioFactor` is the type of biometric security that will be required by the keychain to sign messages with this key. The `metadata` can be any data you want to associate with this key.
-
-`protection` is the accessibility to use the for key.
+The `bioFactor` is the type of biometric security that will be required by the keychain to sign messages with this key. The `metadata` can be any data you want to associate with this key. `protection` is the accessibility to use for the key.
 
 Each of the above functions will return an `EosioVault.VaultKey`. To access the EOSIO public and private keys:
 
@@ -231,13 +227,13 @@ let signature = vault.sign(message: message, eosioPublicKey: publicKey, requireB
 }
 ```
 
-Biometric requirements can set as part of the key, itself, or enforced as a separate software check. The `requireBio` flag will require biometric identification to sign with this key, even if the key does not require it. However, setting the `requireBio` to `false` will **not** disable biometric identification if required by the key.
+Biometric requirements can be set as part of the key, itself, or enforced as a separate software check. The `requireBio` flag will require biometric identification to sign with this key, even if the key does not require it. However, setting the `requireBio` to `false` will **not** disable biometric identification if required by the key.
 
 ## Key Management
 
-The Vault library exposes functions to get existing keys, add external keys, delete keys and modify metadata for existing keys. 
+The Vault library exposes functions to get existing keys, add external keys, delete keys and modify metadata for existing keys.
 
-To get a single VaultKey for an EOSIO public key: 
+To get a single VaultKey for an EOSIO public key:
 
 ```swift
 let key = try getVaultKey(eosioPublicKey: publicKey)
