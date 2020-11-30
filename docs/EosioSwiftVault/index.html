@@ -96,20 +96,19 @@
           <div class="section-content top-matter">
             
             <p><img src="https://github.com/EOSIO/eosio-swift-vault/raw/master/img/swift-logo.png" alt="Swift Logo"></p>
-<h1 id='eosio-sdk-for-swift-vault-img-src-https-img-shields-io-badge-eosio-alpha-blue-svg-alt-eosio-alpha' class='heading'>EOSIO SDK for Swift: Vault <img src="https://img.shields.io/badge/EOSIO-Alpha-blue.svg" alt="EOSIO Alpha"></h1>
+<h1 id='eosio-sdk-for-swift-vault' class='heading'>EOSIO SDK for Swift: Vault</h1>
 
 <p><a href="https://github.com/EOSIO/eosio-swift/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-lightgrey.svg" alt="Software License"></a>
 <a href="https://swift.org"><img src="https://img.shields.io/badge/Language-Swift_5.0-orange.svg" alt="Swift 5.0"></a>
 <img src="https://img.shields.io/badge/Deployment%20Target-iOS%2011.3-blue.svg" alt=""></p>
 
-<p>EOSIO SDK for Swift: Vault consists of two main components; Vault and Vault Signature Provider.  </p>
+<p>EOSIO SDK for Swift: Vault consists of two main components; <em>Vault</em> and <em>Vault Signature Provider</em>.</p>
 
-<p>Vault is a utility library for working with public/private keys and signing with Apple&rsquo;s Keychain and Secure Enclave.</p>
+<p><em>Vault</em> is a utility library for working with public/private keys and signing with Apple&rsquo;s Keychain and Secure Enclave. It exposes key generation, management and signing functions that can be called directly.</p>
 
-<p>Vault Signature Provider is a pluggable signature provider for <a href="https://github.com/EOSIO/eosio-swift">EOSIO SDK for Swift</a>. It allows for signing transactions using keys stored in Keychain or the device&rsquo;s Secure Enclave.</p>
+<p><em>Vault Signature Provider</em> is a pluggable signature provider for <a href="https://github.com/EOSIO/eosio-swift">EOSIO SDK for Swift</a> that depends on <em>Vault</em>. It allows for signing transactions using keys stored in Keychain or the device&rsquo;s Secure Enclave.</p>
 
-<p>The Vault component is a required dependency of Vault Signature Provider. It additionally provides key generation, management and signing functions that can be called directly.
-<em>All product and company names are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them.</em></p>
+<p><em>All product and company names are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them.</em></p>
 <h2 id='contents' class='heading'>Contents</h2>
 
 <ul>
@@ -146,7 +145,7 @@
 <ul>
 <li>Xcode 11 or higher</li>
 <li>CocoaPods 1.9.3 or higher</li>
-<li>Swift Package Manager swift-tools 5.2 or higher</li>
+<li>Swift Package Manager 5.2 or higher</li>
 <li>For iOS, iOS 12.0+</li>
 </ul>
 <h2 id='swift-package-manager-installation' class='heading'>Swift Package Manager Installation</h2>
@@ -260,24 +259,24 @@
 </ul></li>
 </ul>
 
-<p>Other Keychain and/or Secure Enclave functionality can be accessed by calling methods directly on <a href="https://github.com/EOSIO/eosio-swift-vault">EOSIO SDK for Swift: Vault</a>, which is included with this library as a dependency.</p>
+<p>Other Keychain and/or Secure Enclave functionality can be accessed by calling methods directly on the Vault component, which is included with Vault Signature Provider as a dependency.</p>
 <h2 id='vault-usage' class='heading'>Vault Usage</h2>
 
 <p>If you wish, Vault can be worked with directly, rather than through Vault Signature Provider.  The following sections describe the main components of Vault and how to interact with them.</p>
 <h2 id='eosiovault' class='heading'>EosioVault</h2>
 
-<p>The primary class for interacting with the EOSIO SDK for Swift: Vault is <code><a href="Classes/EosioVault.html">EosioVault</a></code>. A instance of <code><a href="Classes/EosioVault.html">EosioVault</a></code> is instantiated with an <code>accessGroup</code> as follows:</p>
+<p>The primary class for interacting with the EOSIO SDK for Swift: Vault is <code><a href="Classes/EosioVault.html">EosioVault</a></code>. An instance of <code><a href="Classes/EosioVault.html">EosioVault</a></code> is instantiated with an <code>accessGroup</code> as follows:</p>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">EosioSwiftVault</span>
 
 <span class="k">let</span> <span class="nv">vault</span> <span class="o">=</span> <span class="kt">EosioVault</span><span class="p">(</span><span class="nv">accessGroup</span><span class="p">:</span> <span class="n">accessGroup</span><span class="p">)</span>
 </code></pre>
 
-<p>The <code>accessGroup</code> is a <a href="https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_application-groups">App Group Identifier</a> or a <a href="https://developer.apple.com/documentation/bundleresources/entitlements/keychain-access-groups">Keychain Access Group Identifier</a> that allows the keys to be shared between different apps and app extensions in the same developer account.</p>
+<p>The <code>accessGroup</code> is an <a href="https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_application-groups">App Group Identifier</a> or a <a href="https://developer.apple.com/documentation/bundleresources/entitlements/keychain-access-groups">Keychain Access Group Identifier</a> that allows the keys to be shared between different apps and app extensions in the same developer account.</p>
 <h2 id='key-generation' class='heading'>Key Generation</h2>
 
 <p>The Vault library exposes functions to generate new EOSIO keys. New keys can either be generated and stored in the device&rsquo;s <a href="https://developer.apple.com/documentation/security/certificate_key_and_trust_services/keys/storing_keys_in_the_secure_enclave">Secure Enclave</a> or the Keychain. <strong>Note:</strong> If the key is stored in Secure Enclave, it is not possible to directly access or export the private key.</p>
 
-<p><strong>Important:</strong> Currently key metadata must conform to the rules for conversion by <a href="https://developer.apple.com/documentation/foundation/jsonserialization">JSONSerialization</a>.  Failure to do so will result in application errors. </p>
+<p><strong>Important:</strong> Currently key metadata must conform to the rules for conversion by <a href="https://developer.apple.com/documentation/foundation/jsonserialization">JSONSerialization</a>.  Failure to do so will result in application errors.</p>
 
 <p>To create a key in Secure Enclave:</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">newKey</span> <span class="o">=</span> <span class="k">try</span> <span class="n">vault</span><span class="o">.</span><span class="nf">newVaultKey</span><span class="p">(</span><span class="nv">secureEnclave</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">protection</span><span class="p">:</span> <span class="o">.</span><span class="n">whenUnlockedThisDeviceOnly</span><span class="p">,</span> <span class="nv">bioFactor</span><span class="p">:</span> <span class="o">.</span><span class="k">none</span><span class="p">,</span> <span class="nv">metadata</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">])</span>
@@ -287,13 +286,11 @@
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">newKey</span> <span class="o">=</span> <span class="k">try</span> <span class="n">vault</span><span class="o">.</span><span class="nf">newSecureEnclaveKey</span><span class="p">(</span><span class="nv">bioFactor</span><span class="p">:</span> <span class="o">.</span><span class="k">none</span><span class="p">,</span> <span class="nv">metadata</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">])</span>
 </code></pre>
 
-<p>To create a key in Keychain: </p>
+<p>To create a key in Keychain:</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">newKey</span> <span class="o">=</span> <span class="k">try</span> <span class="n">vault</span><span class="o">.</span><span class="nf">newVaultKey</span><span class="p">(</span><span class="nv">secureEnclave</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">protection</span><span class="p">:</span> <span class="o">.</span><span class="n">whenUnlockedThisDeviceOnly</span><span class="p">,</span> <span class="nv">bioFactor</span><span class="p">:</span> <span class="o">.</span><span class="k">none</span><span class="p">,</span> <span class="nv">metadata</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">])</span>
 </code></pre>
 
-<p>The <code>bioFactor</code> is the type of biometric security that will be required by the keychain to sign messages with this key. The <code>metadata</code> can be any data you want to associate with this key.</p>
-
-<p><code>protection</code> is the accessibility to use the for key.</p>
+<p>The <code>bioFactor</code> is the type of biometric security that will be required by the keychain to sign messages with this key. The <code>metadata</code> can be any data you want to associate with this key. <code>protection</code> is the accessibility to use for the key.</p>
 
 <p>Each of the above functions will return an <code><a href="Classes/EosioVault/VaultKey.html">EosioVault.VaultKey</a></code>. To access the EOSIO public and private keys:</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">publicKey</span> <span class="o">=</span> <span class="n">newKey</span><span class="o">.</span><span class="n">eosioPublicKey</span>
@@ -309,12 +306,12 @@
 <span class="p">}</span>
 </code></pre>
 
-<p>Biometric requirements can set as part of the key, itself, or enforced as a separate software check. The <code>requireBio</code> flag will require biometric identification to sign with this key, even if the key does not require it. However, setting the <code>requireBio</code> to <code>false</code> will <strong>not</strong> disable biometric identification if required by the key.</p>
+<p>Biometric requirements can be set as part of the key, itself, or enforced as a separate software check. The <code>requireBio</code> flag will require biometric identification to sign with this key, even if the key does not require it. However, setting the <code>requireBio</code> to <code>false</code> will <strong>not</strong> disable biometric identification if required by the key.</p>
 <h2 id='key-management' class='heading'>Key Management</h2>
 
-<p>The Vault library exposes functions to get existing keys, add external keys, delete keys and modify metadata for existing keys. </p>
+<p>The Vault library exposes functions to get existing keys, add external keys, delete keys and modify metadata for existing keys.</p>
 
-<p>To get a single VaultKey for an EOSIO public key: </p>
+<p>To get a single VaultKey for an EOSIO public key:</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">key</span> <span class="o">=</span> <span class="k">try</span> <span class="nf">getVaultKey</span><span class="p">(</span><span class="nv">eosioPublicKey</span><span class="p">:</span> <span class="n">publicKey</span><span class="p">)</span>
 </code></pre>
 
