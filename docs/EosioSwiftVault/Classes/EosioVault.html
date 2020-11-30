@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>EosioVault Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/EosioVault" class="dashAnchor"></a>
+
+    <a title="EosioVault Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          EosioSwiftVault 1.0.0 Docs
+        </a>
+        
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/EOSIO/eosio-swift-vault">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">EosioSwiftVault Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      EosioVault Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/EosioVault.html">EosioVault</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/EosioVault/VaultKey.html">– VaultKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Keychain.html">Keychain</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Keychain/AccessibleProtection.html">– AccessibleProtection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Keychain/ECKey.html">– ECKey</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/BioFactor.html">BioFactor</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/SecKey.html">SecKey</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>EosioVault</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">EosioVault</span></code></pre>
+
+                </div>
+              </div>
+            <p>Utility library for managing keys and signing with Apple&rsquo;s Keychain and Secure Enclave.</p>
+
+              <div class="slightly-smaller">
+                <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L17-L418">Show on GitHub</a>
+              </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C18updateNotificationSo18NSNotificationNameavpZ"></a>
+                    <a name="//apple_ref/swift/Variable/updateNotification" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C18updateNotificationSo18NSNotificationNameavpZ">updateNotification</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Notification you can subscribe to notifying of Keychain updates.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">updateNotification</span><span class="p">:</span> <span class="kt">Notification</span><span class="o">.</span><span class="kt">Name</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L20">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C11accessGroupSSvp"></a>
+                    <a name="//apple_ref/swift/Property/accessGroup" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C11accessGroupSSvp">accessGroup</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The accessGroup allows multiple apps (including extensions) in the same team to share the same Keychain.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">accessGroup</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L27">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C11accessGroupACSS_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(accessGroup:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C11accessGroupACSS_tcfc">init(accessGroup:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Init with accessGroup. The accessGroup allows multiple apps (including extensions) in the same team to share the same Keychain.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">accessGroup</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>accessGroup</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The access group should be an <code>App Group</code> on the developer account.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L34-L36">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C18vaultIdentifierKeyAA8KeychainC5ECKeyCyKF"></a>
+                    <a name="//apple_ref/swift/Method/vaultIdentifierKey()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C18vaultIdentifierKeyAA8KeychainC5ECKeyCyKF">vaultIdentifierKey()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the vaultIdentifierKey (a special Secure Enclave key with tag &ldquo;<strong>VAULT</strong>&rdquo;.) Create if not present.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    If a vault key does not exist and cannot be created.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">vaultIdentifierKey</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Keychain.html">Keychain</a></span><span class="o">.</span><span class="kt">ECKey</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The vault identifier key, as an ECKey.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L46-L57">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C15vaultIdentifierSSyKF"></a>
+                    <a name="//apple_ref/swift/Method/vaultIdentifier()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C15vaultIdentifierSSyKF">vaultIdentifier()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the vaultIdentifierKey public key, as hex.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    If a vault key does not exist and cannot be created.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">vaultIdentifier</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The vaultIdentifierKey public key, as hex.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L63-L66">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C24getUncompressedPublicKey05eosiofG010Foundation4DataVSS_tKF"></a>
+                    <a name="//apple_ref/swift/Method/getUncompressedPublicKey(eosioPublicKey:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C24getUncompressedPublicKey05eosiofG010Foundation4DataVSS_tKF">getUncompressedPublicKey(eosioPublicKey:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Compute the uncompressed public key for an eosio key</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    If the uncompressed public key cannot be computed
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getUncompressedPublicKey</span><span class="p">(</span><span class="nv">eosioPublicKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Data</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>eosioPublicKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The eosio public key</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The uncompressed public key</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L72-L76">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C19newSecureEnclaveKey10protection9bioFactor8metadataAC0cG0VAA8KeychainC20AccessibleProtectionO_AA03BioJ0OSDySSypGSgtKF"></a>
+                    <a name="//apple_ref/swift/Method/newSecureEnclaveKey(protection:bioFactor:metadata:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C19newSecureEnclaveKey10protection9bioFactor8metadataAC0cG0VAA8KeychainC20AccessibleProtectionO_AA03BioJ0OSDySSypGSgtKF">newSecureEnclaveKey(protection:<wbr>bioFactor:<wbr>metadata:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a new Secure Enclave key and return the Vault Key.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    If a new key cannot be created.
+
+</div><div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Metadata must follow the rules for JSONSerialization.
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <a href="https://developer.apple.com/documentation/foundation/jsonserialization">https://developer.apple.com/documentation/foundation/jsonserialization</a>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">newSecureEnclaveKey</span><span class="p">(</span><span class="nv">protection</span><span class="p">:</span> <span class="kt"><a href="../Classes/Keychain.html">Keychain</a></span><span class="o">.</span><span class="kt">AccessibleProtection</span> <span class="o">=</span> <span class="o">.</span><span class="n">whenUnlockedThisDeviceOnly</span><span class="p">,</span>
+                                <span class="nv">bioFactor</span><span class="p">:</span> <span class="kt"><a href="../Enums/BioFactor.html">BioFactor</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">none</span><span class="p">,</span>
+                                <span class="nv">metadata</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">EosioVault</span><span class="o">.</span><span class="kt"><a href="../Classes/EosioVault/VaultKey.html">VaultKey</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>protection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Accessibility defaults to whenUnlockedThisDeviceOnly.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bioFactor</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Enums/BioFactor.html">BioFactor</a></code> for this key.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>metadata</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Any metadata to associate with this key.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The new key as a VaultKey.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L88-L93">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C03newC3Key13secureEnclave10protection9bioFactor8metadataAC0cE0VSb_AA8KeychainC20AccessibleProtectionOAA03BioJ0OSDySSypGSgtKF"></a>
+                    <a name="//apple_ref/swift/Method/newVaultKey(secureEnclave:protection:bioFactor:metadata:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C03newC3Key13secureEnclave10protection9bioFactor8metadataAC0cE0VSb_AA8KeychainC20AccessibleProtectionOAA03BioJ0OSDySSypGSgtKF">newVaultKey(secureEnclave:<wbr>protection:<wbr>bioFactor:<wbr>metadata:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a new elliptic curve key and return as a VaultKey.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    If a new key cannot be created.
+
+</div><div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Metadata must follow the rules for JSONSerialization.
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <a href="https://developer.apple.com/documentation/foundation/jsonserialization">https://developer.apple.com/documentation/foundation/jsonserialization</a>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">newVaultKey</span><span class="p">(</span><span class="nv">secureEnclave</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+                        <span class="nv">protection</span><span class="p">:</span> <span class="kt"><a href="../Classes/Keychain.html">Keychain</a></span><span class="o">.</span><span class="kt">AccessibleProtection</span> <span class="o">=</span> <span class="o">.</span><span class="n">whenUnlockedThisDeviceOnly</span><span class="p">,</span>
+                        <span class="nv">bioFactor</span><span class="p">:</span> <span class="kt"><a href="../Enums/BioFactor.html">BioFactor</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">none</span><span class="p">,</span>
+                        <span class="nv">metadata</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">EosioVault</span><span class="o">.</span><span class="kt"><a href="../Classes/EosioVault/VaultKey.html">VaultKey</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>secureEnclave</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Generate this key in Secure Enclave?</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>protection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Accessibility defaults to whenUnlockedThisDeviceOnly.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bioFactor</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Enums/BioFactor.html">BioFactor</a></code> for this key.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>metadata</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Any metadata to associate with this key.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The new key as a VaultKey.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L107-L127">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C11addExternal15eosioPrivateKey10protection9bioFactor8metadataAC0cH0VSS_AA8KeychainC20AccessibleProtectionOAA03BioK0OSDySSypGSgtKF"></a>
+                    <a name="//apple_ref/swift/Method/addExternal(eosioPrivateKey:protection:bioFactor:metadata:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C11addExternal15eosioPrivateKey10protection9bioFactor8metadataAC0cH0VSS_AA8KeychainC20AccessibleProtectionOAA03BioK0OSDySSypGSgtKF">addExternal(eosioPrivateKey:<wbr>protection:<wbr>bioFactor:<wbr>metadata:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Import an external EOSIO private key into the Keychain. Returns a VaultKey or throws an error.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    If the key is not valid or cannot be imported.
+
+</div><div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Metadata must follow the rules for JSONSerialization.
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <a href="https://developer.apple.com/documentation/foundation/jsonserialization">https://developer.apple.com/documentation/foundation/jsonserialization</a>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addExternal</span><span class="p">(</span><span class="nv">eosioPrivateKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                        <span class="nv">protection</span><span class="p">:</span> <span class="kt"><a href="../Classes/Keychain.html">Keychain</a></span><span class="o">.</span><span class="kt">AccessibleProtection</span> <span class="o">=</span> <span class="o">.</span><span class="n">whenUnlockedThisDeviceOnly</span><span class="p">,</span>
+                        <span class="nv">bioFactor</span><span class="p">:</span> <span class="kt"><a href="../Enums/BioFactor.html">BioFactor</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">none</span><span class="p">,</span>
+                        <span class="nv">metadata</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">EosioVault</span><span class="o">.</span><span class="kt"><a href="../Classes/EosioVault/VaultKey.html">VaultKey</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>eosioPrivateKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An EOSIO private key.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>protection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Accessibility defaults to .whenUnlockedThisDeviceOnly.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bioFactor</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Enums/BioFactor.html">BioFactor</a></code> for this key.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>metadata</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Any metadata to associate with this key.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The imported key as a VaultKey.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L140-L169">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C9deleteKey011eosioPublicE0ySS_tKF"></a>
+                    <a name="//apple_ref/swift/Method/deleteKey(eosioPublicKey:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C9deleteKey011eosioPublicE0ySS_tKF">deleteKey(eosioPublicKey:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delete a key given the public key. USE WITH CARE!</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    If there is an error deleting the key.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">deleteKey</span><span class="p">(</span><span class="nv">eosioPublicKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>eosioPublicKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The public key for the EOSIO key to delete.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L175-L181">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C6update5label9publicKeyySS_SStKF"></a>
+                    <a name="//apple_ref/swift/Method/update(label:publicKey:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C6update5label9publicKeyySS_SStKF">update(label:<wbr>publicKey:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update the label identifying the key.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    If the label cannot be updated.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="nv">label</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">publicKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>label</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The new value for the label.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>publicKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The public EOSIO key.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L189-L192">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C6update3keySbAC0C3KeyV_tF"></a>
+                    <a name="//apple_ref/swift/Method/update(key:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C6update3keySbAC0C3KeyV_tF">update(key:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update key. (The only items that are updatable are the metadata items.)</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Metadata must follow the rules for JSONSerialization.
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <a href="https://developer.apple.com/documentation/foundation/jsonserialization">https://developer.apple.com/documentation/foundation/jsonserialization</a>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">EosioVault</span><span class="o">.</span><span class="kt"><a href="../Classes/EosioVault/VaultKey.html">VaultKey</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The VaultKey to update.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True if the key was updated, otherwise false.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L200-L202">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C06getAllC4KeysSayAC0C3KeyVGyKF"></a>
+                    <a name="//apple_ref/swift/Method/getAllVaultKeys()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C06getAllC4KeysSayAC0C3KeyVGyKF">getAllVaultKeys()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get all vault keys and their metadata by combining all Keychain keys (excluding the special <strong>VAULT</strong> identifier key.)</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    If there is an error getting the keys.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getAllVaultKeys</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">EosioVault</span><span class="o">.</span><span class="kt"><a href="../Classes/EosioVault/VaultKey.html">VaultKey</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of VaultKeys.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L208-L228">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C03getC3Key011eosioPublicE0AC0cE0VSS_tKF"></a>
+                    <a name="//apple_ref/swift/Method/getVaultKey(eosioPublicKey:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C03getC3Key011eosioPublicE0AC0cE0VSS_tKF">getVaultKey(eosioPublicKey:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the vault key for the eosioPublicKey.
+IMPORTANT: If the key  requires a biometric check for access, the system will prompt the user for FaceID/TouchID</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    If the key cannot be found.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getVaultKey</span><span class="p">(</span><span class="nv">eosioPublicKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">EosioVault</span><span class="o">.</span><span class="kt"><a href="../Classes/EosioVault/VaultKey.html">VaultKey</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>eosioPublicKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An EOSIO public key.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A VaultKey.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L236-L245">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C4sign7message14eosioPublicKey10requireBio6prompt10completiony10Foundation4DataV_SSSbSSySSSg_0aB00A5ErrorCSgtctF"></a>
+                    <a name="//apple_ref/swift/Method/sign(message:eosioPublicKey:requireBio:prompt:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C4sign7message14eosioPublicKey10requireBio6prompt10completiony10Foundation4DataV_SSSbSSySSSg_0aB00A5ErrorCSgtctF">sign(message:<wbr>eosioPublicKey:<wbr>requireBio:<wbr>prompt:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sign a message with the private key corresponding to the public key if the private key is found in the Keychain.
+Throws an error if the public key is not valid or the key is not found.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">sign</span><span class="p">(</span><span class="nv">message</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">eosioPublicKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">requireBio</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">prompt</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"Sign Transaction"</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">String</span><span class="p">?,</span> <span class="kt">EosioError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>message</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The message to sign.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>eosioPublicKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The EOSIO public key corresponding to the key to use for signing.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>requireBio</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Require biometric identification even if the key does not require it.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Closure returning an EOSIO signature or an error.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L255-L262">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C27cancelPendingSigningRequestyyF"></a>
+                    <a name="//apple_ref/swift/Method/cancelPendingSigningRequest()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C27cancelPendingSigningRequestyyF">cancelPendingSigningRequest()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Dismiss biometrics dialogue and cancel the sign request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cancelPendingSigningRequest</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L315-L317">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C15saveKeyMetadata011eosioPublicE010dictionarySbSS_SDySSypGtF"></a>
+                    <a name="//apple_ref/swift/Method/saveKeyMetadata(eosioPublicKey:dictionary:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C15saveKeyMetadata011eosioPublicE010dictionarySbSS_SDySSypGtF">saveKeyMetadata(eosioPublicKey:<wbr>dictionary:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Save metadata for the eosioPublicKey.</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Metadata must follow the rules for JSONSerialization.
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <a href="https://developer.apple.com/documentation/foundation/jsonserialization">https://developer.apple.com/documentation/foundation/jsonserialization</a>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">saveKeyMetadata</span><span class="p">(</span><span class="nv">eosioPublicKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">dictionary</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>eosioPublicKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The EOSIO public key.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>dictionary</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A metadata dictionary to save.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True if the metadata was saved, otherwise false.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L360-L363">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C17deleteKeyMetadata06publicE0ySS_tF"></a>
+                    <a name="//apple_ref/swift/Method/deleteKeyMetadata(publicKey:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C17deleteKeyMetadata06publicE0ySS_tF">deleteKeyMetadata(publicKey:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delete metadata for the eosioPublicKey.</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Metadata must follow the rules for JSONSerialization.
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <a href="https://developer.apple.com/documentation/foundation/jsonserialization">https://developer.apple.com/documentation/foundation/jsonserialization</a>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">deleteKeyMetadata</span><span class="p">(</span><span class="nv">publicKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>publicKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The public key.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L387-L389">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C14getKeyMetadata011eosioPublicE0SDySSypGSgSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/getKeyMetadata(eosioPublicKey:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C14getKeyMetadata011eosioPublicE0SDySSypGSgSS_tF">getKeyMetadata(eosioPublicKey:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get metadata for the eosioPublicKey.</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Metadata must follow the rules for JSONSerialization.
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <a href="https://developer.apple.com/documentation/foundation/jsonserialization">https://developer.apple.com/documentation/foundation/jsonserialization</a>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getKeyMetadata</span><span class="p">(</span><span class="nv">eosioPublicKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>eosioPublicKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An EOSIO public key.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The metadata dictionary for the key, if existing.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L397-L400">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C18getAllKeysMetadataSDySSSDySSypGGSgyF"></a>
+                    <a name="//apple_ref/swift/Method/getAllKeysMetadata()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C18getAllKeysMetadataSDySSSDySSypGGSgyF">getAllKeysMetadata()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get metadata for all keys.</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    Metadata must follow the rules for JSONSerialization.
+
+</div><div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <a href="https://developer.apple.com/documentation/foundation/jsonserialization">https://developer.apple.com/documentation/foundation/jsonserialization</a>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getAllKeysMetadata</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]]?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Dictionary of metadata dictionaries for all keys.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVault.swift#L407-L416">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:15EosioSwiftVault0aC0C0C3KeyV"></a>
+                    <a name="//apple_ref/swift/Struct/VaultKey" class="dashAnchor"></a>
+                    <a class="token" href="#/s:15EosioSwiftVault0aC0C0C3KeyV">VaultKey</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>VaultKey collects properties into a single object for an EOSIO elliptic curve key.</p>
+
+                        <a href="../Classes/EosioVault/VaultKey.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">VaultKey</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVault/EosioVaultKey.swift#L19-L129">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>Copyright (c) 2017-2020 block.one and its contributors. All rights reserved.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>EosioVaultSignatureProvider Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/EosioVaultSignatureProvider" class="dashAnchor"></a>
+
+    <a title="EosioVaultSignatureProvider Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          EosioSwiftVaultSignatureProvider 1.0.0 Docs
+        </a>
+        
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/EOSIO/eosio-swift-vault">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">EosioSwiftVaultSignatureProvider Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      EosioVaultSignatureProvider Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/EosioVaultSignatureProvider.html">EosioVaultSignatureProvider</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>EosioVaultSignatureProvider</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">EosioVaultSignatureProvider</span> <span class="p">:</span> <span class="kt">EosioSignatureProviderProtocol</span></code></pre>
+
+                </div>
+              </div>
+            <p>Signature provider implementation for EOSIO SDK for Swift using Keychain and/or Secure Enclave.</p>
+
+              <div class="slightly-smaller">
+                <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVaultSignatureProvider/EosioVaultSignatureProvider.swift#L14-L124">Show on GitHub</a>
+              </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:32EosioSwiftVaultSignatureProvider0acdE0C10requireBioSbvp"></a>
+                    <a name="//apple_ref/swift/Property/requireBio" class="dashAnchor"></a>
+                    <a class="token" href="#/s:32EosioSwiftVaultSignatureProvider0acdE0C10requireBioSbvp">requireBio</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Require biometric identification for all signatures even if the key does not require it. Defaults to <code>false</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">requireBio</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVaultSignatureProvider/EosioVaultSignatureProvider.swift#L19">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:32EosioSwiftVaultSignatureProvider0acdE0C11accessGroup10requireBioACSS_Sbtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(accessGroup:requireBio:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:32EosioSwiftVaultSignatureProvider0acdE0C11accessGroup10requireBioACSS_Sbtcfc">init(accessGroup:<wbr>requireBio:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Init an instance of EosioVaultSignatureProvider.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">accessGroup</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">requireBio</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>accessGroup</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The access group to create an instance of EosioVault.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>requireBio</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Require biometric identification for all signatures even if the key does not require it. Defaults to <code>false</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVaultSignatureProvider/EosioVaultSignatureProvider.swift#L26-L29">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:32EosioSwiftVaultSignatureProvider0acdE0C15signTransaction7request10completiony0aB00agD7RequestV_yAG0agD8ResponseVctF"></a>
+                    <a name="//apple_ref/swift/Method/signTransaction(request:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:32EosioSwiftVaultSignatureProvider0acdE0C15signTransaction7request10completiony0aB00agD7RequestV_yAG0agD8ResponseVctF">signTransaction(request:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sign a transaction using an instance of EosioVault with the specified accessGroup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">signTransaction</span><span class="p">(</span><span class="nv">request</span><span class="p">:</span> <span class="kt">EosioTransactionSignatureRequest</span><span class="p">,</span>
+                            <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">EosioTransactionSignatureResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>request</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The transaction signature request.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The transaction signature response.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVaultSignatureProvider/EosioVaultSignatureProvider.swift#L36-L39">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:32EosioSwiftVaultSignatureProvider0acdE0C15signTransaction7request6prompt10completiony0aB00agD7RequestV_SSyAH0agD8ResponseVctF"></a>
+                    <a name="//apple_ref/swift/Method/signTransaction(request:prompt:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:32EosioSwiftVaultSignatureProvider0acdE0C15signTransaction7request6prompt10completiony0aB00agD7RequestV_SSyAH0agD8ResponseVctF">signTransaction(request:<wbr>prompt:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sign a transaction using an instance of EosioVault with the specified accessGroup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">signTransaction</span><span class="p">(</span><span class="nv">request</span><span class="p">:</span> <span class="kt">EosioTransactionSignatureRequest</span><span class="p">,</span>
+                            <span class="nv">prompt</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                            <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">EosioTransactionSignatureResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>request</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The transaction signature request.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>prompt</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Prompt for biometric authentication if required.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The transaction signature response.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVaultSignatureProvider/EosioVaultSignatureProvider.swift#L47-L78">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:32EosioSwiftVaultSignatureProvider0acdE0C16getAvailableKeys10completionyy0aB00agH8ResponseVc_tF"></a>
+                    <a name="//apple_ref/swift/Method/getAvailableKeys(completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:32EosioSwiftVaultSignatureProvider0acdE0C16getAvailableKeys10completionyy0aB00agH8ResponseVc_tF">getAvailableKeys(completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get all available EOSIO keys for the instance of EosioVault with the specified accessGroup.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getAvailableKeys</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">EosioAvailableKeysResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The available keys response.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/EOSIO/eosio-swift-vault/tree/master/Sources/EosioSwiftVaultSignatureProvider/EosioVaultSignatureProvider.swift#L111-L123">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>Copyright (c) 2017-2020 block.one and its contributors. All rights reserved.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

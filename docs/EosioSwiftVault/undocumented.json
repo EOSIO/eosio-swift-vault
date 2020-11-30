@@ -1,0 +1,47 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/steve.mccoole/Documents/ws/b1x/eosio-swift-vault/Sources/EosioSwiftVault/Keychain.swift",
+      "line": 20,
+      "symbol": "Keychain.AccessibleProtection.whenUnlocked",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/steve.mccoole/Documents/ws/b1x/eosio-swift-vault/Sources/EosioSwiftVault/Keychain.swift",
+      "line": 21,
+      "symbol": "Keychain.AccessibleProtection.afterFirstUnlock",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/steve.mccoole/Documents/ws/b1x/eosio-swift-vault/Sources/EosioSwiftVault/Keychain.swift",
+      "line": 22,
+      "symbol": "Keychain.AccessibleProtection.whenPasscodeSetThisDeviceOnly",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/steve.mccoole/Documents/ws/b1x/eosio-swift-vault/Sources/EosioSwiftVault/Keychain.swift",
+      "line": 23,
+      "symbol": "Keychain.AccessibleProtection.whenUnlockedThisDeviceOnly",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/steve.mccoole/Documents/ws/b1x/eosio-swift-vault/Sources/EosioSwiftVault/Keychain.swift",
+      "line": 24,
+      "symbol": "Keychain.AccessibleProtection.afterFirstUnlockThisDeviceOnly",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/steve.mccoole/Documents/ws/b1x/eosio-swift-vault/Sources/EosioSwiftVault/Keychain.swift",
+      "line": 594,
+      "symbol": "Keychain.importExternal(privateKey:tag:label:protection:accessFlag:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/steve.mccoole/Documents/ws/b1x/eosio-swift-vault"
+}

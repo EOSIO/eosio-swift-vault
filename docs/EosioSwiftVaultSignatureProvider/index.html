@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>EosioSwiftVaultSignatureProvider  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+
+    <a title="EosioSwiftVaultSignatureProvider  Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="index.html">
+          EosioSwiftVaultSignatureProvider 1.0.0 Docs
+        </a>
+        
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/EOSIO/eosio-swift-vault">
+            <img class="header-icon" src="img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">EosioSwiftVaultSignatureProvider Reference</a>
+      <img class="carat" src="img/carat.png" />
+      EosioSwiftVaultSignatureProvider  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/EosioVaultSignatureProvider.html">EosioVaultSignatureProvider</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            
+            <p><img src="https://github.com/EOSIO/eosio-swift-vault/raw/master/img/swift-logo.png" alt="Swift Logo"></p>
+<h1 id='eosio-sdk-for-swift-vault' class='heading'>EOSIO SDK for Swift: Vault</h1>
+
+<p><a href="https://github.com/EOSIO/eosio-swift/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-lightgrey.svg" alt="Software License"></a>
+<a href="https://swift.org"><img src="https://img.shields.io/badge/Language-Swift_5.0-orange.svg" alt="Swift 5.0"></a>
+<img src="https://img.shields.io/badge/Deployment%20Target-iOS%2011.3-blue.svg" alt=""></p>
+
+<p>EOSIO SDK for Swift: Vault consists of two main components; <em>Vault</em> and <em>Vault Signature Provider</em>.</p>
+
+<p><em>Vault</em> is a utility library for working with public/private keys and signing with Apple&rsquo;s Keychain and Secure Enclave. It exposes key generation, management and signing functions that can be called directly.</p>
+
+<p><em>Vault Signature Provider</em> is a pluggable signature provider for <a href="https://github.com/EOSIO/eosio-swift">EOSIO SDK for Swift</a> that depends on <em>Vault</em>. It allows for signing transactions using keys stored in Keychain or the device&rsquo;s Secure Enclave.</p>
+
+<p><em>All product and company names are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them.</em></p>
+<h2 id='contents' class='heading'>Contents</h2>
+
+<ul>
+<li><a href="#about-signature-providers">About Signature Providers</a></li>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#swift-package-manager-installation">Swift Package Manager Installation</a></li>
+<li><a href="#cocoapods-installation">Cocoapods Installation</a></li>
+<li><a href="#additional-installation-steps">Additional Installation Steps</a></li>
+<li><a href="#vault-signature-provider-usage">Vault Signature Provider Usage</a></li>
+<li><a href="#vault-signature-provider-library-methods">Vault Signature Provider Library Methods</a></li>
+<li><a href="#vault-usage">Vault Usage</a></li>
+<li><a href="#eosiovault">EosioVault</a></li>
+<li><a href="#key-generation">Key Generation</a></li>
+<li><a href="#signing">Signing</a></li>
+<li><a href="#key-management">Key Management</a></li>
+<li><a href="#documentation">Documentation</a></li>
+<li><a href="#want-to-help">Want to Help?</a></li>
+<li><a href="#license">License &amp; Legal</a></li>
+</ul>
+<h2 id='about-signature-providers' class='heading'>About Signature Providers</h2>
+
+<p>The Signature Provider abstraction is arguably the most useful of all of the <a href="https://github.com/EOSIO/eosio-swift">EOSIO SDK for Swift</a> providers. It is responsible for:</p>
+
+<ul>
+<li>finding out what keys are available for signing (<code>getAvailableKeys</code>), and</li>
+<li>requesting and obtaining transaction signatures with a subset of the available keys (<code>signTransaction</code>).</li>
+</ul>
+
+<p>By simply switching out the signature provider on a transaction, signature requests can be routed any number of ways. Need a signature from keys in the platform&rsquo;s Keychain or Secure Enclave? <a href="https://github.com/EOSIO/eosio-swift#basic-usage">Configure the <code>EosioTransaction</code></a> with this signature provider. Need software signing? Take a look at the <a href="https://github.com/EOSIO/eosio-swift/blob/master/Sources/EosioSwiftSoftkeySignatureProvider/EosioSoftkeySignatureProvider.swift">Softkey Signature Provider</a> component of <a href="https://github.com/EOSIO/eosio-swift">EOSIO SDK for Swift</a>.</p>
+
+<p>All signature providers must conform to the <a href="https://github.com/EOSIO/eosio-swift/blob/master/Sources/EosioSwift/EosioSignatureProviderProtocol/EosioSignatureProviderProtocol.swift">EosioSignatureProviderProtocol</a> Protocol.</p>
+<h2 id='prerequisites' class='heading'>Prerequisites</h2>
+
+<ul>
+<li>Xcode 11 or higher</li>
+<li>CocoaPods 1.9.3 or higher</li>
+<li>Swift Package Manager 5.2 or higher</li>
+<li>For iOS, iOS 12.0+</li>
+</ul>
+<h2 id='swift-package-manager-installation' class='heading'>Swift Package Manager Installation</h2>
+
+<p>If you are using Vault as part of Vault Signature Provider, Vault will be installed automatically as a dependency.</p>
+
+<p>If you wish to use Vault Signature Provider, add the <code>EosioSwiftVaultSignatureProvider</code> product from <code>https://github.com/EOSIO/eosio-swift-vault</code> to your application dependencies.</p>
+
+<p>Or to include it into a library, add the following to your <code>Package.swift</code> definition:</p>
+<pre class="highlight swift"><code><span class="c1">// swift-tools-version:5.2</span>
+<span class="c1">// The swift-tools-version declares the minimum version of Swift required to build this package.</span>
+
+<span class="kd">import</span> <span class="kt">PackageDescription</span>
+
+<span class="k">let</span> <span class="nv">package</span> <span class="o">=</span> <span class="kt">Package</span><span class="p">(</span>
+    <span class="nv">name</span><span class="p">:</span> <span class="s">"MyName"</span><span class="p">,</span>
+    <span class="nv">platforms</span><span class="p">:</span> <span class="p">[</span>
+        <span class="o">.</span><span class="nf">iOS</span><span class="p">(</span><span class="o">.</span><span class="n">v12</span><span class="p">)</span>
+    <span class="p">],</span>
+    <span class="nv">products</span><span class="p">:</span> <span class="p">[</span>
+        <span class="c1">// Products define the executables and libraries produced by a package, and make them visible to other packages.</span>
+        <span class="o">.</span><span class="nf">library</span><span class="p">(</span>
+            <span class="nv">name</span><span class="p">:</span> <span class="s">"MyLibrary"</span><span class="p">,</span>
+            <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span><span class="s">"MyLibrary"</span><span class="p">]),</span>
+    <span class="p">],</span>
+    <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
+        <span class="c1">// Dependencies declare other packages that this package depends on.</span>
+        <span class="c1">// .package(url: /* package url */, from: "1.0.0"),</span>
+        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"EosioSwiftVault"</span><span class="p">,</span> <span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/EOSIO/eosio-swift-vault"</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="s">"1.0.0"</span><span class="p">))</span>
+    <span class="p">],</span>
+    <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span>
+        <span class="c1">// Targets are the basic building blocks of a package. A target can define a module or a test suite.</span>
+        <span class="c1">// Targets can depend on other targets in this package, and on products in packages which this package depends on.</span>
+        <span class="o">.</span><span class="nf">target</span><span class="p">(</span>
+            <span class="nv">name</span><span class="p">:</span> <span class="s">"MyLibrary"</span><span class="p">,</span>
+            <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
+                <span class="o">.</span><span class="nf">product</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"EosioSwiftVaultSignatureProvider"</span><span class="p">,</span> <span class="nv">package</span><span class="p">:</span> <span class="s">"EosioSwiftVault"</span><span class="p">)</span>
+        <span class="p">]),</span>
+        <span class="o">.</span><span class="nf">testTarget</span><span class="p">(</span>
+            <span class="nv">name</span><span class="p">:</span> <span class="s">"MyLibraryTests"</span><span class="p">,</span>
+            <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span><span class="s">"MyLibrary"</span><span class="p">]),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</code></pre>
+
+<p>If you only want the Vault component, you can substitute <code>EosioSwiftVault</code> for the <code>EosioSwiftVaultSignatureProvider</code> in the product name definition in your dependencies.</p>
+<h2 id='cocoapods-installation' class='heading'>CocoaPods Installation</h2>
+
+<p>Vault and Vault Signature provider are separated as subspecs in Cocoapods.  If you install the entire pod from EOSIO SDK for Swift: Vault you will get both the Vault Signature Provider and Vault.  Vault will be installed automatically as a dependency.  To do this, add the following to your <a href="https://guides.cocoapods.org/syntax/podfile.html">Podfile</a>:</p>
+<pre class="highlight ruby"><code><span class="n">use_frameworks!</span>
+
+<span class="n">target</span> <span class="s2">"Your Target"</span> <span class="k">do</span>
+  <span class="n">pod</span> <span class="s2">"EosioSwiftVault"</span><span class="p">,</span> <span class="s2">"~&gt; 1.0.0"</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Then run <code>pod install</code>.</p>
+
+<p>If you wish to use only Vault directly, add the following pods to your <a href="https://guides.cocoapods.org/syntax/podfile.html">Podfile</a>:</p>
+<pre class="highlight ruby"><code><span class="n">use_frameworks!</span>
+
+<span class="n">target</span> <span class="s2">"Your Target"</span> <span class="k">do</span>
+  <span class="n">pod</span> <span class="s2">"EosioSwiftVault/Vault"</span><span class="p">,</span> <span class="s2">"~&gt; 1.0.0"</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Then run <code>pod install</code>.</p>
+<h2 id='additional-installation-steps' class='heading'>Additional Installation Steps</h2>
+
+<p>If you are using the Vault Signature Provider component there are some additional steps to follow after integrating with your package manager.</p>
+
+<p>You must also configure your application as a member of an App Group. See <a href="https://developer.apple.com/documentation/security/keychain_services/keychain_items/sharing_access_to_keychain_items_among_a_collection_of_apps#2974917">Apple&rsquo;s documentation here</a> for instructions on enabling and configuring the App Group Capability in Xcode.</p>
+
+<p>Now Vault Signature Provider is ready for use within EOSIO SDK for Swift according to the <a href="https://github.com/EOSIO/eosio-swift/tree/master#basic-usage">EOSIO SDK for Swift Basic Usage instructions</a>.</p>
+<h2 id='vault-signature-provider-usage' class='heading'>Vault Signature Provider Usage</h2>
+
+<p>Generally, signature providers are called by <a href="https://github.com/EOSIO/eosio-swift/blob/master/Sources/EosioSwift/EosioTransaction/EosioTransaction.swift"><code>EosioTransaction</code></a> during signing. (<a href="https://github.com/EOSIO/eosio-swift#basic-usage">See an example here.</a>) If you find, however, that you need to get available keys or request signing directly, this library can be invoked as follows:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">signProvider</span> <span class="o">=</span> <span class="k">try</span><span class="p">?</span> <span class="kt">EosioVaultSignatureProvider</span><span class="p">(</span><span class="nv">accessGroup</span><span class="p">:</span> <span class="s">"YOUR_ACCESS_GROUP"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">publicKeysArray</span> <span class="o">=</span> <span class="n">signProvider</span><span class="p">?</span><span class="o">.</span><span class="nf">getAvailableKeys</span><span class="p">()</span> <span class="c1">// Returns the public keys.</span>
+</code></pre>
+
+<p><em><a href="https://developer.apple.com/documentation/security/keychain_services/keychain_items/sharing_access_to_keychain_items_among_a_collection_of_apps">Learn more about Access Groups here.</a></em></p>
+
+<p>To sign an <a href="https://github.com/EOSIO/eosio-swift/blob/master/Sources/EosioSwift/EosioTransaction/EosioTransaction.swift"><code>EosioTransaction</code></a>, create an <a href="https://github.com/EOSIO/eosio-swift/blob/master/Sources/EosioSwift/EosioSignatureProviderProtocol/EosioSignatureProviderProtocol.swift"><code>EosioTransactionSignatureRequest</code></a> object and call the <code><a href="Classes/EosioVaultSignatureProvider.html#/s:32EosioSwiftVaultSignatureProvider0acdE0C15signTransaction7request10completiony0aB00agD7RequestV_yAG0agD8ResponseVctF">EosioVaultSignatureProvider.signTransaction(request:completion:)</a></code> method with the request:</p>
+<pre class="highlight swift"><code><span class="k">var</span> <span class="nv">signRequest</span> <span class="o">=</span> <span class="kt">EosioTransactionSignatureRequest</span><span class="p">()</span>
+<span class="n">signRequest</span><span class="o">.</span><span class="n">serializedTransaction</span> <span class="o">=</span> <span class="n">serializedTransaction</span>
+<span class="n">signRequest</span><span class="o">.</span><span class="n">publicKeys</span> <span class="o">=</span> <span class="n">publicKeys</span>
+<span class="n">signRequest</span><span class="o">.</span><span class="n">chainId</span> <span class="o">=</span> <span class="n">chainId</span>
+
+<span class="n">signProvider</span><span class="o">.</span><span class="nf">signTransaction</span><span class="p">(</span><span class="nv">request</span><span class="p">:</span> <span class="n">signRequest</span><span class="p">)</span> <span class="p">{</span> <span class="p">(</span><span class="n">response</span><span class="p">)</span> <span class="k">in</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre>
+<h2 id='vault-signature-provider-library-methods' class='heading'>Vault Signature Provider Library Methods</h2>
+
+<p>This library is an implementation of <a href="https://github.com/EOSIO/eosio-swift/blob/master/Sources/EosioSwift/EosioSignatureProviderProtocol/EosioSignatureProviderProtocol.swift"><code>EosioSignatureProviderProtocol</code></a>. It implements the following protocol methods:</p>
+
+<ul>
+<li><code><a href="Classes/EosioVaultSignatureProvider.html#/s:32EosioSwiftVaultSignatureProvider0acdE0C15signTransaction7request10completiony0aB00agD7RequestV_yAG0agD8ResponseVctF">EosioVaultSignatureProvider.signTransaction(request:completion:)</a></code> signs an <a href="https://github.com/EOSIO/eosio-swift/blob/master/Sources/EosioSwift/EosioTransaction/EosioTransaction.swift"><code>EosioTransaction</code></a>.</li>
+<li><code><a href="Classes/EosioVaultSignatureProvider.html#/s:32EosioSwiftVaultSignatureProvider0acdE0C16getAvailableKeys10completionyy0aB00agH8ResponseVc_tF">EosioVaultSignatureProvider.getAvailableKeys(...)</a></code> returns an array containing the public keys associated with the private keys that the object is initialized with.</li>
+</ul>
+
+<p>To initialize the implementation:</p>
+
+<ul>
+<li><code><a href="Classes/EosioVaultSignatureProvider.html#/s:32EosioSwiftVaultSignatureProvider0acdE0C11accessGroup10requireBioACSS_Sbtcfc">EosioVaultSignatureProvider.init(accessGroup:requireBio:)</a></code> initializes the signature provider.
+
+<ul>
+<li><code>accessGroup</code>: <a href="https://developer.apple.com/documentation/security/keychain_services/keychain_items/sharing_access_to_keychain_items_among_a_collection_of_apps">Learn more about Access Groups here.</a></li>
+<li><code>requireBio</code>: Defaults to <code>false</code>. Some keys may require biometric authentication no matter what this flag is set to. For keys that do not require biometric authentication themselves, this flag can force the bio check.</li>
+</ul></li>
+</ul>
+
+<p>Other Keychain and/or Secure Enclave functionality can be accessed by calling methods directly on the Vault component, which is included with Vault Signature Provider as a dependency.</p>
+<h2 id='vault-usage' class='heading'>Vault Usage</h2>
+
+<p>If you wish, Vault can be worked with directly, rather than through Vault Signature Provider.  The following sections describe the main components of Vault and how to interact with them.</p>
+<h2 id='eosiovault' class='heading'>EosioVault</h2>
+
+<p>The primary class for interacting with the EOSIO SDK for Swift: Vault is <code>EosioVault</code>. An instance of <code>EosioVault</code> is instantiated with an <code>accessGroup</code> as follows:</p>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">EosioSwiftVault</span>
+
+<span class="k">let</span> <span class="nv">vault</span> <span class="o">=</span> <span class="kt">EosioVault</span><span class="p">(</span><span class="nv">accessGroup</span><span class="p">:</span> <span class="n">accessGroup</span><span class="p">)</span>
+</code></pre>
+
+<p>The <code>accessGroup</code> is an <a href="https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_application-groups">App Group Identifier</a> or a <a href="https://developer.apple.com/documentation/bundleresources/entitlements/keychain-access-groups">Keychain Access Group Identifier</a> that allows the keys to be shared between different apps and app extensions in the same developer account.</p>
+<h2 id='key-generation' class='heading'>Key Generation</h2>
+
+<p>The Vault library exposes functions to generate new EOSIO keys. New keys can either be generated and stored in the device&rsquo;s <a href="https://developer.apple.com/documentation/security/certificate_key_and_trust_services/keys/storing_keys_in_the_secure_enclave">Secure Enclave</a> or the Keychain. <strong>Note:</strong> If the key is stored in Secure Enclave, it is not possible to directly access or export the private key.</p>
+
+<p><strong>Important:</strong> Currently key metadata must conform to the rules for conversion by <a href="https://developer.apple.com/documentation/foundation/jsonserialization">JSONSerialization</a>.  Failure to do so will result in application errors.</p>
+
+<p>To create a key in Secure Enclave:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">newKey</span> <span class="o">=</span> <span class="k">try</span> <span class="n">vault</span><span class="o">.</span><span class="nf">newVaultKey</span><span class="p">(</span><span class="nv">secureEnclave</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">protection</span><span class="p">:</span> <span class="o">.</span><span class="n">whenUnlockedThisDeviceOnly</span><span class="p">,</span> <span class="nv">bioFactor</span><span class="p">:</span> <span class="o">.</span><span class="k">none</span><span class="p">,</span> <span class="nv">metadata</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">])</span>
+</code></pre>
+
+<p>or use the convenience function:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">newKey</span> <span class="o">=</span> <span class="k">try</span> <span class="n">vault</span><span class="o">.</span><span class="nf">newSecureEnclaveKey</span><span class="p">(</span><span class="nv">bioFactor</span><span class="p">:</span> <span class="o">.</span><span class="k">none</span><span class="p">,</span> <span class="nv">metadata</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">])</span>
+</code></pre>
+
+<p>To create a key in Keychain:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">newKey</span> <span class="o">=</span> <span class="k">try</span> <span class="n">vault</span><span class="o">.</span><span class="nf">newVaultKey</span><span class="p">(</span><span class="nv">secureEnclave</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">protection</span><span class="p">:</span> <span class="o">.</span><span class="n">whenUnlockedThisDeviceOnly</span><span class="p">,</span> <span class="nv">bioFactor</span><span class="p">:</span> <span class="o">.</span><span class="k">none</span><span class="p">,</span> <span class="nv">metadata</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">])</span>
+</code></pre>
+
+<p>The <code>bioFactor</code> is the type of biometric security that will be required by the keychain to sign messages with this key. The <code>metadata</code> can be any data you want to associate with this key. <code>protection</code> is the accessibility to use for the key.</p>
+
+<p>Each of the above functions will return an <code>EosioVault.VaultKey</code>. To access the EOSIO public and private keys:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">publicKey</span> <span class="o">=</span> <span class="n">newKey</span><span class="o">.</span><span class="n">eosioPublicKey</span>
+<span class="k">let</span> <span class="nv">privateKey</span> <span class="o">=</span> <span class="n">newKey</span><span class="o">.</span><span class="n">eosioPrivateKey</span>
+</code></pre>
+
+<p>For Secure Enclave keys the <code>eosioPrivateKey</code> is <code>nil</code> as it cannot be accessed.</p>
+<h2 id='signing' class='heading'>Signing</h2>
+
+<p>In most cases, signing is handled via the Vault Signature Provider component. However, a message can also be signed directly with an instance of <code>EosioVault</code>:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">signature</span> <span class="o">=</span> <span class="n">vault</span><span class="o">.</span><span class="nf">sign</span><span class="p">(</span><span class="nv">message</span><span class="p">:</span> <span class="n">message</span><span class="p">,</span> <span class="nv">eosioPublicKey</span><span class="p">:</span> <span class="n">publicKey</span><span class="p">,</span> <span class="nv">requireBio</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span> <span class="p">(</span><span class="n">signature</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="k">in</span>
+    <span class="c1">// handle signature or error</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Biometric requirements can be set as part of the key, itself, or enforced as a separate software check. The <code>requireBio</code> flag will require biometric identification to sign with this key, even if the key does not require it. However, setting the <code>requireBio</code> to <code>false</code> will <strong>not</strong> disable biometric identification if required by the key.</p>
+<h2 id='key-management' class='heading'>Key Management</h2>
+
+<p>The Vault library exposes functions to get existing keys, add external keys, delete keys and modify metadata for existing keys.</p>
+
+<p>To get a single VaultKey for an EOSIO public key:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">key</span> <span class="o">=</span> <span class="k">try</span> <span class="nf">getVaultKey</span><span class="p">(</span><span class="nv">eosioPublicKey</span><span class="p">:</span> <span class="n">publicKey</span><span class="p">)</span>
+</code></pre>
+
+<p>To get an array of all keys:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">keys</span> <span class="o">=</span> <span class="k">try</span> <span class="nf">getAllVaultKeys</span><span class="p">()</span> 
+</code></pre>
+
+<p>To add an external key to the Keychain with the private key:</p>
+<pre class="highlight swift"><code><span class="k">try</span> <span class="n">vault</span><span class="o">.</span><span class="nf">addExternal</span><span class="p">(</span><span class="nv">eosioPrivateKey</span><span class="p">:</span> <span class="n">privateKey</span><span class="p">,</span> <span class="nv">metadata</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> 
+</code></pre>
+
+<p>To delete a key:</p>
+<pre class="highlight swift"><code><span class="k">try</span> <span class="nf">deleteKey</span><span class="p">(</span><span class="nv">eosioPublicKey</span><span class="p">:</span> <span class="n">publicKey</span><span class="p">)</span>
+</code></pre>
+
+<p>To update an existing key, update the metadata property and then:</p>
+<pre class="highlight swift"><code><span class="nf">update</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="n">myKey</span><span class="p">)</span>
+</code></pre>
+<h2 id='documentation' class='heading'>Documentation</h2>
+
+<p>Please refer to the generated code documentation at <a href="https://eosio.github.io/eosio-swift-vault">https://eosio.github.io/eosio-swift-vault</a> or by cloning this repo.  Vault documentation can be referenced by opening the <code>docs/EosioSwiftVault/index.html</code> file in your browser.  Vault Signature Provider documentation can be found at <code>docs/EosioSwiftVaultSignatureProvider/index.html</code>.  Documentation can be regenerated or updated by running the <code>update_documentation.sh</code> script in the repo.</p>
+<h2 id='want-to-help' class='heading'>Want to help?</h2>
+
+<p>Interested in contributing? That&rsquo;s awesome! Here are some <a href="https://github.com/EOSIO/eosio-swift-vault/blob/master/CONTRIBUTING.md">Contribution Guidelines</a> and the <a href="https://github.com/EOSIO/eosio-swift-vault/blob/master/CONTRIBUTING.md#conduct">Code of Conduct</a>.</p>
+<h2 id='license' class='heading'>License</h2>
+
+<p><a href="https://github.com/EOSIO/eosio-swift-vault/blob/master/LICENSE">MIT</a></p>
+<h2 id='important' class='heading'>Important</h2>
+
+<p>See LICENSE for copyright and license terms.  Block.one makes its contribution on a voluntary basis as a member of the EOSIO community and is not responsible for ensuring the overall performance of the software or any related applications.  We make no representation, warranty, guarantee or undertaking in respect of the software or any related documentation, whether expressed or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall we be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or documentation or the use or other dealings in the software or documentation. Any test results or performance figures are indicative and will not reflect performance under all conditions.  Any reference to any third party or third-party product, service or other resource is not an endorsement or recommendation by Block.one.  We are not responsible, and disclaim any and all responsibility and liability, for your use of or reliance on any of these resources. Third-party resources may be updated, changed or terminated at any time, so the information here may be out of date or inaccurate.  Any person using or offering this software in connection with providing software, goods or services to third parties shall advise such third parties of these license terms, disclaimers and exclusions of liability.  Block.one, EOSIO, EOSIO Labs, EOS, the heptahedron and associated logos are trademarks of Block.one.</p>
+
+<p>Wallets and related components are complex software that require the highest levels of security.  If incorrectly built or used, they may compromise users’ private keys and digital assets. Wallet applications and related components should undergo thorough security evaluations before being used.  Only experienced developers should work with this software.</p>
+
+          </div>
+        </section>
+
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>Copyright (c) 2017-2020 block.one and its contributors. All rights reserved.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
