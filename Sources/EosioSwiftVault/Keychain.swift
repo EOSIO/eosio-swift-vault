@@ -195,6 +195,40 @@ public class Keychain {
         return status == errSecSuccess
     }
 
+
+    /// Update a value to the Keychain, after encrypting it with a secure enclave key
+    ///
+    /// - Parameters:
+    ///   - name: The name associated with this item.
+    ///   - value: The value to update.
+    ///   - service: The service associated with this item.
+    ///   - Throws: If there is an error saveing the data
+    public func updateValueEncrypted(name: String, value: Data, service: String) throws {
+        guard let currentEncryptedData = getValueAsData(name: name, service: service), currentEncryptedData.count > 65 else {
+            throw EosioError(.keyManagementError, reason: "Unable to update data.")
+        }
+        let pubKey = currentEncryptedData.prefix(65)
+        let encryptedData = try encrypt(publicKey: pubKey, message: value)
+        guard updateValue(name: name, value: pubKey + encryptedData, service: service) else {
+            throw EosioError(.keyManagementError, reason: "Unable to update data.")
+        }
+    }
+
+
+    /// Update a Codable object to the Keychain, after encrypting it with a secure enclave key
+    ///
+    /// - Parameters:
+    ///   - name: The name associated with this item.
+    ///   - object: The codable object.
+    ///   - service: The service associated with this item.
+    ///   - Throws: If there is an error saveing the data
+    public func updateCodableEncrypted<T:Codable>(name: String, object: T, service: String) throws {
+        let encoder = JSONEncoder()
+        let data = try encoder.encode(object)
+        try updateValueEncrypted(name: name, value: data, service: service)
+    }
+
+
     /// Delete an item from the Keychain.
     ///
     /// - Parameters:
