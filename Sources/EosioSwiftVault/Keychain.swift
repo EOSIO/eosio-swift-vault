@@ -828,6 +828,38 @@ public class Keychain {
         return der as Data
     }
 
+
+    /// Encrypt data using SecKeyAlgorithm.eciesEncryptionCofactorVariableIVX963SHA256AESGCM
+    ///
+    /// - Parameters:
+    ///   - publicKey: The public key to encrypt with.
+    ///   - message: The message to encrypt.
+    /// - Returns: The encrypted message.
+    /// - Throws: The data cannot be encrypted with the proviided key.
+    func encrypt(publicKey: Data, message: Data) throws -> Data {
+        // if publicKey is compressed form, get the uncompressed form
+        let uncompressedPubKey = try uncompressedPublicKey(data: publicKey)
+
+        let attributes: [String:Any] = [
+            kSecAttrKeyType as String:              kSecAttrKeyTypeECSECPrimeRandom,
+            kSecAttrKeyClass as String:             kSecAttrKeyClassPublic,
+            kSecAttrKeySizeInBits as String:        256,
+            kSecAttrIsPermanent as String:          false,
+        ]
+
+        var error: Unmanaged<CFError>?
+        guard let secKey = SecKeyCreateWithData(uncompressedPubKey as CFData, attributes as CFDictionary, &error) else {
+            throw EosioError(.keyManagementError, reason: error.debugDescription)
+        }
+
+        let algorithm = SecKeyAlgorithm.eciesEncryptionCofactorVariableIVX963SHA256AESGCM
+        guard let encryptedData = SecKeyCreateEncryptedData(secKey, algorithm, message as CFData, &error) else {
+            throw EosioError(.keyManagementError, reason: error.debugDescription)
+        }
+        return encryptedData as Data
+    }
+
+
     /// Decrypt data using `SecKeyAlgorithm.eciesEncryptionCofactorVariableIVX963SHA256AESGCM`.
     ///
     /// - Parameters:
