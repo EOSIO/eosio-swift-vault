@@ -244,6 +244,20 @@ public class Keychain {
         SecItemDelete(query as CFDictionary)
     }
 
+
+    /// Delete an item from the Keychain.
+    ///
+    /// - Parameters:
+    ///   - name: The name of the item to delete.
+    ///   - service: The service associated with this item.
+    public func deleteEncryptedValue(name: String, service: String) {
+        if let encryptedData = getValueAsData(name: name, service: service), encryptedData.count > 65 {
+            deleteKey(publicKey: encryptedData.prefix(65))
+        }
+        delete(name: name, service: service)
+    }
+
+
     /// Get a value from the Keychain.
     ///
     /// - Parameters:
