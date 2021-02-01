@@ -118,6 +118,52 @@ public class Keychain {
         return status == errSecSuccess
     }
 
+
+    /// Save a value to the Keychain, after encrypting it with a secure enclave key
+    ///
+    /// - Parameters:
+    ///   - name: The name associated with this item.
+    ///   - value: The value to save as Data.
+    ///   - service: The service associated with this item.
+    ///   - protection: The device status protection level associated with this item.
+    ///   - bioFactor: The biometric presence factor associated with this item.
+    ///   - Throws: If there is an error saveing the data
+    public func saveValueEncrypted(name: String,
+                          value: Data,
+                          service: String,
+                          protection: AccessibleProtection = .afterFirstUnlockThisDeviceOnly,
+                          bioFactor: BioFactor = .none) throws {
+        let seKey = try createSecureEnclaveSecKey(tag: nil, label: nil, accessFlag: nil)
+        guard let pubKey = seKey.publicKey?.externalRepresentation, pubKey.count == 65 else {
+            throw EosioError(.keyManagementError, reason: "Unable to get public key.")
+        }
+        let encryptedData = try encrypt(publicKey: pubKey, message: value)
+        guard saveValue(name: name, value: pubKey + encryptedData, service: service, protection: protection, bioFactor: bioFactor) else {
+            throw EosioError(.keyManagementError, reason: "Unable to save data.")
+        }
+    }
+
+
+    /// Save a Codable object to the Keychain, after encrypting it with a secure enclave key
+    ///
+    /// - Parameters:
+    ///   - name: The name associated with this item.
+    ///   - object: The codable object.
+    ///   - service: The service associated with this item.
+    ///   - protection: The device status protection level associated with this item.
+    ///   - bioFactor: The biometric presence factor associated with this item.
+    ///   - Throws: If there is an error saveing the data
+    public func saveCodableEncrypted<T:Codable>(name: String,
+                          object: T,
+                          service: String,
+                          protection: AccessibleProtection = .afterFirstUnlockThisDeviceOnly,
+                          bioFactor: BioFactor = .none) throws {
+        let encoder = JSONEncoder()
+        let data = try encoder.encode(object)
+        try saveValueEncrypted(name: name, value: data, service: service, protection: protection, bioFactor: bioFactor)
+    }
+
+
     /// Update a value in the Keychain.
     ///
     /// - Parameters:
