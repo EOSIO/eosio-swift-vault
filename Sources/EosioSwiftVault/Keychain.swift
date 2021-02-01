@@ -328,6 +328,39 @@ public class Keychain {
         return array
     }
 
+
+    /// Get a value from the Keychain and decrypt it
+    ///
+    /// - Parameters:
+    ///   - name: The name of the item.
+    ///   - service: The service associated with this item.
+    /// - Returns: The value for the specified item as Data.
+    public func getValueDecrypted(name: String, service: String) throws -> Data {
+        guard var data = getValueAsData(name: name, service: service) else {
+            throw EosioError(.keyManagementError, reason: "Unable get data.")
+        }
+        guard data.count > 65 else {
+            throw EosioError(.keyManagementError, reason: "Invalid data.")
+        }
+        let key = data.prefix(65)
+        data.removeFirst(65)
+        return try decrypt(publicKey: key, message: data)
+    }
+
+
+    /// Get a codable object from the Keychain and decrypt it
+    ///
+    /// - Parameters:
+    ///   - name: The name of the item.
+    ///   - service: The service associated with this item.
+    /// - Returns: The value for the specified item as Data.
+    public func getCodableDecrypted<T:Codable>(name: String, service: String) throws -> T {
+        let data = try getValueDecrypted(name: name, service: service)
+        let decoder = JSONDecoder()
+        return try decoder.decode(T.self, from: data)
+    }
+
+
     /// Make query for Key.
     private func makeQueryForKey(key: SecKey) -> [String: Any] {
         return [
