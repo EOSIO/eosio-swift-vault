@@ -328,13 +328,23 @@ public final class EosioVault {
 
         // If R1, sign using Keychain
         if vaultKey.curve == .r1 {
-            let der = try keychain.sign(privateKey: privateSecKey, data: message)
-            guard let sig = EcdsaSignature(der: der as Data) else {
-                throw EosioError(.keySigningError, reason: "Unable to create EcdsaSignature for \(der)")
+            while true {
+                let der = try keychain.sign(privateKey: privateSecKey, data: message)
+                guard let sig = EcdsaSignature(der: der as Data) else {
+                    throw EosioError(.keySigningError, reason: "Unable to create EcdsaSignature for \(der)")
+                }
+                let recid = try EccRecoverKey.recid(signatureDer: sig.der, message: message.sha256, targetPublicKey: uncompressedPublicKey)
+                let headerByte: UInt8 = 27 + 4 + UInt8(recid)
+                let c: Data = Data([headerByte] + sig.r + sig.s)
+                let isCanonical =
+                    c[1] & 0x80 == 0 &&
+                    !(c[1] == 0 && (c[2] & 0x80 == 0)) &&
+                    c[33] & 0x80 == 0 &&
+                    !(c[33] == 0 && (c[34] & 0x80 == 0))
+                if isCanonical {
+                    return Data([headerByte] + sig.r + sig.s).toEosioR1Signature
+                }
             }
-            let recid = try EccRecoverKey.recid(signatureDer: sig.der, message: message.sha256, targetPublicKey: uncompressedPublicKey)
-            let headerByte: UInt8 = 27 + 4 + UInt8(recid)
-            return Data([headerByte] + sig.r + sig.s).toEosioR1Signature
         }
 
         // If K1, sign using EosioSwiftEcc (uses openSSL)
